@@ -11,13 +11,13 @@ class BukuController extends Controller
     public function index()
     {
         $bukus = Buku::all();
-        // return view('buku.index', compact('bukus'));
+        return view('buku.index', compact('bukus'));
     }
 
     // 2. Menampilkan form tambah buku
     public function create()
     {
-        // return view('buku.create');
+        return view('buku.create');
     }
 
     // 3. Menyimpan data buku baru
@@ -42,7 +42,7 @@ class BukuController extends Controller
 
         Buku::create($request->all());
 
-        // return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan!');
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan!');
     }
 
     /**
