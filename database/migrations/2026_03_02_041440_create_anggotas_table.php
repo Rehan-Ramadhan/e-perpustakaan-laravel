@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
+            $table->string('nik')->unique();
+            $table->string('nama');
+            $table->text('alamat');
+            $table->string('telepon');
+            $table->enum('jenis_kelamin', ['L', 'P']);
             $table->timestamps();
         });
     }
