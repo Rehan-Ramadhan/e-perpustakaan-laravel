@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('penerbit');
             $table->year('tahun');
             $table->integer('stok')->default(0);
+            $table->string('rak_lokasi')->nullable();
             $table->timestamps();
         });
     }
