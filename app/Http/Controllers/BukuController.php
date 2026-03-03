@@ -7,42 +7,53 @@ use Illuminate\Http\Request;
 
 class BukuController extends Controller
 {
-    // 1. Menampilkan daftar buku
     public function index()
     {
-        $bukus = Buku::all();
+        $bukus = Buku::latest()->get();
         return view('buku.index', compact('bukus'));
     }
 
-    // 2. Menampilkan form tambah buku
     public function create()
     {
-        return view('buku.create');
+        $lastBuku = Buku::latest('id')->first();
+        if (!$lastBuku) {
+            $nextNumber = 1;
+        } else {
+            $lastCode = $lastBuku->kode_buku;
+            $nextNumber = (int) substr($lastCode, 1) + 1;
+        }
+        $otomatisKode = 'B' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+
+        return view('buku.create', compact('otomatisKode'));
     }
 
-    // 3. Menyimpan data buku baru
     public function store(Request $request)
     {
-        $$request->validate([
-            'kode_buku' => 'required|string|max:20|unique:bukus,kode_buku',
+        $lastBuku = Buku::latest('id')->first();
+        $nextNumber = (!$lastBuku) ? 1 : (int) substr($lastBuku->kode_buku, 1) + 1;
+        $otomatisKode = 'B' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $request->merge(['kode_buku' => $otomatisKode]);
+
+        $request->validate([
+            'kode_buku' => 'required|unique:bukus,kode_buku',
             'judul' => 'required|string|max:255',
             'pengarang' => 'required|string|max:100',
             'penerbit' => 'required|string|max:100',
-            'tahun_terbit' => 'required|numeric|digits:4|min:1900|max:' . date('Y'),
+            'tahun' => 'required|numeric|digits:4|max:' . date('Y'),
             'stok' => 'required|integer|min:0',
             'rak_lokasi' => 'nullable|string|max:50',
         ], [
-            // Custom pesan error bahasa Indonesia
-            'required' => ':attribute wajib diisi!',
-            'unique' => 'Kode buku ini sudah ada,.',
-            'numeric' => 'Isi pakai angka saja di bagian :attribute.',
+            'required' => ':attribute wajib diisi, jangan dikosongkan.',
+            'unique' => 'Kode buku sudah ada, gunakan kode lain.',
+            'numeric' => 'Input harus berupa angka.',
+            'digits' => 'Tahun harus 4 digit (contoh: 2024).',
             'max' => 'Tahun tidak boleh lebih dari tahun sekarang.',
-            'min' => 'Stok tidak boleh minus.',
+            'min' => 'Stok tidak boleh kurang dari 0.',
         ]);
 
         Buku::create($request->all());
 
-        return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan!');
+        return redirect()->route('buku.index')->with('success', 'Buku ' . $otomatisKode . ' berhasil ditambahkan!');
     }
 
     /**
@@ -50,7 +61,8 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        return view('buku.show', compact('buku'));
     }
 
     /**
@@ -58,7 +70,8 @@ class BukuController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        return view('buku.edit', compact('buku'));
     }
 
     /**
@@ -66,7 +79,28 @@ class BukuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+
+        $request->validate([
+            'kode_buku' => 'required|unique:bukus,kode_buku,' . $id,
+            'judul' => 'required|string|max:255',
+            'pengarang' => 'required|string|max:100',
+            'penerbit' => 'required|string|max:100',
+            'tahun' => 'required|numeric|digits:4|max:' . date('Y'),
+            'stok' => 'required|integer|min:0',
+            'rak_lokasi' => 'nullable|string|max:50',
+        ], [
+            'required' => ':attribute wajib diisi, jangan dikosongkan.',
+            'unique' => 'Kode buku sudah ada, gunakan kode lain.',
+            'numeric' => 'Input harus berupa angka.',
+            'digits' => 'Tahun harus 4 digit (contoh: 2024).',
+            'max' => 'Tahun tidak boleh lebih dari tahun sekarang.',
+            'min' => 'Stok tidak boleh kurang dari 0.',
+        ]);
+
+        $buku->update($request->all());
+
+        return redirect()->route('buku.index')->with('success', 'Data buku ' . $buku->kode_buku . ' berhasil diperbarui!');
     }
 
     /**
@@ -74,6 +108,9 @@ class BukuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        $buku->delete();
+
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus!');
     }
 }

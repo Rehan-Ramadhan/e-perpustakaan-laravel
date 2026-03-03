@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Buku extends Model
 {
-    protected $fillable = ['kode_buku', 'judul', 'pengarang', 'penerbit', 'tahun_terbit', 'stok', 'rak_lokasi'];
+    protected $fillable = ['kode_buku', 'judul', 'pengarang', 'penerbit', 'tahun', 'stok', 'rak_lokasi'];
 
     public function peminjamanDetail()
     {
