@@ -5,8 +5,14 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Berhasil!</strong> {{ session('success') }}
+            <div class="alert alert-{{ session('alert-type', 'light') }} alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Gagal!</strong> {{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
@@ -21,10 +27,8 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Kode</th>
                             <th>Judul</th>
                             <th>Pengarang</th>
-                            <th>Stok</th>
                             <th>Rak</th>
                             <th>Aksi</th>
                         </tr>
@@ -34,10 +38,8 @@
                         @forelse($bukus as $buku)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $buku->kode_buku }}</td>
                                 <td>{{ $buku->judul }}</td>
                                 <td>{{ $buku->pengarang }}</td>
-                                <td>{{ $buku->stok }}</td>
                                 <td>{{ $buku->rak_lokasi }}</td>
                                 <td>
                                     <form action="{{ route('buku.destroy', $buku->id) }}" method="POST"

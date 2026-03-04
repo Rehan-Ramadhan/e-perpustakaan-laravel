@@ -10,7 +10,7 @@ class BukuController extends Controller
     public function index()
     {
         $bukus = Buku::latest()->get();
-        return view('buku.index', compact('bukus'));
+        return view('admin.buku.index', compact('bukus'));
     }
 
     public function create()
@@ -24,7 +24,7 @@ class BukuController extends Controller
         }
         $otomatisKode = 'B' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
-        return view('buku.create', compact('otomatisKode'));
+        return view('admin.buku.create', compact('otomatisKode'));
     }
 
     public function store(Request $request)
@@ -39,21 +39,23 @@ class BukuController extends Controller
             'judul' => 'required|string|max:255',
             'pengarang' => 'required|string|max:100',
             'penerbit' => 'required|string|max:100',
-            'tahun' => 'required|numeric|digits:4|max:' . date('Y'),
+            'tahun_terbit' => 'required|numeric|digits:4|max:' . date('Y'),
             'stok' => 'required|integer|min:0',
             'rak_lokasi' => 'nullable|string|max:50',
         ], [
             'required' => ':attribute wajib diisi, jangan dikosongkan.',
             'unique' => 'Kode buku sudah ada, gunakan kode lain.',
             'numeric' => 'Input harus berupa angka.',
-            'digits' => 'Tahun harus 4 digit (contoh: 2024).',
-            'max' => 'Tahun tidak boleh lebih dari tahun sekarang.',
+            'digits' => 'Tahun_terbit harus 4 digit (contoh: 2024).',
+            'max' => 'Tahun_terbit tidak boleh lebih dari tahun_terbit sekarang.',
             'min' => 'Stok tidak boleh kurang dari 0.',
         ]);
 
         Buku::create($request->all());
 
-        return redirect()->route('buku.index')->with('success', 'Buku ' . $otomatisKode . ' berhasil ditambahkan!');
+        return redirect()->route('buku.index')
+            ->with('success', 'Buku baru dengan kode ' . $otomatisKode . ' berhasil ditambahkan!')
+            ->with('alert-type', 'primary');
     }
 
     /**
@@ -61,8 +63,8 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        $buku = Buku::findOrFail($id);
-        return view('buku.show', compact('buku'));
+        $bukus = Buku::findOrFail($id);
+        return view('admin.buku.show', compact('bukus'));
     }
 
     /**
@@ -70,8 +72,8 @@ class BukuController extends Controller
      */
     public function edit(string $id)
     {
-        $buku = Buku::findOrFail($id);
-        return view('buku.edit', compact('buku'));
+        $bukus = Buku::findOrFail($id);
+        return view('admin.buku.edit', compact('bukus'));
     }
 
     /**
@@ -79,28 +81,30 @@ class BukuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $buku = Buku::findOrFail($id);
+        $bukus = Buku::findOrFail($id);
 
         $request->validate([
-            'kode_buku' => 'required|unique:bukus,kode_buku,' . $id,
+            'kode_buku' => 'required|unique:bukus,kode_buku,' . $bukus->id,
             'judul' => 'required|string|max:255',
             'pengarang' => 'required|string|max:100',
             'penerbit' => 'required|string|max:100',
-            'tahun' => 'required|numeric|digits:4|max:' . date('Y'),
+            'tahun_terbit' => 'required|numeric|digits:4|max:' . date('Y'),
             'stok' => 'required|integer|min:0',
             'rak_lokasi' => 'nullable|string|max:50',
         ], [
             'required' => ':attribute wajib diisi, jangan dikosongkan.',
             'unique' => 'Kode buku sudah ada, gunakan kode lain.',
             'numeric' => 'Input harus berupa angka.',
-            'digits' => 'Tahun harus 4 digit (contoh: 2024).',
+            'digits' => 'Tahun harus 4 digit (contoh: 2008).',
             'max' => 'Tahun tidak boleh lebih dari tahun sekarang.',
             'min' => 'Stok tidak boleh kurang dari 0.',
         ]);
 
-        $buku->update($request->all());
+        $bukus->update($request->all());
 
-        return redirect()->route('buku.index')->with('success', 'Data buku ' . $buku->kode_buku . ' berhasil diperbarui!');
+        return redirect()->route('buku.index')
+            ->with('success', 'Buku ' . $bukus->kode_buku . ' berhasil diperbarui!')
+            ->with('alert-type', 'warning');
     }
 
     /**
@@ -108,9 +112,11 @@ class BukuController extends Controller
      */
     public function destroy(string $id)
     {
-        $buku = Buku::findOrFail($id);
-        $buku->delete();
+        $bukus = Buku::findOrFail($id);
+        $bukus->delete();
 
-        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus!');
+        return redirect()->route('buku.index')
+            ->with('success', 'Buku berhasil dihapus!')
+            ->with('alert-type', 'danger');
     }
 }

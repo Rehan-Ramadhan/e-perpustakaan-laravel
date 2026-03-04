@@ -36,7 +36,7 @@
         </li>
 
         <li class="menu-item {{ request()->is('anggota*') ? 'active' : '' }}">
-            <a href="#" class="menu-link">
+            <a href="{{ route('anggota.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div data-i18n="Tables">Data Anggota</div>
             </a>

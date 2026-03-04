@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Anggota extends Model
 {
-    protected $fillable = ['nik', 'nama', 'alamat', 'telepon', 'jenis_kelamin', 'pekerjaan'];
+    protected $fillable = ['nik', 'nama', 'jenis_kelamin', 'telepon', 'alamat'];
 
     public function peminjaman()
     {
