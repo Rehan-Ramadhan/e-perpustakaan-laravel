@@ -3,23 +3,39 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->command->info('Memulai proses seeding database...');
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Administrator Perpustakaan',
+            'email' => 'admin@eperpus.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+            'email_verified_at' => now(),
         ]);
+        $this->command->info('Akun Admin berhasil dibuat: admin@eperpus.com');
+
+        User::factory()->create([
+            'name' => 'Rehan Anggota',
+            'email' => 'rehan@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'anggota',
+            'email_verified_at' => now(),
+        ]);
+        $this->command->info('Akun Anggota berhasil dibuat: rehan@gmail.com');
+
+        $this->command->newLine();
+        $this->command->info('Seeding database selesai!');
+        $this->command->info('Login Admin   : admin@eperpus.com / password');
+        $this->command->info('Login Anggota : rehan@gmail.com / password');
     }
 }

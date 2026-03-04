@@ -2,11 +2,27 @@
 
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('buku', BukuController::class);
-Route::resource('anggota', AnggotaController::class);
+Auth::routes();
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::middleware('admin')->group(function () {
+
+        Route::get('/admin/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+
+        Route::resource('buku', BukuController::class);
+        Route::resource('anggota', AnggotaController::class);
+    });
+});
