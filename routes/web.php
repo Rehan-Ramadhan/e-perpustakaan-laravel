@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +26,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('buku', BukuController::class);
         Route::resource('pengguna', PenggunaController::class);
+        Route::resource('peminjaman', PeminjamanController::class);
+        Route::resource('pengembalian', PengembalianController::class);
     });
 });

@@ -21,7 +21,6 @@
                                 <label class="col-sm-2 col-form-label" for="kode_buku">Kode Buku</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="bx bx-barcode"></i></span>
                                         <input type="text" class="form-control bg-light" id="kode_buku" name="kode_buku"
                                             value="{{ $otomatisKode }}" readonly />
                                     </div>
@@ -32,7 +31,6 @@
                                 <label class="col-sm-2 col-form-label" for="judul">Judul</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="bx bx-book"></i></span>
                                         <input type="text" class="form-control @error('judul') is-invalid @enderror"
                                             id="judul" name="judul" value="{{ old('judul') }}"
                                             placeholder="Contoh: Panduan Menulis Kode yang Rapi" />
@@ -45,7 +43,6 @@
                                 <label class="col-sm-2 col-form-label" for="pengarang">Pengarang</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="bx bx-user"></i></span>
                                         <input type="text" class="form-control @error('pengarang') is-invalid @enderror"
                                             id="pengarang" name="pengarang" value="{{ old('pengarang') }}"
                                             placeholder="Contoh: Rehan Ramadhan" />
@@ -58,7 +55,6 @@
                                 <label class="col-sm-2 col-form-label" for="penerbit">Penerbit</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="bx bx-buildings"></i></span>
                                         <input type="text" class="form-control @error('penerbit') is-invalid @enderror"
                                             id="penerbit" name="penerbit" value="{{ old('penerbit') }}"
                                             placeholder="Contoh: SMK Assalaam Bandung" />
@@ -71,7 +67,6 @@
                                 <label class="col-sm-2 col-form-label" for="tahun_terbit">Tahun Terbit</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="bx bx-calendar"></i></span>
                                         <input type="number"
                                             class="form-control @error('tahun_terbit') is-invalid @enderror"
                                             id="tahun_terbit" name="tahun_terbit"
@@ -85,7 +80,6 @@
                                 <label class="col-sm-2 col-form-label" for="stok">Stok</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="bx bx-archive"></i></span>
                                         <input type="number" class="form-control @error('stok') is-invalid @enderror"
                                             id="stok" name="stok" value="{{ old('stok', 1) }}" />
                                     </div>
@@ -97,7 +91,6 @@
                                 <label class="col-sm-2 col-form-label" for="rak_lokasi">Rak Lokasi</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="bx bx-map-pin"></i></span>
                                         <input type="text" class="form-control @error('rak_lokasi') is-invalid @enderror"
                                             id="rak_lokasi" name="rak_lokasi" value="{{ old('rak_lokasi') }}"
                                             placeholder="Contoh: A1" />
@@ -108,10 +101,10 @@
 
                             <div class="row justify-content-end">
                                 <div class="col-sm-6 d-grid">
-                                    <a href="{{ route('buku.index') }}" class="btn btn-secondary">Kembali</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
                                 </div>
                                 <div class="col-sm-6 d-grid">
-                                    <button type="submit" class="btn btn-primary">Simpan Data</button>
+                                    <button type="submit" class="btn btn-primary">Simpan Buku</button>
                                 </div>
                             </div>
                         </form>

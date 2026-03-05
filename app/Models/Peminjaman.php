@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peminjaman extends Model
 {
+    protected $table = 'peminjamans';
     protected $fillable = [ 'kode_transaksi', 'pengguna_id', 'tgl_pinjam', 'tgl_harus_kembali', 'status'];
 
     public function pengguna()

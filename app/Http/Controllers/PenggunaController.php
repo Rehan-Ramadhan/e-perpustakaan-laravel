@@ -43,7 +43,6 @@ class PenggunaController extends Controller
         $nextNumber = (!$lastPengguna) ? 1 : (int) $lastPengguna->nik + 1;
         $otomatisKode = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
-        // Merge ke input NIK
         $request->merge(['nik' => $otomatisKode]);
 
         $request->validate([

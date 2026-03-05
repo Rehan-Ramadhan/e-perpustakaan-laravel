@@ -4,8 +4,7 @@
             ©
             <script>
                 document.write(new Date().getFullYear());
-            </script>
-            , made with ❤️ by
+            </script>, made with ❤️ by
             <a href="https://www.instagram.com/swimgoodchild" target="_blank" class="footer-link fw-bolder">Rehan
                 Ramadhan</a>
         </div>

@@ -10,27 +10,13 @@
         <div class="row">
             <div class="col-xxl">
                 <div class="card mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Lihat Data</h5>
-                    </div>
+
                     <div class="card-body">
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Kode Buku</label>
+                            <label class="col-sm-2 col-form-label">Kode / Judul</label>
                             <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-barcode"></i></span>
-                                    <span class="form-control bg-light">{{ $bukus->kode_buku }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Judul</label>
-                            <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-book"></i></span>
-                                    <span class="form-control bg-light">{{ $bukus->judul }}</span>
-                                </div>
+                                <span class="form-control bg-light"><strong>{{ $bukus->kode_buku }}</strong> -
+                                    {{ $bukus->judul }}</span>
                             </div>
                         </div>
 
@@ -38,7 +24,6 @@
                             <label class="col-sm-2 col-form-label">Pengarang</label>
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-user"></i></span>
                                     <span class="form-control bg-light">{{ $bukus->pengarang }}</span>
                                 </div>
                             </div>
@@ -48,7 +33,6 @@
                             <label class="col-sm-2 col-form-label">Penerbit</label>
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-building"></i></span>
                                     <span class="form-control bg-light">{{ $bukus->penerbit }}</span>
                                 </div>
                             </div>
@@ -58,7 +42,6 @@
                             <label class="col-sm-2 col-form-label">Tahun Terbit</label>
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-calendar"></i></span>
                                     <span class="form-control bg-light">{{ $bukus->tahun_terbit }}</span>
                                 </div>
                             </div>
@@ -68,7 +51,6 @@
                             <label class="col-sm-2 col-form-label">Stok</label>
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-archive"></i></span>
                                     <span class="form-control bg-light">{{ $bukus->stok }} Eksemplar</span>
                                 </div>
                             </div>
@@ -78,7 +60,6 @@
                             <label class="col-sm-2 col-form-label">Rak Lokasi</label>
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-archive"></i></span>
                                     <span class="form-control bg-light">{{ $bukus->rak_lokasi }}</span>
                                 </div>
                             </div>
@@ -86,12 +67,13 @@
 
                         <div class="row justify-content-end">
                             <div class="col-sm-6 d-grid">
-                                <a href="{{ route('buku.index') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
                             </div>
                             <div class="col-sm-6 d-grid">
                                 <a href="{{ route('buku.edit', $bukus->id) }}" class="btn btn-warning">Edit Data?</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

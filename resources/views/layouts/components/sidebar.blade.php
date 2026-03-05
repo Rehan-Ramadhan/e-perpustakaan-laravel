@@ -45,18 +45,18 @@
         </li>
 
         <li class="menu-item {{ request()->is('peminjaman*') ? 'active' : '' }}">
-            <a href="#" class="menu-link">
+            <a href="{{ route('peminjaman.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-repost"></i>
                 <div data-i18n="Tables">Peminjaman</div>
             </a>
         </li>
 
-        <li class="menu-item {{ request()->is('peminjaman*') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ request()->is('peminjamandetails*') ? 'active' : '' }}">
             <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-repost"></i>
                 <div data-i18n="Tables">Detail Peminjaman</div>
             </a>
-        </li>
+        </li> --}}
 
         @if(auth()->user()->role == 'admin')
             <li class="menu-header small text-uppercase">

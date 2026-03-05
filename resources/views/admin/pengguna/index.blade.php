@@ -29,10 +29,9 @@
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @php $no = 1; @endphp
                         @forelse($penggunas as $pengguna)
                             <tr>
-                                <td>{{ $no++ }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pengguna->nama }}</td>
                                 <td>{{ $pengguna->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                 <td>{{ $pengguna->telepon }}</td>
@@ -43,11 +42,11 @@
                                         @method('DELETE')
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('pengguna.show', $pengguna->id) }}"
-                                                class="btn btn-sm btn-info text-white"><i class="bi bi-eye me-1"></i></a>
+                                                class="btn btn-sm btn-info text-white"><i class="bx bx-show me-1"></i></a>
                                             <a href="{{ route('pengguna.edit', $pengguna->id) }}"
-                                                class="btn btn-sm btn-outline-warning"><i class="bi bi-pen me-1"></i></a>
+                                                class="btn btn-sm btn-outline-warning"><i class="bx bx-edit me-1"></i></a>
                                             <button type="submit" class="btn btn-sm btn-outline-danger"><i
-                                                    class="bi bi-trash me-1"></i></button>
+                                                    class="bx bx-trash me-1"></i></button>
                                         </div>
                                     </form>
                                 </td>
