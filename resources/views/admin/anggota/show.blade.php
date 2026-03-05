@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Anggota')
+@section('title', 'Detail Pengguna')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Tabel /</span> Lihat Data Anggota
+            <span class="text-muted fw-light">Tabel /</span> Lihat Data Pengguna
         </h4>
         <div class="row">
             <div class="col-xxl">
@@ -19,7 +19,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-id-card"></i></span>
-                                    <span class="form-control bg-light">{{ $anggotas->nik }}</span>
+                                    <span class="form-control bg-light">{{ $penggunas->nik }}</span>
                                 </div>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                    <span class="form-control bg-light">{{ $anggotas->nama }}</span>
+                                    <span class="form-control bg-light">{{ $penggunas->nama }}</span>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-intersect"></i></span>
                                     <span
-                                        class="form-control bg-light">{{ $anggotas->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</span>
+                                        class="form-control bg-light">{{ $penggunas->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-phone"></i></span>
-                                    <span class="form-control bg-light">{{ $anggotas->telepon }}</span>
+                                    <span class="form-control bg-light">{{ $penggunas->telepon }}</span>
                                 </div>
                             </div>
                         </div>
@@ -60,17 +60,17 @@
                             <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="bx bx-map"></i></span>
-                                    <span class="form-control bg-light">{{ $anggotas->alamat }}</span>
+                                    <span class="form-control bg-light">{{ $penggunas->alamat }}</span>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="row justify-content-end">
                             <div class="col-sm-6 d-grid">
-                                <a href="{{ route('anggota.index') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('pengguna.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                             <div class="col-sm-6 d-grid">
-                                <a href="{{ route('anggota.edit', $anggotas->id) }}" class="btn btn-warning text-white">Edit
+                                <a href="{{ route('pengguna.edit', $penggunas->id) }}" class="btn btn-warning text-white">Edit
                                     Data?</a>
                             </div>
                         </div>

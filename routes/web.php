@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BukuController;
-use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +23,6 @@ Route::middleware('auth')->group(function () {
         })->name('admin.dashboard');
 
         Route::resource('buku', BukuController::class);
-        Route::resource('anggota', AnggotaController::class);
+        Route::resource('pengguna', PenggunaController::class);
     });
 });

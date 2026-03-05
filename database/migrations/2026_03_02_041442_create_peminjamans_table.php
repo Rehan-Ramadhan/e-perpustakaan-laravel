@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->id();
             $table->string('kode_transaksi')->unique();
-            $table->foreignId('anggota_id')->constrained('anggotas');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('pengguna_id')->constrained('penggunas');
             $table->date('tgl_pinjam');
             $table->date('tgl_harus_kembali');
             $table->enum('status', ['pinjam', 'kembali'])->default('pinjam');

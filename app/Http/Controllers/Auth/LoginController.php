@@ -3,27 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    /**
-     * Logic Redirect setelah login sukses berdasarkan Role.
-     */
     protected function redirectTo(): string
     {
         $user = auth()->user();
-
-        // Jika admin, ke dashboard admin
-        if ($user->role === 'admin') {
-            return '/admin/dashboard';
-        }
-
-        // Jika anggota/pengguna biasa, ke halaman home depan
-        return '/home';
+        return ($user->role === 'admin') ? '/admin/dashboard' : '/home';
     }
 
     public function __construct()
@@ -33,18 +25,35 @@ class LoginController extends Controller
     }
 
     /**
-     * Validasi input login dengan pesan Bahasa Indonesia.
+     * Logika kustom untuk memisahkan pesan error email vs password
      */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $userExists = User::where($this->username(), $request->{$this->username()})->exists();
+
+        if (!$userExists) {
+            $errorMessage = 'Akun belum terdaftar.';
+            $errorField = $this->username();
+        } else {
+            $errorMessage = 'Password salah.';
+            $errorField = 'password';
+        }
+
+        throw ValidationException::withMessages([
+            $errorField => [$errorMessage],
+        ]);
+    }
+
     protected function validateLogin(Request $request): void
     {
         $request->validate([
             $this->username() => 'required|string|email',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
         ], [
             'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid (harus ada @).',
+            'email.email' => 'Format email tidak valid.',
             'password.required' => 'Password wajib diisi.',
-            'password.min' => 'Password minimal 6 karakter.',
+            'password.min' => 'Password minimal 8 karakter.',
         ]);
     }
 }

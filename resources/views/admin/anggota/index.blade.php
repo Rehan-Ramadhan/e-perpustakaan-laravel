@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Anggota')
+@section('title', 'Daftar Pengguna')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -12,8 +12,8 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Daftar Anggota</h2>
-            <a href="{{ route('anggota.create') }}" class="btn btn-primary">Tambah Anggota</a>
+            <h2>Daftar Pengguna</h2>
+            <a href="{{ route('pengguna.create') }}" class="btn btn-primary">Tambah Pengguna</a>
         </div>
 
         <div class="card shadow-sm">
@@ -22,7 +22,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama Anggota</th>
+                            <th>Nama Pengguna</th>
                             <th>Jenis Kelamin</th>
                             <th>Telepon</th>
                             <th>Aksi</th>
@@ -30,21 +30,21 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                         @php $no = 1; @endphp
-                        @forelse($anggotas as $anggota)
+                        @forelse($penggunas as $pengguna)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $anggota->nama }}</td>
-                                <td>{{ $anggota->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
-                                <td>{{ $anggota->telepon }}</td>
+                                <td>{{ $pengguna->nama }}</td>
+                                <td>{{ $pengguna->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                <td>{{ $pengguna->telepon }}</td>
                                 <td>
-                                    <form action="{{ route('anggota.destroy', $anggota->id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin hapus anggota ini?')">
+                                    <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin hapus pengguna ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('anggota.show', $anggota->id) }}"
+                                            <a href="{{ route('pengguna.show', $pengguna->id) }}"
                                                 class="btn btn-sm btn-info text-white"><i class="bi bi-eye me-1"></i></a>
-                                            <a href="{{ route('anggota.edit', $anggota->id) }}"
+                                            <a href="{{ route('pengguna.edit', $pengguna->id) }}"
                                                 class="btn btn-sm btn-outline-warning"><i class="bi bi-pen me-1"></i></a>
                                             <button type="submit" class="btn btn-sm btn-outline-danger"><i
                                                     class="bi bi-trash me-1"></i></button>
@@ -54,7 +54,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Belum ada data anggota.</td>
+                                <td colspan="6" class="text-center">Belum ada data pengguna.</td>
                             </tr>
                         @endforelse
                     </tbody>

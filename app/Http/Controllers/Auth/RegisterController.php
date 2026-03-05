@@ -42,7 +42,7 @@ class RegisterController extends Controller
 
     /**
      * Membuat user baru. 
-     * Default role diatur sebagai 'anggota' (peminjam).
+     * Default role diatur sebagai 'pengguna' (peminjam).
      */
     protected function create(array $data): User
     {
@@ -50,7 +50,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 'anggota', // Kita set defaultnya anggota/peminjam
+            'role' => 'pengguna',
         ]);
     }
 }

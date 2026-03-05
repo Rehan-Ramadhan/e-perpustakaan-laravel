@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        {{-- <a href="#class=" app-brand-link"> --}}
+        <a href="{{ route('home') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <img src="{{ asset('assets/img/favicon/favicon.png') }}" alt="Logo" width="25">
             </span>
@@ -16,11 +16,9 @@
 
     <ul class="menu-inner py-1">
         <li class="menu-item {{ request()->is('home*') ? 'active' : '' }}">
-            <a 
-            {{-- href="{{ route('home') }}" --}}
-             class="menu-link">
+            <a href="{{ route('home') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div data-i18n="Analytics">Halaman Utama</div>
             </a>
         </li>
 
@@ -35,10 +33,10 @@
             </a>
         </li>
 
-        <li class="menu-item {{ request()->is('anggota*') ? 'active' : '' }}">
-            <a href="{{ route('anggota.index') }}" class="menu-link">
+        <li class="menu-item {{ request()->is('pengguna*') ? 'active' : '' }}">
+            <a href="{{ route('pengguna.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <div data-i18n="Tables">Data Anggota</div>
+                <div data-i18n="Tables">Data Pengguna</div>
             </a>
         </li>
 
@@ -60,26 +58,24 @@
             </a>
         </li>
 
-        {{-- @if(auth()->user()->role == 'admin')
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Administrator</span>
-        </li>
+        @if(auth()->user()->role == 'admin')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Administrator</span>
+            </li>
 
-        <li class="menu-item {{ request()->is('admin/user*') ? 'active' : '' }}">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-check"></i>
-                <div>Manajemen User</div>
-            </a>
-        </li>
+            <li class="menu-item {{ request()->is('admin/user*') ? 'active' : '' }}">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user-check"></i>
+                    <div>Manajemen User</div>
+                </a>
+            </li>
 
-        <li class="menu-item {{ request()->is('admin/riwayat*') ? 'active' : '' }}">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-history"></i>
-                <div>Riwayat Aktivitas</div>
-            </a>
-        </li>
-        @endif --}}
+            <li class="menu-item {{ request()->is('admin/riwayat*') ? 'active' : '' }}">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-history"></i>
+                    <div>Riwayat Aktivitas</div>
+                </a>
+            </li>
+        @endif
     </ul>
 </aside>
-
-{{-- baris 3 --}}

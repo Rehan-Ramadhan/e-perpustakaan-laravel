@@ -29,7 +29,6 @@ class HomeController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        // Jika anggota, tampilkan halaman home biasa
         return view('home');
     }
 }

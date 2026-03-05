@@ -25,17 +25,17 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Akun Admin berhasil dibuat: admin@eperpus.com');
 
         User::factory()->create([
-            'name' => 'Rehan Anggota',
-            'email' => 'rehan@gmail.com',
+            'name' => 'Pengguna',
+            'email' => 'pengguna@gmail.com',
             'password' => Hash::make('password'),
-            'role' => 'anggota',
+            'role' => 'pengguna',
             'email_verified_at' => now(),
         ]);
-        $this->command->info('Akun Anggota berhasil dibuat: rehan@gmail.com');
+        $this->command->info('Akun Pengguna berhasil dibuat: pengguna@gmail.com');
 
         $this->command->newLine();
         $this->command->info('Seeding database selesai!');
         $this->command->info('Login Admin   : admin@eperpus.com / password');
-        $this->command->info('Login Anggota : rehan@gmail.com / password');
+        $this->command->info('Login Pengguna : pengguna@gmail.com / password');
     }
 }

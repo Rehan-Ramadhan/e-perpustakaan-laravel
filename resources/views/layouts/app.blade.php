@@ -29,7 +29,6 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
 
-            {{-- Tampilkan Sidebar & Navbar HANYA jika sudah login --}}
             @auth
                 @include('layouts.components.sidebar')
                 <div class="layout-page">
@@ -43,7 +42,6 @@
                 </div>
             @endauth
 
-            {{-- Jika BELUM login (Halaman Login/Register) --}}
             @guest
                 <div class="container-xxl">
                     @yield('content')

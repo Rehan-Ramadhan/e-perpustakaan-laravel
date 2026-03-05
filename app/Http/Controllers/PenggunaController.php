@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 
-class AnggotaController extends Controller
+class PenggunaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $anggotas = Anggota::latest()->get();
-        return view('admin.anggota.index', compact('anggotas'));
+        $penggunas = Pengguna::latest()->get();
+        return view('admin.pengguna.index', compact('penggunas'));
     }
 
     /**
@@ -21,17 +21,17 @@ class AnggotaController extends Controller
      */
     public function create()
     {
-        $lastAnggota = Anggota::latest('id')->first();
-        if (!$lastAnggota) {
+        $lastPengguna = Pengguna::latest('id')->first();
+        if (!$lastPengguna) {
             $nextNumber = 1;
         } else {
-            $lastCode = $lastAnggota->nik;
+            $lastCode = $lastPengguna->nik;
             $nextNumber = (int) $lastCode + 1;
         }
 
         $otomatisKode = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
-        return view('admin.anggota.create', compact('otomatisKode'));
+        return view('admin.pengguna.create', compact('otomatisKode'));
     }
 
     /**
@@ -39,28 +39,28 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        $lastAnggota = Anggota::latest('id')->first();
-        $nextNumber = (!$lastAnggota) ? 1 : (int) $lastAnggota->nik + 1;
+        $lastPengguna = Pengguna::latest('id')->first();
+        $nextNumber = (!$lastPengguna) ? 1 : (int) $lastPengguna->nik + 1;
         $otomatisKode = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
         // Merge ke input NIK
         $request->merge(['nik' => $otomatisKode]);
 
         $request->validate([
-            'nik' => 'required|unique:anggotas,nik',
+            'nik' => 'required|unique:penggunas,nik',
             'nama' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:L,P',
             'telepon' => 'required|numeric',
             'alamat' => 'required|string',
         ], [
             'required' => ':attribute wajib diisi.',
-            'unique' => 'Nomor anggota sudah terdaftar.',
+            'unique' => 'Nomor pengguna sudah terdaftar.',
         ]);
 
-        Anggota::create($request->all());
+        Pengguna::create($request->all());
 
-        return redirect()->route('anggota.index')
-            ->with('success', 'Anggota baru dengan NIK ' . $otomatisKode . ' berhasil ditambah!')
+        return redirect()->route('pengguna.index')
+            ->with('success', 'Pengguna baru dengan NIK ' . $otomatisKode . ' berhasil ditambah!')
             ->with('alert-type', 'primary');
     }
 
@@ -69,8 +69,8 @@ class AnggotaController extends Controller
      */
     public function show(string $id)
     {
-        $anggotas = Anggota::findOrFail($id);
-        return view('admin.anggota.show', compact('anggotas'));
+        $penggunas = Pengguna::findOrFail($id);
+        return view('admin.pengguna.show', compact('penggunas'));
     }
 
     /**
@@ -78,8 +78,8 @@ class AnggotaController extends Controller
      */
     public function edit(string $id)
     {
-        $anggotas = Anggota::findOrFail($id);
-        return view('admin.anggota.edit', compact('anggotas'));
+        $penggunas = Pengguna::findOrFail($id);
+        return view('admin.pengguna.edit', compact('penggunas'));
     }
 
     /**
@@ -87,10 +87,10 @@ class AnggotaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $anggotas = Anggota::findOrFail($id);
+        $penggunas = Pengguna::findOrFail($id);
 
         $request->validate([
-            'nik' => 'required|unique:anggotas,nik,' . $anggotas->nik,
+            'nik' => 'required|unique:penggunas,nik,' . $penggunas->nik,
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
             'telepon' => 'required|numeric',
@@ -99,10 +99,10 @@ class AnggotaController extends Controller
             'required' => ':attribute wajib diisi.',
         ]);
 
-        $anggotas->update($request->all());
+        $penggunas->update($request->all());
 
-        return redirect()->route('anggota.index')
-            ->with('success', 'Anggota dengan NIK ' . $anggotas->nik . ' berhasil diperbarui!')
+        return redirect()->route('pengguna.index')
+            ->with('success', 'Pengguna dengan NIK ' . $penggunas->nik . ' berhasil diperbarui!')
             ->with('alert-type', 'warning');
     }
 
@@ -111,11 +111,11 @@ class AnggotaController extends Controller
      */
     public function destroy(string $id)
     {
-        $anggotas = Anggota::findOrFail($id);
-        $anggotas->delete();
+        $penggunas = Pengguna::findOrFail($id);
+        $penggunas->delete();
 
-        return redirect()->route('anggota.index')
-            ->with('success', 'Anggota berhasil dihapus!')
+        return redirect()->route('pengguna.index')
+            ->with('success', 'Pengguna berhasil dihapus!')
             ->with('alert-type', 'danger');
     }
 }

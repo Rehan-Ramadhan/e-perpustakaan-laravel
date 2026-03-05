@@ -73,7 +73,7 @@
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" {{ __('Logout') }}>
                             <i class="bx bx-power-off me-2"></i>
@@ -82,12 +82,10 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
             <!--/ User -->
         </ul>
     </div>
 </nav>
-
-{{--  baris 81 --}}
