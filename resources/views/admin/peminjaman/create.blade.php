@@ -44,7 +44,7 @@
                                         </select>
                                     </div>
                                     <p>@error('buku_ids') <small class="text-danger">{{ $message }}</small> @enderror</p>
-                                    <small class="text-muted">Ctrl + Klik untuk pilih lebih dari satu buku.</small>
+                                    <small class="text-muted">Shift + Klik untuk pilih lebih dari satu buku.</small>
                                 </div>
                             </div>
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PeminjamanController;
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
 
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('buku', BukuController::class);
         Route::resource('pengguna', PenggunaController::class);
         Route::resource('peminjaman', PeminjamanController::class);

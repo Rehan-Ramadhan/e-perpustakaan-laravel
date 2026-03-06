@@ -58,6 +58,13 @@
             </a>
         </li> --}}
 
+        <li class="menu-item {{ request()->is('pengembalian*') ? 'active' : '' }}">
+            <a href="{{ route('pengembalian.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-rotate-left"></i>
+                <div data-i18n="Tables">Pengembalian</div>
+            </a>
+        </li>
+
         @if(auth()->user()->role == 'admin')
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Administrator</span>

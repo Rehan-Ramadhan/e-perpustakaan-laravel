@@ -15,6 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->command->info('Memulai proses seeding database...');
 
+        $this->call([
+            DummyDataSeeder::class,
+        ]);
+
         User::factory()->create([
             'name' => 'Administrator Perpustakaan',
             'email' => 'admin@eperpus.com',

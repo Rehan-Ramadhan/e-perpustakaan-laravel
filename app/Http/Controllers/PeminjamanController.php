@@ -48,10 +48,21 @@ class PeminjamanController extends Controller
 
         try {
             $tgl = Carbon::now()->format('Ymd');
-            $count = Peminjaman::whereDate('created_at', Carbon::today())->count() + 1;
+
+            $lastTransaction = Peminjaman::whereDate('created_at', Carbon::today())
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($lastTransaction) {
+                $lastNumber = (int) substr($lastTransaction->kode_transaksi, -3);
+                $count = $lastNumber + 1;
+            } else {
+                $count = 1;
+            }
+
             $kode = $tgl . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
 
-            $peminjaman = Peminjaman::create([
+            $peminjamans = Peminjaman::create([
                 'kode_transaksi' => $kode,
                 'pengguna_id' => $request->pengguna_id,
                 'tgl_pinjam' => Carbon::now(),
@@ -60,16 +71,16 @@ class PeminjamanController extends Controller
             ]);
 
             foreach ($request->buku_ids as $buku_id) {
-                $buku = Buku::find($buku_id);
+                $bukus = Buku::find($buku_id);
 
-                if ($buku->stok < 1) {
-                    throw new \Exception("Stok buku '{$buku->judul}' sudah habis.");
+                if (!$bukus || $bukus->stok < 1) {
+                    throw new \Exception("Stok buku '{$bukus->judul}' sudah habis.");
                 }
 
-                $buku->decrement('stok', 1);
+                $bukus->decrement('stok', 1);
 
                 PeminjamanDetail::create([
-                    'peminjaman_id' => $peminjaman->id,
+                    'peminjaman_id' => $peminjamans->id,
                     'buku_id' => $buku_id,
                     'jumlah' => 1,
                 ]);
@@ -85,7 +96,8 @@ class PeminjamanController extends Controller
             DB::rollBack();
             return redirect()->back()
                 ->with('error', 'Gagal memproses transaksi: ' . $e->getMessage())
-                ->with('alert-type', 'danger');
+                ->with('alert-type', 'danger')
+                ->withInput();
         }
     }
 
@@ -94,8 +106,8 @@ class PeminjamanController extends Controller
      */
     public function show(string $id)
     {
-        $peminjaman = Peminjaman::with(['pengguna', 'peminjamanDetail.buku'])->findOrFail($id);
-        return view('admin.peminjaman.show', compact('peminjaman'));
+        $peminjamans = Peminjaman::with(['pengguna', 'peminjamanDetail.buku'])->findOrFail($id);
+        return view('admin.peminjaman.show', compact('peminjamans'));
     }
 
     /**
@@ -103,8 +115,8 @@ class PeminjamanController extends Controller
      */
     public function edit(string $id)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
-        return view('admin.peminjaman.edit', compact('peminjaman'));
+        $peminjamans = Peminjaman::findOrFail($id);
+        return view('admin.peminjaman.edit', compact('peminjamans'));
     }
 
     /**
@@ -112,21 +124,25 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $peminjamans = Peminjaman::findOrFail($id);
+
         $request->validate([
-            'tgl_harus_kembali' => 'required|date|after_or_equal:today',
+            'tgl_pinjam' => 'required|date',
         ], [
-            'tgl_harus_kembali.required' => 'Tanggal harus kembali wajib diisi.',
-            'tgl_harus_kembali.after_or_equal' => 'Tanggal harus kembali tidak boleh sebelum hari ini.',
+            'tgl_pinjam.required' => 'Tanggal pinjam wajib diisi.',
         ]);
 
-        $peminjaman = Peminjaman::findOrFail($id);
-        $peminjaman->update([
-            'tgl_harus_kembali' => $request->tgl_harus_kembali,
+        $tglPinjam = Carbon::parse($request->tgl_pinjam);
+        $tglHarusKembali = $tglPinjam->copy()->addDays(7);
+
+        $peminjamans->update([
+            'tgl_pinjam' => $tglPinjam,
+            'tgl_harus_kembali' => $tglHarusKembali,
         ]);
 
         return redirect()->route('peminjaman.index')
-            ->with('success', 'Masa pinjam berhasil diperbarui!')
-            ->with('alert-type', 'warning');
+            ->with('success', 'Data peminjaman berhasil diperbarui!')
+            ->with('alert-type', 'info');
     }
 
     /**
@@ -134,23 +150,23 @@ class PeminjamanController extends Controller
      */
     public function destroy(string $id)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjamans = Peminjaman::findOrFail($id);
 
         DB::beginTransaction();
         try {
-            if ($peminjaman->status === 'pinjam') {
-                foreach ($peminjaman->peminjamanDetail as $detail) {
+            if ($peminjamans->status === 'pinjam') {
+                foreach ($peminjamans->peminjamanDetail as $detail) {
                     $detail->buku->increment('stok', $detail->jumlah);
                 }
             }
 
-            $peminjaman->peminjamanDetail()->delete();
-            $peminjaman->delete();
+            $peminjamans->peminjamanDetail()->delete();
+            $peminjamans->delete();
 
             DB::commit();
             return redirect()->route('peminjaman.index')
                 ->with('success', 'Data transaksi berhasil dihapus!')
-                ->with('alert-type', 'warning');
+                ->with('alert-type', 'danger');
 
         } catch (\Exception $e) {
             DB::rollBack();

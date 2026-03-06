@@ -60,7 +60,8 @@ class PenggunaController extends Controller
 
         return redirect()->route('pengguna.index')
             ->with('success', 'Pengguna baru dengan NIK ' . $otomatisKode . ' berhasil ditambah!')
-            ->with('alert-type', 'primary');
+            ->with('alert-type', 'primary')
+            ->withInput();
     }
 
     /**

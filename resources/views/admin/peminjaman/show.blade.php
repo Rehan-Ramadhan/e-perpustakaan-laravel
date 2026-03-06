@@ -13,8 +13,8 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Kode / Peminjam</label>
                             <div class="col-sm-10">
-                                <span class="form-control bg-light"><strong>{{ $peminjaman->kode_transaksi }}</strong> -
-                                    {{ $peminjaman->pengguna->nama }}</span>
+                                <span class="form-control bg-light"><strong>{{ $peminjamans->kode_transaksi }}</strong> -
+                                    {{ $peminjamans->pengguna->nama }}</span>
                             </div>
                         </div>
 
@@ -22,7 +22,7 @@
                             <label class="col-sm-2 col-form-label">Buku yang Dipinjam</label>
                             <div class="col-sm-10">
                                 <ul class="list-group">
-                                    @foreach($peminjaman->peminjamanDetail as $detail)
+                                    @foreach($peminjamans->peminjamanDetail as $detail)
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             {{ $loop->iteration }}.{{ $detail->buku->judul }}
                                         </li>
@@ -35,7 +35,7 @@
                             <label class="col-sm-2 col-form-label">Tanggal Pinjam</label>
                             <div class="col-sm-10">
                                 <span
-                                    class="form-control bg-light">{{ \Carbon\Carbon::parse($peminjaman->tgl_pinjam)->format('d/m/Y') }}</span>
+                                    class="form-control bg-light">{{ \Carbon\Carbon::parse($peminjamans->tgl_pinjam)->format('d/m/Y') }}</span>
                             </div>
                         </div>
 
@@ -43,14 +43,14 @@
                             <label class="col-sm-2 col-form-label">Tanggal Harus Kembali</label>
                             <div class="col-sm-10">
                                 <span
-                                    class="form-control bg-light">{{ \Carbon\Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y') }}</span>
+                                    class="form-control bg-light">{{ \Carbon\Carbon::parse($peminjamans->tgl_harus_kembali)->format('d/m/Y') }}</span>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Status</label>
                             <div class="col-sm-10">
-                                <span class="form-control bg-light">{{ ucfirst($peminjaman->status) }}</span>
+                                <span class="form-control bg-light">{{ ucfirst($peminjamans->status) }}</span>
                             </div>
                         </div>
 
@@ -59,7 +59,7 @@
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
                             </div>
                             <div class="col-sm-6 d-grid">
-                                <a href="{{ route('peminjaman.edit', $peminjaman->id) }}" class="btn btn-warning">Edit
+                                <a href="{{ route('peminjaman.edit', $peminjamans->id) }}" class="btn btn-warning">Edit
                                     Data?</a>
                             </div>
                         </div>

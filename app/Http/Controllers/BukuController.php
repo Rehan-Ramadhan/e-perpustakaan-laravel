@@ -55,7 +55,8 @@ class BukuController extends Controller
 
         return redirect()->route('buku.index')
             ->with('success', 'Buku baru dengan kode ' . $otomatisKode . ' berhasil ditambahkan!')
-            ->with('alert-type', 'primary');
+            ->with('alert-type', 'primary')
+            ->withInput();
     }
 
     /**

@@ -3,110 +3,129 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
+use App\Models\Pengembalian;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class PengembalianController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $pengembalians = \App\Models\Pengembalian::with('peminjaman.pengguna')->get();
+        $pengembalians = Pengembalian::with('peminjaman.pengguna')->get();
         return view('admin.pengembalian.index', compact('pengembalians'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.pengembalian.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $peminjaman = Peminjaman::find($request->peminjaman_id);
+        $request->validate([
+            'peminjaman_id' => 'required|exists:peminjamans,id',
+        ]);
+
+        $peminjaman = Peminjaman::findOrFail($request->peminjaman_id);
 
         DB::beginTransaction();
         try {
+            $tgl_kembali_seharusnya = Carbon::parse($peminjaman->tgl_harus_kembali)->startOfDay();
+            $tgl_kembali_aktual = Carbon::now()->startOfDay();
+            $denda = 0;
+            $selisih_hari = 0;
+
+            if ($tgl_kembali_aktual->gt($tgl_kembali_seharusnya)) {
+                $selisih_hari = $tgl_kembali_aktual->diffInDays($tgl_kembali_seharusnya);
+                $denda = $selisih_hari * 1000;
+            }
+
             $peminjaman->update(['status' => 'kembali']);
 
             foreach ($peminjaman->peminjamanDetail as $detail) {
                 $detail->buku->increment('stok', $detail->jumlah);
             }
 
-            \App\Models\Pengembalian::create([
+            Pengembalian::create([
                 'peminjaman_id' => $peminjaman->id,
                 'tgl_kembali_aktual' => Carbon::now(),
-                'denda' => $request->denda ?? 0,
+                'denda' => $denda,
                 'user_id' => auth()->id(),
             ]);
 
-            return redirect()->back()->with('success', 'Buku telah dikembalikan.');
+            DB::commit();
+
+            $pesan = ($denda > 0)
+                ? "Buku dikembalikan. Terlambat {$selisih_hari} hari, denda: Rp " . number_format($denda)
+                : "Buku dikembalikan tepat waktu.";
+
+            return redirect()->route('pengembalian.index')->with('success', $pesan);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal: ' . $e->getMessage());
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $pengembalians = \App\Models\Pengembalian::with('peminjaman.pengguna', 'peminjaman.peminjamanDetail.buku')->findOrFail($id);
+        $pengembalians = Pengembalian::with('peminjaman.pengguna', 'peminjaman.peminjamanDetail.buku')->findOrFail($id);
         return view('admin.pengembalian.show', compact('pengembalians'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        $pengembalians = \App\Models\Pengembalian::with('peminjaman.pengguna', 'peminjaman.peminjamanDetail.buku')->findOrFail($id);
+        $pengembalians = Pengembalian::with('peminjaman.pengguna', 'peminjaman.peminjamanDetail.buku')->findOrFail($id);
         return view('admin.pengembalian.edit', compact('pengembalians'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $pengembalians = \App\Models\Pengembalian::findOrFail($id);
+        $pengembalian = Pengembalian::findOrFail($id);
 
-        $request->validate([
-            'denda' => 'nullable|numeric|min:0',
+        $peminjaman = $pengembalian->peminjaman;
+        $tgl_seharusnya = \Carbon\Carbon::parse($peminjaman->tgl_harus_kembali);
+        $tgl_aktual = \Carbon\Carbon::parse($pengembalian->tgl_kembali_aktual);
+
+        $denda_baru = 0;
+        if ($tgl_aktual->gt($tgl_seharusnya)) {
+            $selisih = $tgl_aktual->diffInDays($tgl_seharusnya);
+            $denda_baru = $selisih * 1000;
+        }
+
+        $pengembalian->update([
+            'denda' => $denda_baru,
         ]);
 
-        $pengembalians->update([
-            'denda' => $request->denda ?? 0,
-        ]);
-
-        return redirect()->back()->with('success', 'Pengembalian berhasil diperbarui!');
+        return redirect()->route('pengembalian.index')
+            ->with('success', 'Data pengembalian telah diperbarui (Denda dikalkulasi ulang).')
+            ->with('alert-type', 'info');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $peminjamans = Peminjaman::findOrFail($id);
+        $pengembalians = Pengembalian::findOrFail($id);
 
         DB::beginTransaction();
         try {
+            $peminjaman = $pengembalians->peminjaman;
 
-            foreach ($peminjamans->peminjamanDetail as $detail) {
-                $detail->buku->increment('stok', $detail->jumlah);
+            if ($peminjaman) {
+                $peminjaman->update(['status' => 'pinjam']);
+                foreach ($peminjaman->peminjamanDetail as $detail) {
+                    $detail->buku->decrement('stok', $detail->jumlah);
+                }
             }
 
+            $pengembalians->delete();
 
-            $peminjamans->peminjamanDetail()->delete();
-            $peminjamans->delete();
+            DB::commit();
+            return redirect()->back()->with('success', 'Data pengembalian berhasil dihapus!');
 
-            return redirect()->back()->with('success', 'Peminjaman berhasil dihapus!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menghapus: ' . $e->getMessage());
         }
     }
 }

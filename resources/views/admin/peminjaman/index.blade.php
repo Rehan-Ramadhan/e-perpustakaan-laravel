@@ -24,30 +24,39 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Peminjam</th>
-                                <th>Tgl Pinjam</th>
+                                <th>Buku Dipinjam</th>
+                                <th>Tanggal Harus Kembali</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @forelse($peminjamans as $p)
+                            @forelse($peminjamans as $peminjaman)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $p->pengguna->nama }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($p->tgl_pinjam)->format('d/m/Y') }}</td>
+                                    <td>{{ $peminjaman->pengguna->nama }}</td>
                                     <td>
-                                        <span class="badge bg-label-{{ $p->status == 'pinjam' ? 'primary' : 'success' }}">
-                                            {{ ucfirst($p->status) }}
+                                        @foreach($peminjaman->peminjamanDetail as $detail)
+                                            <li class="list-group-item bg-light border-0 mb-1">
+                                                {{ $detail->buku->judul }}
+                                            </li>
+                                        @endforeach
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y') }}</td>
+                                    <td>
+                                        <span
+                                            class="badge bg-label-{{ $peminjaman->status == 'pinjam' ? 'primary' : 'success' }}">
+                                            {{ ucfirst($peminjaman->status) }}
                                         </span>
                                     </td>
                                     <td>
-                                        <form action="{{ route('peminjaman.destroy', $p->id) }}" method="POST"
+                                        <form action="{{ route('peminjaman.destroy', $peminjaman->id) }}" method="POST"
                                             onsubmit="return confirm('Yakin hapus transaksi ini?')">
                                             @csrf @method('DELETE')
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('peminjaman.show', $p->id) }}"
+                                                <a href="{{ route('peminjaman.show', $peminjaman->id) }}"
                                                     class="btn btn-sm btn-info text-white"><i class="bx bx-show me-1"></i></a>
-                                                <a href="{{ route('peminjaman.edit', $p->id) }}"
+                                                <a href="{{ route('peminjaman.edit', $peminjaman->id) }}"
                                                     class="btn btn-sm btn-outline-warning"><i class="bx bx-edit me-1"></i></a>
                                                 <button type="submit" class="btn btn-sm btn-outline-danger"><i
                                                         class="bx bx-trash me-1"></i></button>

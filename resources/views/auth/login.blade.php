@@ -16,7 +16,9 @@
                                 <span class="app-brand-text demo text-body fw-bolder text-uppercase">e-Perpus</span>
                             </a>
                         </div>
-                        <h4 class="mb-2">Selamat Datang</h4>
+                        <div class="mt-4 text-center">
+                            <h4 class="mb-2">Selamat Datang Kembali!</h4>
+                        </div>
                         <p class="mb-4">Silakan masuk untuk mengakses sistem perpustakaan.</p>
 
                         <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
