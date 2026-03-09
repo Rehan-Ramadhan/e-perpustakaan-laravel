@@ -11,6 +11,6 @@ Proyek ini dikembangkan dalam rangka **Praktik Kerja Lapangan (PKL)** di **CV. P
 ## 📋 Fitur Utama (Tahap Pengembangan)
 - [✔️] Manajemen Data Buku (CRUD)
 - [✔️] Manajemen Data Pengguna
-- [ ] Transaksi Peminjaman Buku
-- [ ] Transaksi Pengembalian & Denda
+- [✔️] Transaksi Peminjaman Buku
+- [✔️] Transaksi Pengembalian & Denda
 - [ ] Laporan Aktivitas Perpustakaan
