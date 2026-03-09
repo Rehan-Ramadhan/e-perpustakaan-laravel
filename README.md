@@ -9,9 +9,8 @@ Proyek ini dikembangkan dalam rangka **Praktik Kerja Lapangan (PKL)** di **CV. P
 - **Version Control:** Git & GitHub
 
 ## 📋 Fitur Utama (Tahap Pengembangan)
-[✔️] Manajemen Data Buku (CRUD)
-[✔️] Manajemen Data Pengguna
-[✔️] Transaksi Peminjaman Buku
-[✔️] Transaksi Pengembalian & Denda
-[  ] Laporan Aktivitas Perpustakaan
- 
+- [✔️] Manajemen Data Buku (CRUD)
+- [✔️] Manajemen Data Pengguna
+- [✔️] Transaksi Peminjaman Buku
+- [✔️] Transaksi Pengembalian & Denda
+- [ ] Laporan Aktivitas Perpustakaan
