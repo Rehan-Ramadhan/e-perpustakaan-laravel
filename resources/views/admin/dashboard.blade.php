@@ -4,6 +4,12 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0">Dashboard</h4>
+            <a href="{{ route('reports.index') }}" class="btn btn-primary">
+                Lihat Laporan Lengkap <i class="bx bx-right-arrow-alt"></i>
+            </a>
+        </div>
         <div class="row">
             <div class="col-lg-12 mb-4 order-0">
                 <div class="card">

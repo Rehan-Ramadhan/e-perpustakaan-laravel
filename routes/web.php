@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PeminjamanController;
@@ -30,5 +31,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('pengguna', PenggunaController::class);
         Route::resource('peminjaman', PeminjamanController::class);
         Route::resource('pengembalian', PengembalianController::class);
+
+        Route::get('/admin/reports', [ReportController::class, 'index'])->name('reports.index');
+        Route::get('/admin/reports/export', [ReportController::class, 'exportExcel'])->name('reports.export');
     });
 });
