@@ -4,14 +4,12 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Tabel /</span> Tambah Data Buku
-        </h4>
+        <h3 class="fw-bold mb-4">Tambah Data Buku</h3>
         <div class="row">
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Tambah Data</h5>
+                        <h3 class="mb-0">Tambah Data</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('buku.store') }}" method="POST">

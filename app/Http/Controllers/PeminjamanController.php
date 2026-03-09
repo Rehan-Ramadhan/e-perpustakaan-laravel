@@ -165,7 +165,7 @@ class PeminjamanController extends Controller
 
             DB::commit();
             return redirect()->route('peminjaman.index')
-                ->with('success', 'Data transaksi berhasil dihapus!')
+                ->with('success', 'Transaksi berhasil dihapus!')
                 ->with('alert-type', 'danger');
 
         } catch (\Exception $e) {

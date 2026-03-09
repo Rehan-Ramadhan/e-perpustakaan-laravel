@@ -5,9 +5,7 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold mb-0">
-                Laporan Perpustakaan
-            </h4>
+            <h2 class="fw-bold mb-0">Laporan Perpustakaan</h2>
             <a href="{{ url()->previous() }}" class="btn btn-secondary">
                 <i class="bx bx-arrow-back me-1"></i> Kembali
             </a>

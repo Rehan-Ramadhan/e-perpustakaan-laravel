@@ -121,7 +121,7 @@ class PengembalianController extends Controller
             $pengembalians->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Data pengembalian berhasil dihapus!');
+            return redirect()->back()->with('success', 'Pengembalian berhasil dihapus!');
 
         } catch (\Exception $e) {
             DB::rollBack();

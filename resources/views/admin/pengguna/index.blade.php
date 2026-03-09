@@ -12,7 +12,7 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Daftar Pengguna</h2>
+            <h2 class="fw-bold mb-0">Daftar Pengguna</h2>
             <a href="{{ route('pengguna.create') }}" class="btn btn-primary">Tambah Pengguna</a>
         </div>
 

@@ -17,7 +17,7 @@
             </div>
         @endif
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Daftar Buku</h2>
+            <h2 class="fw-bold mb-0">Daftar Buku</h2>
             <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
         </div>
 
