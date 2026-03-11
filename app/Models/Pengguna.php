@@ -6,10 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengguna extends Model
 {
-    protected $fillable = ['nik', 'nama', 'jenis_kelamin', 'telepon', 'alamat'];
+    protected $fillable = [
+        'nik',
+        'nama',
+        'email',
+        'password',
+        'jenis_kelamin',
+        'telepon',
+        'alamat',
+        'role',
+        'status'
+    ];
 
     public function peminjaman()
     {
-        return $this->hasMany(Peminjaman::class);
+        return $this->hasMany(Peminjaman::class, 'user_id', 'id');
     }
 }

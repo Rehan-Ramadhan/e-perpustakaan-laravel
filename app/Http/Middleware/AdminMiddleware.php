@@ -11,12 +11,14 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // app/Http/Middleware/AdminMiddleware.php
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
 
-        if (Auth::check() && Auth::user()->role == 'admin' && Auth::user()->status == 'aktif') {
+        if (Auth::user()->role === 'admin') {
             return $next($request);
         }
 
-        return redirect('/home')->with('error', 'Area itu khusus Admin yang aktif.');
+        return redirect('/home')->with('error', 'Area khusus Admin.');
     }
 }

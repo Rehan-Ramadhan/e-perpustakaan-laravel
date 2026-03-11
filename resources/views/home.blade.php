@@ -4,15 +4,7 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible shadow-sm d-flex align-items-center mb-4" role="alert">
-                <i class="bx bx-error-circle fs-4 me-2"></i>
-                <div>
-                    <strong>Akses Terbatas!</strong> {{ session('error') }}
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+        
         <div class="row">
             <div class="col-lg-12 mb-4 order-0">
                 <div class="card">
