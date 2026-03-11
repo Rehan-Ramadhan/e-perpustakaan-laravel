@@ -15,10 +15,10 @@ class AdminMiddleware
             return redirect('/login');
         }
 
-        if (Auth::user()->role === 'admin') {
+        if (Auth::user()->role == 'admin') {
             return $next($request);
         }
 
-        return redirect('/home')->with('error', 'Area khusus Admin.');
+        return redirect('/home')->with('error', 'Area itu khusus Admin.');
     }
 }
