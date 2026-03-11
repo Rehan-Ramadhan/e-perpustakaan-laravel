@@ -21,11 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::middleware('admin')->group(function () {
-
-        Route::get('/admin/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
-
         Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('buku', BukuController::class);
         Route::resource('pengguna', PenggunaController::class);

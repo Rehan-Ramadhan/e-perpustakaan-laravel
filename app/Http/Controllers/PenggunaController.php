@@ -70,6 +70,7 @@ class PenggunaController extends Controller
     public function show(string $id)
     {
         $penggunas = Pengguna::findOrFail($id);
+        $penggunas->load('peminjamans.peminjamanDetail.buku');
         return view('admin.pengguna.show', compact('penggunas'));
     }
 

@@ -4,23 +4,19 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
+        // app/Http/Middleware/AdminMiddleware.php
+
+        if (Auth::check() && Auth::user()->role == 'admin' && Auth::user()->status == 'aktif') {
+            return $next($request);
         }
 
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Anda tidak memiliki akses ke halaman ini.');
-        }
-
-        return $next($request);
+        return redirect('/home')->with('error', 'Area itu khusus Admin yang aktif.');
     }
 }
