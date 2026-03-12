@@ -11,6 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('bukus', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('kategori_id')->constrained()->cascadeOnDelete();
             $table->string('nama', 100);
             $table->string('slug', 100)->unique();
