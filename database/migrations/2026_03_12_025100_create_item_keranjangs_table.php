@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('penggunas', function (Blueprint $table) {
+        Schema::create('item_keranjangs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->string('nik')->unique();
-            $table->string('nama');
-            $table->text('alamat');
-            $table->string('telepon');
-            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->foreignId('keranjang_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('buku_id')->constrained()->cascadeOnDelete();
+            $table->integer('kuantitas')->default(1);
             $table->timestamps();
+            $table->unique(['keranjang_id', 'buku_id']);
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('penggunas');
+        Schema::dropIfExists('item_keranjangs');
     }
 };

@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('peminjamans', function (Blueprint $table) {
+        Schema::create('pengembalians', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_transaksi')->unique();
-            $table->foreignId('pengguna_id')->constrained('penggunas');
-            $table->date('tgl_pinjam');
-            $table->date('tgl_harus_kembali');
-            $table->enum('status', ['pinjam', 'kembali'])->default('pinjam');
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('peminjamans');
+        Schema::dropIfExists('pengembalians');
     }
 };
