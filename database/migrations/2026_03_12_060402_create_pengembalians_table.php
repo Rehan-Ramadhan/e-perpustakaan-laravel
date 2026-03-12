@@ -12,10 +12,10 @@ return new class extends Migration {
     {
         Schema::create('pengembalians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('peminjaman_id')->constrained()->cascadeOnDelete();
-            $table->date('tgl_dikembalikan');
-            $table->decimal('denda', 12, 2)->default(0);
-            $table->text('catatan')->nullable();
+            $table->foreignId('peminjaman_id')->constrained('peminjamans')->cascadeOnDelete();
+            $table->date('tgl_kembali_aktual');
+            $table->bigInteger('denda')->default(0);
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
