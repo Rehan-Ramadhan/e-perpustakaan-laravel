@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('pesanan_id')->constrained()->cascadeOnDelete();
+            $table->date('tanggal_pinjam');
+            $table->date('tanggal_harus_seharusnya');
+            $table->enum('status', ['pinjam', 'kembali', 'hilang'])->default('pinjam');
             $table->timestamps();
         });
     }
