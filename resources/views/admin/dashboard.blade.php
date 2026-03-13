@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.app')
 
 @section('title', 'Dashboard Admin')
 
@@ -6,7 +6,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="fw-bold mb-0">Dashboard</h2>
-            <a href="{{ route('reports.index') }}" class="btn btn-primary">
+            <a href="{{ route('admin.reports.index') }}" class="btn btn-primary">
                 Lihat Laporan Lengkap <i class="bx bx-right-arrow-alt"></i>
             </a>
         </div>
@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                                <a href="{{ route('buku.index') }}" class="d-block">
+                                <a href="{{ route('admin.buku.index') }}" class="d-block">
                                     <span class="badge bg-label-primary p-2">
                                         <i class="bx bx-book fs-3"></i>
                                     </span>
@@ -60,7 +60,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between">
-                            <a href="{{ route('pengguna.index') }}" class="d-block">
+                            <a href="{{ route('admin.user.index') }}" class="d-block">
                                 <div class="avatar flex-shrink-0">
                                     <span class="badge bg-label-success p-2"><i class="bx bx-user fs-3"></i></span>
                                 </div>
@@ -76,7 +76,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('peminjaman.index') }}" class="d-block">
+                        <a href="{{ route('admin.peminjaman.index') }}" class="d-block">
                             <div class="card-title d-flex align-items-start justify-content-between">
                                 <div class="avatar flex-shrink-0">
                                     <span class="badge bg-label-warning p-2"><i class="bx bx-book-reader fs-3"></i></span>
@@ -93,7 +93,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('pengembalian.index') }}" class="d-block">
+                        <a href="{{ route('admin.pengembalian.index') }}" class="d-block">
                             <div class="card-title d-flex align-items-start justify-content-between">
                                 <div class="avatar flex-shrink-0">
                                     <span class="badge bg-label-danger p-2"><i class="bx bx-error fs-3"></i></span>
@@ -134,7 +134,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="{{ route('peminjaman.show', $trx->id) }}"
+                                            <a href="{{ route('admin.peminjaman.show', $trx->id) }}"
                                                 class="btn btn-sm btn-outline-info">Detail</a>
                                         </td>
                                     </tr>

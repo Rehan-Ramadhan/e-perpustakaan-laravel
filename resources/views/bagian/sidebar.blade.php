@@ -22,63 +22,51 @@
             </a>
         </li>
 
-        @if(auth()->user()->role == 'admin')
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Kelola Data</span>
-            </li>
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Kelola Data</span>
+        </li>
 
-            <li class="menu-item {{ request()->is('buku*') ? 'active' : '' }}">
-                <a href="{{ route('buku.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-book"></i>
-                    <div data-i18n="Tables">Data Buku</div>
-                </a>
-            </li>
+        <li class="menu-item {{ request()->is('buku*') ? 'active' : '' }}">
+            <a href="{{ route('admin.buku.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-book"></i>
+                <div data-i18n="Tables">Data Buku</div>
+            </a>
+        </li>
 
-            <li class="menu-item {{ request()->is('pengguna*') ? 'active' : '' }}">
-                <a href="{{ route('pengguna.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-group"></i>
-                    <div data-i18n="Tables">Data Pengguna</div>
-                </a>
-            </li>
-        @endif
+        <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
+            <a href="{{ route('admin.user.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div data-i18n="Tables">Data Pengguna</div>
+            </a>
+        </li>
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Layanan</span>
         </li>
 
         <li class="menu-item {{ request()->is('peminjaman*') ? 'active' : '' }}">
-            <a href="{{ route('peminjaman.index') }}" class="menu-link">
+            <a href="{{ route('admin.peminjaman.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-repost"></i>
                 <div data-i18n="Tables">Peminjaman</div>
             </a>
         </li>
 
-        {{-- <li class="menu-item {{ request()->is('peminjamandetails*') ? 'active' : '' }}">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-repost"></i>
-                <div data-i18n="Tables">Detail Peminjaman</div>
-            </a>
-        </li> --}}
-
         <li class="menu-item {{ request()->is('pengembalian*') ? 'active' : '' }}">
-            <a href="{{ route('pengembalian.index') }}" class="menu-link">
+            <a href="{{ route('admin.pengembalian.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-rotate-left"></i>
                 <div data-i18n="Tables">Pengembalian</div>
             </a>
         </li>
 
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Laporan</span>
+        </li>
 
-        @if(auth()->user()->role == 'admin')
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Laporan</span>
-            </li>
-
-            <li class="menu-item {{ Request::is('admin/reports*') ? 'active' : '' }}">
-                <a href="{{ route('reports.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
-                    <div data-i18n="Analytics">Analitik & Laporan</div>
-                </a>
-            </li>
-        @endif
+        <li class="menu-item {{ Request::is('admin/reports*') ? 'active' : '' }}">
+            <a href="{{ route('admin.reports.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                <div data-i18n="Analytics">Analitik & Laporan</div>
+            </a>
+        </li>
     </ul>
 </aside>

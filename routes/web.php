@@ -3,47 +3,49 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// pengguna
-use App\Http\Controllers\Pengguna\BukuController as PenggunaBukuController;
+use App\Http\Controllers\HomeController;
 
-// admin
+// Import Controllers
+use App\Http\Controllers\Pengguna\BukuController as PenggunaBukuController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BukuController as AdminBukuController;
 use App\Http\Controllers\Admin\KategoriController as AdminKategoriController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\Admin\PengembalianController;
 
-// publik
-Route::get('/', function () {
-    return redirect()->route('pengguna.buku.index');
-});
+// Publik
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/katalog', [PenggunaBukuController::class, 'index'])->name('pengguna.buku.index');
 Route::get('/katalog/{slug}', [PenggunaBukuController::class, 'show'])->name('pengguna.buku.show');
 
-
-// auth routes (login, register, logout)
+// Auth Routes
 Auth::routes();
 
-
-// pengguna (wajib login)
+// Pengguna (Wajib Login)
 Route::middleware(['auth'])->group(function () {
     Route::get('/keinginan', [PenggunaBukuController::class, 'keinginan'])->name('pengguna.keinginan.index');
 });
 
-// admin
+// Admin Area
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
-    ->name('admin.')
+    ->name('admin.') // Semua route di bawah ini diawali 'admin.'
     ->group(function () {
 
-        // dashboard
+        // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        // manajemen buku (CRUD)
-        Route::resource('bukus', AdminBukuController::class);
+        // CRUD Resources
+        Route::resource('buku', AdminBukuController::class);
+        Route::resource('kategori', AdminKategoriController::class)->except(['show']);
+        Route::resource('peminjaman', PeminjamanController::class);
+        Route::resource('pengembalian', PengembalianController::class);
 
-        // manajemen kategori (CRUD)
-        Route::resource('kategoris', AdminKategoriController::class)->except(['show']);
+        // Management User
+        Route::get('user', [UserController::class, 'index'])->name('user.index');
 
-        // manajemen pengguna (CRUD)
-        // Route::get('/users', [UserController::class, 'index])->name('users.index');
+        // Laporan
+        Route::get('/reports', [DashboardController::class, 'reports'])->name('reports.index');
     });

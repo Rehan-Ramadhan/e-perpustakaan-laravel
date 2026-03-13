@@ -30,14 +30,14 @@
         <div class="layout-container">
 
             @auth
-                @include('layouts.components.sidebar')
+                @include('bagian.sidebar')
                 <div class="layout-page">
-                    @include('layouts.components.navbar')
+                    @include('bagian.navbar')
                     <div class="content-wrapper">
                         <div class="container-xxl flex-grow-1 container-p-y">
                             @yield('content')
                         </div>
-                        @include('layouts.components.footer')
+                        @include('bagian.footer')
                     </div>
                 </div>
             @endauth
