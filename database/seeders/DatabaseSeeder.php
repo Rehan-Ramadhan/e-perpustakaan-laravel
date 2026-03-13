@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'Pengguna Test',
-            'email' => 'pengguna@gmail.com',
+            'name' => 'Tes',
+            'email' => 'tes@gmail.com',
             'role' => 'pengguna',
             'password' => bcrypt('password'),
         ]);
@@ -44,6 +44,6 @@ class DatabaseSeeder extends Seeder
         $this->command->newLine();
         $this->command->info('Pengisian database selesai!');
         $this->command->info('Admin: admin@eperpustakaan.com / password');
-        $this->command->info('User: pengguna@gmail.com / password');
+        $this->command->info('User: tes@gmail.com / password');
     }
 }

@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // admin
-Route::middleware(['auth', 'can:admin'])
+Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
