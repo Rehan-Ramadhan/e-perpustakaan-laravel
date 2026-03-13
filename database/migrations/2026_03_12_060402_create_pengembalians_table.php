@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('pengembalians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('peminjaman_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('peminjaman_id')->constrained('peminjamans')->cascadeOnDelete();
             $table->date('tanggal_kembali');
             $table->integer('terlambat_hari')->default(0);
             $table->decimal('denda', 12, 2)->default(0);

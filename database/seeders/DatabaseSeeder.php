@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -13,33 +14,36 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->command->info('Memulai proses seeding database...');
-
-        $this->call([
-            DummyDataSeeder::class,
-        ]);
+        $this->command->info('Memulai pengiriman database...');
 
         User::factory()->create([
-            'name' => 'Administrator Perpustakaan',
-            'email' => 'admin@eperpus.com',
-            'password' => Hash::make('password'),
+            'name' => 'Administrator',
+            'email' => 'admin@eperpustakaan.com',
             'role' => 'admin',
             'email_verified_at' => now(),
         ]);
-        $this->command->info('Akun Admin berhasil dibuat: admin@eperpus.com');
+
+        User::factory(15)->create([
+            'role' => 'pengguna'
+        ]);
 
         User::factory()->create([
-            'name' => 'Pengguna',
+            'name' => 'Pengguna Test',
             'email' => 'pengguna@gmail.com',
-            'password' => Hash::make('password'),
             'role' => 'pengguna',
-            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
         ]);
-        $this->command->info('Akun Pengguna berhasil dibuat: pengguna@gmail.com');
+
+        $this->command->info('User Admin & 15+ Pengguna berhasil dibuat.');
+
+        $this->call([
+            KategoriSeeder::class,
+            BukuSeeder::class,
+        ]);
 
         $this->command->newLine();
-        $this->command->info('Seeding database selesai!');
-        $this->command->info('Login Admin   : admin@eperpus.com / password');
-        $this->command->info('Login Pengguna : pengguna@gmail.com / password');
+        $this->command->info('Pengisian database selesai!');
+        $this->command->info('Admin: admin@eperpustakaan.com / password');
+        $this->command->info('User: pengguna@gmail.com / password');
     }
 }
