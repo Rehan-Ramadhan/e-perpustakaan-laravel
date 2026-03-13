@@ -24,15 +24,21 @@ class User extends Authenticatable
         'role',
         'avatar',
         'google_id',
-        'phone',
-        'address',
+        'telepon',
+        'alamat',
     ];
 
+    /**
+     * Kolom yang disembunyikan saat serialisasi.
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    /**
+     * Casting tipe data otomatis.
+     */
     protected function casts(): array
     {
         return [
@@ -41,38 +47,59 @@ class User extends Authenticatable
         ];
     }
 
+
+    /**
+     * User memiliki satu keranjang aktif.
+     */
     public function keranjang(): HasOne
     {
         return $this->hasOne(Keranjang::class);
     }
 
+    /**
+     * User memiliki banyak buku di daftar keinginan (Wishlist).
+     */
     public function keinginan(): BelongsToMany
     {
-        // Menggunakan tabel 'keinginans' sesuai migration terbaru
         return $this->belongsToMany(Buku::class, 'keinginans')
             ->withTimestamps();
     }
 
+    /**
+     * User memiliki banyak pesanan (Booking).
+     */
     public function pesanans(): HasMany
     {
         return $this->hasMany(Pesanan::class);
     }
 
+    /**
+     * User memiliki banyak riwayat peminjaman.
+     */
     public function peminjamans(): HasMany
     {
         return $this->hasMany(Peminjaman::class);
     }
 
+    /**
+     * Cek apakah user adalah admin.
+     */
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
-    public function isUser(): bool
+    /**
+     * Cek apakah user adalah pengguna biasa.
+     */
+    public function isPengguna(): bool
     {
-        return $this->role === 'user';
+        return $this->role === 'pengguna';
     }
 
+    /**
+     * Cek apakah buku ada di daftar keinginan user.
+     */
     public function hasInKeinginan(Buku $buku): bool
     {
         return $this->keinginan()
@@ -80,6 +107,13 @@ class User extends Authenticatable
             ->exists();
     }
 
+
+    /**
+     * Mendapatkan URL Avatar dengan logika prioritas:
+     * 1. Storage Lokal (Upload)
+     * 2. URL Eksternal (Google)
+     * 3. Fallback (Gravatar)
+     */
     public function getAvatarUrlAttribute(): string
     {
         if ($this->avatar && Storage::disk('public')->exists($this->avatar)) {
@@ -94,6 +128,9 @@ class User extends Authenticatable
         return "https://www.gravatar.com/avatar/{$hash}?d=mp&s=200";
     }
 
+    /**
+     * Mendapatkan inisial nama untuk UI fallback.
+     */
     public function getInitialsAttribute(): string
     {
         $words = explode(' ', $this->name);

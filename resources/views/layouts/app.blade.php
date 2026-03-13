@@ -32,14 +32,14 @@
 
                 <div class="layout-page" style="padding-left: 0 !important;">
 
-                    @include('layouts.components.navbar')
+                    @include('bagian.navbar')
 
                     <div class="content-wrapper">
                         <div class="container-xxl flex-grow-1 container-p-y">
                             @yield('content')
                         </div>
 
-                        @include('layouts.components.footer')
+                        @include('bagian.footer')
                     </div>
                 </div>
             </div>
