@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.app')
 
 @section('title', 'Daftar Buku')
 
@@ -18,7 +18,7 @@
         @endif
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="fw-bold mb-0">Daftar Buku</h2>
-            <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
+            <a href="{{ route('admin.buku.create') }}" class="btn btn-primary">Tambah Buku</a>
         </div>
 
         <div class="card shadow-sm">
@@ -30,7 +30,7 @@
                             <th>Judul</th>
                             <th>Pengarang</th>
                             <th>Rak</th>
-                            <th>Aksi</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -40,15 +40,15 @@
                                 <td>{{ $buku->judul }}</td>
                                 <td>{{ $buku->pengarang }}</td>
                                 <td>{{ $buku->rak_lokasi }}</td>
-                                <td>
-                                    <form action="{{ route('buku.destroy', $buku->id) }}" method="POST"
+                                <td class="text-center">
+                                    <form action="{{ route('admin.buku.destroy', $buku->id) }}" method="POST"
                                         onsubmit="return confirm('Yakin hapus buku ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('buku.show', $buku->id) }}"
+                                            <a href="{{ route('admin.buku.show', $buku->id) }}"
                                                 class="btn btn-sm btn-info text-white"><i class="bx bx-show me-1"></i></a>
-                                            <a href="{{ route('buku.edit', $buku->id) }}"
+                                            <a href="{{ route('admin.buku.edit', $buku->id) }}"
                                                 class="btn btn-sm btn-outline-warning"><i class="bx bx-edit me-1"></i></a>
                                             <button type="submit" class="btn btn-sm btn-outline-danger"><i
                                                     class="bx bx-trash me-1"></i></button>

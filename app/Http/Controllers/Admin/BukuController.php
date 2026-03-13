@@ -1,123 +1,115 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BukuController extends Controller
 {
     public function index()
     {
-        $bukus = Buku::latest()->get();
+        // Gunakan with('kategori') agar tidak N+1 query (sesuai referensi siko)
+        $bukus = Buku::with('kategori')->latest()->get();
         return view('admin.buku.index', compact('bukus'));
     }
 
     public function create()
     {
+        // Logika Auto-Number B001
         $lastBuku = Buku::latest('id')->first();
-        if (!$lastBuku) {
-            $nextNumber = 1;
-        } else {
-            $lastCode = $lastBuku->kode_buku;
-            $nextNumber = (int) substr($lastCode, 1) + 1;
-        }
+        $nextNumber = (!$lastBuku) ? 1 : (int) substr($lastBuku->kode_buku, 1) + 1;
         $otomatisKode = 'B' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
-        return view('admin.buku.create', compact('otomatisKode'));
+        $kategoris = Kategori::all(); // Tambahkan ini untuk dropdown kategori
+
+        return view('admin.buku.create', compact('otomatisKode', 'kategoris'));
     }
 
     public function store(Request $request)
     {
+        // Re-generate kode di sisi server agar aman dari tabrakan data
         $lastBuku = Buku::latest('id')->first();
         $nextNumber = (!$lastBuku) ? 1 : (int) substr($lastBuku->kode_buku, 1) + 1;
         $otomatisKode = 'B' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-        $request->merge(['kode_buku' => $otomatisKode]);
+
+        $request->merge([
+            'kode_buku' => $otomatisKode,
+            'slug' => Str::slug($request->nama) . '-' . time() // Tambahkan slug otomatis
+        ]);
 
         $request->validate([
             'kode_buku' => 'required|unique:bukus,kode_buku',
-            'judul' => 'required|string|max:255',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'nama' => 'required|string|max:255', // Sesuaikan kolom migration: nama
             'pengarang' => 'required|string|max:100',
             'penerbit' => 'required|string|max:100',
             'tahun_terbit' => 'required|numeric|digits:4|max:' . date('Y'),
             'stok' => 'required|integer|min:0',
-            'rak_lokasi' => 'nullable|string|max:50',
+            'lokasi_rak' => 'nullable|string|max:50', // Sesuaikan kolom migration: lokasi_rak
         ], [
             'required' => ':attribute wajib diisi, jangan dikosongkan.',
-            'unique' => 'Kode buku sudah ada, gunakan kode lain.',
-            'numeric' => 'Input harus berupa angka.',
-            'digits' => 'Tahun_terbit harus 4 digit (contoh: 2024).',
-            'max' => 'Tahun_terbit tidak boleh lebih dari tahun_terbit sekarang.',
-            'min' => 'Stok tidak boleh kurang dari 0.',
+            'unique' => 'Kode buku sudah ada.',
+            'exists' => 'Kategori tidak valid.',
+            'max' => 'Tahun terbit tidak boleh melebihi tahun saat ini.',
         ]);
 
         Buku::create($request->all());
 
-        return redirect()->route('buku.index')
-            ->with('success', 'Buku baru dengan kode ' . $otomatisKode . ' berhasil ditambahkan!')
-            ->with('alert-type', 'primary')
-            ->withInput();
+        return redirect()->route('admin.bukus.index') // Sesuaikan route name
+            ->with('success', 'Buku baru [' . $otomatisKode . '] berhasil ditambahkan!')
+            ->with('alert-type', 'primary');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $bukus = Buku::findOrFail($id);
-        return view('admin.buku.show', compact('bukus'));
+        $buku = Buku::with('kategori')->findOrFail($id);
+        return view('admin.buku.show', compact('buku'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        $bukus = Buku::findOrFail($id);
-        return view('admin.buku.edit', compact('bukus'));
+        $buku = Buku::findOrFail($id);
+        $kategoris = Kategori::all();
+        return view('admin.buku.edit', compact('buku', 'kategoris'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $bukus = Buku::findOrFail($id);
+        $buku = Buku::findOrFail($id);
 
         $request->validate([
-            'kode_buku' => 'required|unique:bukus,kode_buku,' . $bukus->id,
-            'judul' => 'required|string|max:255',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'nama' => 'required|string|max:255',
             'pengarang' => 'required|string|max:100',
             'penerbit' => 'required|string|max:100',
             'tahun_terbit' => 'required|numeric|digits:4|max:' . date('Y'),
             'stok' => 'required|integer|min:0',
-            'rak_lokasi' => 'nullable|string|max:50',
-        ], [
-            'required' => ':attribute wajib diisi, jangan dikosongkan.',
-            'unique' => 'Kode buku sudah ada, gunakan kode lain.',
-            'numeric' => 'Input harus berupa angka.',
-            'digits' => 'Tahun harus 4 digit (contoh: 2008).',
-            'max' => 'Tahun tidak boleh lebih dari tahun sekarang.',
-            'min' => 'Stok tidak boleh kurang dari 0.',
+            'lokasi_rak' => 'nullable|string|max:50',
         ]);
 
-        $bukus->update($request->all());
+        // Update slug jika nama berubah
+        $data = $request->all();
+        if ($request->nama != $buku->nama) {
+            $data['slug'] = Str::slug($request->nama) . '-' . time();
+        }
 
-        return redirect()->route('buku.index')
-            ->with('success', 'Buku ' . $bukus->kode_buku . ' berhasil diperbarui!')
+        $buku->update($data);
+
+        return redirect()->route('admin.bukus.index')
+            ->with('success', 'Data buku berhasil diperbarui!')
             ->with('alert-type', 'warning');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $bukus = Buku::findOrFail($id);
-        $bukus->delete();
+        $buku = Buku::findOrFail($id);
+        $buku->delete();
 
-        return redirect()->route('buku.index')
+        return redirect()->route('admin.bukus.index')
             ->with('success', 'Buku berhasil dihapus!')
             ->with('alert-type', 'danger');
     }
