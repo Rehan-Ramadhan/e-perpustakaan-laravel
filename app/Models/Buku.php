@@ -3,13 +3,33 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Buku extends Model
 {
-    protected $fillable = ['kode_buku', 'judul', 'pengarang', 'penerbit', 'tahun_terbit', 'stok', 'rak_lokasi'];
+    protected $fillable = [
+        'kategori_id',
+        'nama',
+        'slug',
+        'pengarang',
+        'penerbit',
+        'tahun_terbit',
+        'lokasi_rak',
+        'deskripsi',
+        'gambar',
+        'stok',
+        'is_active',
+        'is_featured'
+    ];
 
-    public function peminjamanDetail()
+    public function kategori(): BelongsTo
     {
-        return $this->hasMany(PeminjamanDetail::class);
+        return $this->belongsTo(Kategori::class);
+    }
+
+    public function gambars(): HasMany
+    {
+        return $this->hasMany(GambarBuku::class, 'buku_id');
     }
 }

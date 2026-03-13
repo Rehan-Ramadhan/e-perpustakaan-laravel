@@ -12,11 +12,13 @@ return new class extends Migration {
     {
         Schema::create('pengembalians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('peminjaman_id')->constrained('peminjamans')->cascadeOnDelete();
-            $table->date('tgl_kembali_aktual');
-            $table->bigInteger('denda')->default(0);
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('peminjaman_id')->constrained()->cascadeOnDelete();
+            $table->date('tanggal_kembali');
+            $table->integer('terlambat_hari')->default(0);
+            $table->decimal('denda', 12, 2)->default(0);
+            $table->boolean('denda_dibayar')->default(false);
             $table->timestamps();
+            $table->index('denda_dibayar');
         });
     }
 

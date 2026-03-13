@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pengembalian extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'peminjaman_id',
+        'tanggal_kembali',
+        'terlambat_hari',
+        'denda',
+        'denda_dibayar'
+    ];
 
-    protected $fillable = ['peminjaman_id', 'tgl_kembali_aktual', 'denda', 'user_id'
+    protected $casts = [
+        'tanggal_kembali' => 'date',
+        'denda_dibayar' => 'boolean',
     ];
 
     public function peminjaman()

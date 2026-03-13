@@ -6,21 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peminjaman extends Model
 {
-    protected $table = 'peminjamans';
-    protected $fillable = [ 'kode_transaksi', 'pengguna_id', 'tgl_pinjam', 'tgl_harus_kembali', 'status'];
-
-    public function pengguna()
-    {
-        return $this->belongsTo(Pengguna::class);
-    }
-
-    public function peminjamanDetail()
-    {
-        return $this->hasMany(PeminjamanDetail::class);
-    }
+    protected $fillable = [
+        'pesanan_id',
+        'user_id',
+        'nomor_peminjaman',
+        'tanggal_pinjam',
+        'tanggal_jatuh_tempo',
+        'status'
+    ];
 
     public function pengembalian()
     {
         return $this->hasOne(Pengembalian::class);
+    }
+
+    public function pesanan()
+    {
+        return $this->belongsTo(Pesanan::class);
     }
 }
