@@ -16,7 +16,7 @@
                                     Anda telah masuk ke sistem <strong>e-perpus</strong>. Silakan jelajahi koleksi buku kami
                                     dan lakukan peminjaman secara mandiri.
                                 </p>
-                                <a href="{{ route('buku.index') }}" class="btn btn-sm btn-outline-primary">Lihat Koleksi
+                                <a href="{{ route('pengguna.buku.index') }}" class="btn btn-sm btn-outline-primary">Lihat Koleksi
                                     Buku</a>
                             </div>
                         </div>

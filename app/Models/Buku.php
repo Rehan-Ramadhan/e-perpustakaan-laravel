@@ -107,6 +107,23 @@ class Buku extends Model
         return asset('assets/img/elements/18.jpg');
     }
 
+    public function getKodeBukuAttribute(): string
+    {
+        $sequence = $this->id ?? 0;
+
+        return 'B' . str_pad((string) $sequence, 3, '0', STR_PAD_LEFT);
+    }
+
+    public function getJudulAttribute(): string
+    {
+        return $this->nama;
+    }
+
+    public function getRakLokasiAttribute(): ?string
+    {
+        return $this->lokasi_rak;
+    }
+
     public function getStatusLabelAttribute(): string
     {
         if ($this->stok <= 0)
