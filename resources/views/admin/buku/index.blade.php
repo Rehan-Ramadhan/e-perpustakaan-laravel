@@ -43,48 +43,6 @@
                 <tbody class="table-border-bottom-0">
                     @forelse ($bukus as $buku)
                         <tr>
-<<<<<<< HEAD
-                            <th>No.</th>
-                            <th>Judul</th>
-                            <th>Pengarang</th>
-                            {{-- <th>Kategori</th> --}}
-                            <th class="text-center">Rak</th>
-                            <th class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        @forelse($bukus as $buku)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $buku->nama }}</td>
-                                <td>{{ $buku->pengarang }}</td>
-                                {{-- <td class="text-center">{{ $buku->kategori }}</td> --}}
-                                <td class="text-center">{{ $buku->lokasi_rak }}</td>
-                                <td class="text-center">
-                                    <form action="{{ route('admin.buku.destroy', $buku->id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin hapus buku ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('admin.buku.show', $buku->id) }}"
-                                                class="btn btn-sm btn-info text-white"><i class="bx bx-show me-1"></i></a>
-                                            <a href="{{ route('admin.buku.edit', $buku->id) }}"
-                                                class="btn btn-sm btn-outline-warning"><i class="bx bx-edit me-1"></i></a>
-                                            <button type="submit" class="btn btn-sm btn-outline-danger"><i
-                                                    class="bx bx-trash me-1"></i></button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center">Belum ada data buku.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-=======
                             <td><span class="fw-semibold">{{ $buku->kode_buku }}</span></td>
                             <td>{{ $buku->nama }}</td>
                             <td>{{ $buku->kategori->nama ?? '-' }}</td>
@@ -100,12 +58,12 @@
                                     @csrf
                                     @method('DELETE')
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('admin.buku.show', $buku) }}"
-                                            class="btn btn-sm btn-outline-info" title="Detail" aria-label="Detail">
+                                        <a href="{{ route('admin.buku.show', $buku) }}" class="btn btn-sm btn-outline-info"
+                                            title="Detail" aria-label="Detail">
                                             <i class="bx bx-show"></i>
                                         </a>
-                                        <a href="{{ route('admin.buku.edit', $buku) }}"
-                                            class="btn btn-sm btn-outline-warning" title="Edit" aria-label="Edit">
+                                        <a href="{{ route('admin.buku.edit', $buku) }}" class="btn btn-sm btn-outline-warning"
+                                            title="Edit" aria-label="Edit">
                                             <i class="bx bx-edit"></i>
                                         </a>
                                         <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus"
@@ -123,7 +81,6 @@
                     @endforelse
                 </tbody>
             </table>
->>>>>>> c9a14896f98e5cb0d4dca4b087f82a34753c3b6f
         </div>
     </div>
 @endsection
