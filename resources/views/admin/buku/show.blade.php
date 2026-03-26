@@ -1,79 +1,98 @@
-@extends('layouts.app')
+@extends('admin.app')
 
-@section('title', 'Lihat Detail Buku')
+@section('title', 'Detail Buku')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h3 class="fw-bold mb-4">Lihat Data Buku</h3>
-        <div class="row">
-            <div class="col-xxl">
-                <div class="card mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1">Detail Buku</h4>
+            <p class="text-muted mb-0">Informasi lengkap buku untuk kebutuhan administrasi perpustakaan.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ route('admin.buku.index') }}" class="btn btn-outline-secondary">Kembali</a>
+            <a href="{{ route('admin.buku.edit', $buku) }}" class="btn btn-primary">Edit Buku</a>
+        </div>
+    </div>
 
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Kode / Judul</label>
-                            <div class="col-sm-10">
-                                <span class="form-control bg-light"><strong>{{ $bukus->kode_buku }}</strong> -
-                                    {{ $bukus->judul }}</span>
-                            </div>
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card h-100">
+                <div class="card-header border-bottom">
+                    <h5 class="mb-0">{{ $buku->nama }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-muted">Kode Buku</label>
+                            <div class="form-control bg-light">{{ $buku->kode_buku }}</div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Pengarang</label>
-                            <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
-                                    <span class="form-control bg-light">{{ $bukus->pengarang }}</span>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted">Kategori</label>
+                            <div class="form-control bg-light">{{ $buku->kategori->nama ?? '-' }}</div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Penerbit</label>
-                            <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
-                                    <span class="form-control bg-light">{{ $bukus->penerbit }}</span>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted">Pengarang</label>
+                            <div class="form-control bg-light">{{ $buku->pengarang }}</div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Tahun Terbit</label>
-                            <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
-                                    <span class="form-control bg-light">{{ $bukus->tahun_terbit }}</span>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted">Penerbit</label>
+                            <div class="form-control bg-light">{{ $buku->penerbit }}</div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Stok</label>
-                            <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
-                                    <span class="form-control bg-light">{{ $bukus->stok }} Eksemplar</span>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-muted">Tahun Terbit</label>
+                            <div class="form-control bg-light">{{ $buku->tahun_terbit }}</div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Rak Lokasi</label>
-                            <div class="col-sm-10">
-                                <div class="input-group input-group-merge">
-                                    <span class="form-control bg-light">{{ $bukus->rak_lokasi }}</span>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-muted">Stok</label>
+                            <div class="form-control bg-light">{{ $buku->stok }} eksemplar</div>
                         </div>
-
-                        <div class="row justify-content-end">
-                            <div class="col-sm-6 d-grid">
-                                <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
-                            </div>
-                            <div class="col-sm-6 d-grid">
-                                <a href="{{ route('buku.edit', $bukus->id) }}" class="btn btn-warning">Edit Data?</a>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-muted">Lokasi Rak</label>
+                            <div class="form-control bg-light">{{ $buku->lokasi_rak }}</div>
                         </div>
-
+                        <div class="col-12">
+                            <label class="form-label text-muted">Deskripsi</label>
+                            <div class="form-control bg-light" style="min-height: 120px;">{{ $buku->deskripsi ?: 'Belum ada deskripsi.' }}</div>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header border-bottom">
+                    <h5 class="mb-0">Status Buku &nbsp; <span class="badge bg-label-{{ $buku->status_color }} fs-6">{{ $buku->status_label }}</span></h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2"></div>
+                    <p class="mb-2"><strong>Visibilitas:</strong> {{ $buku->is_active ? 'Aktif di katalog' : 'Disembunyikan' }}</p>
+                    <p><strong>Slug:</strong> {{ $buku->slug }}</p>
+
+                    <form action="{{ route('admin.buku.destroy', $buku) }}" method="POST"
+                        onsubmit="return confirm('Yakin hapus buku ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger w-100">Hapus Buku</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+            </div>
+            </div>
+        </div>
+    </div>
+@endsection            </div>
+            </div>
+        </div>
+    </div>
+@endsection            </div>
+            </div>
+        </div>
+    </div>
+@endsection            </div>
             </div>
         </div>
     </div>
