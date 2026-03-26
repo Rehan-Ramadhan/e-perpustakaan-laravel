@@ -11,7 +11,6 @@ class BukuController extends Controller
 {
     public function index(Request $request)
     {
-        // Menampilkan buku yang aktif, dipaginasi 6 per halaman
         $bukus = Buku::with('kategori')
             ->where('is_active', true)
             ->when($request->kategori, function ($query) use ($request) {

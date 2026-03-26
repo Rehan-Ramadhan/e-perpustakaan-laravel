@@ -29,7 +29,8 @@
                             <th>No.</th>
                             <th>Judul</th>
                             <th>Pengarang</th>
-                            <th>Rak</th>
+                            {{-- <th>Kategori</th> --}}
+                            <th class="text-center">Rak</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -37,9 +38,10 @@
                         @forelse($bukus as $buku)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $buku->judul }}</td>
+                                <td>{{ $buku->nama }}</td>
                                 <td>{{ $buku->pengarang }}</td>
-                                <td>{{ $buku->rak_lokasi }}</td>
+                                {{-- <td class="text-center">{{ $buku->kategori }}</td> --}}
+                                <td class="text-center">{{ $buku->lokasi_rak }}</td>
                                 <td class="text-center">
                                     <form action="{{ route('admin.buku.destroy', $buku->id) }}" method="POST"
                                         onsubmit="return confirm('Yakin hapus buku ini?')">
