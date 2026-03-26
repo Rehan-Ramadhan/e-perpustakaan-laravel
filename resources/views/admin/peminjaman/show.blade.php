@@ -1,72 +1,43 @@
-@extends('layouts.app')
+@extends('admin.app')
 
 @section('title', 'Detail Peminjaman')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h3 class="fw-bold mb-4">Lihat Data Peminjaman</h3>
-        <div class="row">
-            <div class="col-xxl">
-                <div class="card mb-4">
-                    <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Detail Peminjaman</h2>
+            <p class="text-muted mb-0">Informasi transaksi</p>
+        </div>
+        <a href="{{ route('admin.peminjaman.index') }}" class="btn btn-outline-secondary">Kembali</a>
+    </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Kode / Peminjam</label>
-                            <div class="col-sm-10">
-                                <span class="form-control bg-light"><strong>{{ $peminjamans->kode_transaksi }}</strong> -
-                                    {{ $peminjamans->pengguna->nama }}</span>
-                            </div>
-                        </div>
+    <div class="card">
+        <div class="card-body">
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Buku yang Dipinjam</label>
-                            <div class="col-sm-10">
-                                <ul class="list-group">
-                                    @foreach($peminjamans->peminjamanDetail as $detail)
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            {{ $loop->iteration }}.{{ $detail->buku->judul }}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
+            <div class="mb-3">
+                <label class="form-label text-muted">Peminjam</label>
+                <div class="form-control bg-light">{{ $peminjamans->user->name }}</div>
+            </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Tanggal Pinjam</label>
-                            <div class="col-sm-10">
-                                <span
-                                    class="form-control bg-light">{{ \Carbon\Carbon::parse($peminjamans->tgl_pinjam)->format('d/m/Y') }}</span>
-                            </div>
-                        </div>
+            <div class="mb-3">
+                <label class="form-label text-muted">Buku</label>
+                <div class="form-control bg-light">{{ $peminjamans->buku->nama }}</div>
+            </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Tanggal Harus Kembali</label>
-                            <div class="col-sm-10">
-                                <span
-                                    class="form-control bg-light">{{ \Carbon\Carbon::parse($peminjamans->tgl_harus_kembali)->format('d/m/Y') }}</span>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Status</label>
-                            <div class="col-sm-10">
-                                <span class="form-control bg-light">{{ ucfirst($peminjamans->status) }}</span>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-end">
-                            <div class="col-sm-6 d-grid">
-                                <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
-                            </div>
-                            <div class="col-sm-6 d-grid">
-                                <a href="{{ route('peminjaman.edit', $peminjamans->id) }}" class="btn btn-warning">Edit
-                                    Data?</a>
-                            </div>
-                        </div>
-
-                    </div>
+            <div class="mb-3">
+                <label class="form-label text-muted">Tanggal Pinjam</label>
+                <div class="form-control bg-light">
+                    {{ \Carbon\Carbon::parse($peminjamans->tanggal_pinjam)->format('d F Y') }}
                 </div>
             </div>
+
+            <div class="mb-3">
+                <label class="form-label text-muted">Jatuh Tempo</label>
+                <div class="form-control bg-light">
+                    {{ \Carbon\Carbon::parse($peminjamans->tanggal_jatuh_tempo)->format('d F Y') }}
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

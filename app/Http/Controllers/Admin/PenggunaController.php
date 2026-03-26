@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Pengguna;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class PenggunaController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $penggunas = Pengguna::latest()->get();
-        return view('admin.pengguna.index', compact('penggunas'));
+        $users = User::latest()->get();
+        return view('admin.pengguna.index', compact('users'));
     }
 
     /**
@@ -21,11 +22,11 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        $lastPengguna = Pengguna::latest('id')->first();
-        if (!$lastPengguna) {
+        $lastUser = User::latest('id')->first();
+        if (!$lastUser) {
             $nextNumber = 1;
         } else {
-            $lastCode = $lastPengguna->nik;
+            $lastCode = $lastUser->nik;
             $nextNumber = (int) $lastCode + 1;
         }
 
@@ -39,27 +40,27 @@ class PenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        $lastPengguna = Pengguna::latest('id')->first();
-        $nextNumber = (!$lastPengguna) ? 1 : (int) $lastPengguna->nik + 1;
+        $lastUser = User::latest('id')->first();
+        $nextNumber = (!$lastUser) ? 1 : (int) $lastUser->nik + 1;
         $otomatisKode = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
         $request->merge(['nik' => $otomatisKode]);
 
         $request->validate([
-            'nik' => 'required|unique:penggunas,nik',
+            'nik' => 'required|unique:users,nik',
             'nama' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:L,P',
             'telepon' => 'required|numeric',
             'alamat' => 'required|string',
         ], [
             'required' => ':attribute wajib diisi.',
-            'unique' => 'Nomor pengguna sudah terdaftar.',
+            'unique' => 'Nomor user sudah terdaftar.',
         ]);
 
-        Pengguna::create($request->all());
+        User::create($request->all());
 
-        return redirect()->route('pengguna.index')
-            ->with('success', 'Pengguna baru dengan NIK ' . $otomatisKode . ' berhasil ditambah!')
+        return redirect()->route('user.index')
+            ->with('success', 'User baru dengan NIK ' . $otomatisKode . ' berhasil ditambah!')
             ->with('alert-type', 'primary')
             ->withInput();
     }
@@ -69,9 +70,9 @@ class PenggunaController extends Controller
      */
     public function show(string $id)
     {
-        $penggunas = Pengguna::findOrFail($id);
-        $penggunas->load('peminjamans.peminjamanDetail.buku');
-        return view('admin.pengguna.show', compact('penggunas'));
+        $users = User::findOrFail($id);
+        $users->load('peminjamans.peminjamanDetail.buku');
+        return view('admin.pengguna.show', compact('users'));
     }
 
     /**
@@ -79,8 +80,8 @@ class PenggunaController extends Controller
      */
     public function edit(string $id)
     {
-        $penggunas = Pengguna::findOrFail($id);
-        return view('admin.pengguna.edit', compact('penggunas'));
+        $users = User::findOrFail($id);
+        return view('admin.pengguna.edit', compact('users'));
     }
 
     /**
@@ -88,10 +89,10 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $penggunas = Pengguna::findOrFail($id);
+        $users = User::findOrFail($id);
 
         $request->validate([
-            'nik' => 'required|unique:penggunas,nik,' . $penggunas->nik,
+            'nik' => 'required|unique:users,nik,' . $users->nik,
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
             'telepon' => 'required|numeric',
@@ -100,10 +101,10 @@ class PenggunaController extends Controller
             'required' => ':attribute wajib diisi.',
         ]);
 
-        $penggunas->update($request->all());
+        $users->update($request->all());
 
-        return redirect()->route('pengguna.index')
-            ->with('success', 'Pengguna dengan NIK ' . $penggunas->nik . ' berhasil diperbarui!')
+        return redirect()->route('user.index')
+            ->with('success', 'User dengan NIK ' . $users->nik . ' berhasil diperbarui!')
             ->with('alert-type', 'warning');
     }
 
@@ -112,11 +113,11 @@ class PenggunaController extends Controller
      */
     public function destroy(string $id)
     {
-        $penggunas = Pengguna::findOrFail($id);
-        $penggunas->delete();
+        $users = User::findOrFail($id);
+        $users->delete();
 
-        return redirect()->route('pengguna.index')
-            ->with('success', 'Pengguna berhasil dihapus!')
+        return redirect()->route('user.index')
+            ->with('success', 'User berhasil dihapus!')
             ->with('alert-type', 'danger');
     }
 }

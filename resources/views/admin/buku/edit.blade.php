@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="fw-bold mb-1">Edit Data Buku</h4>
+            <h2 class="fw-bold mb-1">Edit Data Buku</h2>
             <p class="text-muted mb-0">Perbarui informasi buku {{ $buku->kode_buku }} tanpa keluar dari panel admin.</p>
         </div>
         <a href="{{ route('admin.buku.show', $buku) }}" class="btn btn-outline-secondary">Lihat Detail</a>
@@ -20,10 +20,11 @@
                 @csrf
                 @method('PUT')
                 @include('admin.buku._form', [
+                    'buku' => $buku,
                     'kodeBuku' => $buku->kode_buku,
                     'submitLabel' => 'Update Buku',
                 ])
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 @endsection

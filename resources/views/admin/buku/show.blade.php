@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="fw-bold mb-1">Detail Buku</h4>
+            <h2 class="fw-bold mb-1">Detail Buku</h2>
             <p class="text-muted mb-0">Informasi lengkap buku untuk kebutuhan administrasi perpustakaan.</p>
         </div>
         <div class="d-flex gap-2">

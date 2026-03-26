@@ -1,78 +1,79 @@
-@extends('layouts.app')
+@extends('admin.app')
 
-@section('title', 'Daftar Peminjaman')
+@section('title', 'Peminjaman')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        @if(session('success'))
-            <div class="alert alert-{{ session('alert-type', 'light') }} alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fw-bold mb-0">Daftar Peminjaman</h2>
-            <a href="{{ route('peminjaman.create') }}" class="btn btn-primary">Tambah Transaksi</a>
+    @if (session('success'))
+        <div class="alert alert-{{ session('alert-type', 'light') }} alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
+    @endif
 
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Peminjam</th>
-                                <th>Buku Dipinjam</th>
-                                <th>Tanggal Harus Kembali</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                            @forelse($peminjamans as $peminjaman)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $peminjaman->pengguna->nama }}</td>
-                                    <td>
-                                        @foreach($peminjaman->peminjamanDetail as $detail)
-                                            <li class="list-group-item bg-light border-0 mb-1">
-                                                {{ $detail->buku->judul }}
-                                            </li>
-                                        @endforeach
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y') }}</td>
-                                    <td>
-                                        <span
-                                            class="badge bg-label-{{ $peminjaman->status == 'pinjam' ? 'primary' : 'success' }}">
-                                            {{ ucfirst($peminjaman->status) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('peminjaman.destroy', $peminjaman->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin hapus transaksi ini?')">
-                                            @csrf @method('DELETE')
-                                            <div class="btn-group" role="group">
-                                                <a href="{{ route('peminjaman.show', $peminjaman->id) }}"
-                                                    class="btn btn-sm btn-info text-white"><i class="bx bx-show me-1"></i></a>
-                                                <a href="{{ route('peminjaman.edit', $peminjaman->id) }}"
-                                                    class="btn btn-sm btn-outline-warning"><i class="bx bx-edit me-1"></i></a>
-                                                <button type="submit" class="btn btn-sm btn-outline-danger"><i
-                                                        class="bx bx-trash me-1"></i></button>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">Belum ada data transaksi.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Peminjaman</h2>
+            <p class="text-muted mb-0">Daftar transaksi peminjaman</p>
+        </div>
+        <a href="{{ route('admin.peminjaman.create') }}" class="btn btn-primary">Tambah</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">No</th>
+                        <th>Peminjam</th>
+                        <th>Buku</th>
+                        <th class="text-center">Jatuh Tempo</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($peminjamans as $peminjaman)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td>{{ $peminjaman->user->name ?? '-' }}</td>
+                            <td>{{ $peminjaman->buku->nama ?? '-' }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($peminjaman->tanggal_jatuh_tempo)->format('d/m/Y') }}</td>
+                            <td class="text-center">
+                                <span class="badge bg-label-{{ $peminjaman->status_color }}">
+                                    {{ ucfirst($peminjaman->status) }}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <form action="{{ route('admin.peminjaman.destroy', $peminjaman) }}" method="POST"
+                                    onsubmit="return confirm('Yakin hapus transaksi ini?')">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ route('admin.peminjaman.show', $peminjaman) }}"
+                                            class="btn btn-sm btn-outline-info">
+                                            <i class="bx bx-show"></i>
+                                        </a>
+
+                                        <a href="{{ route('admin.peminjaman.edit', $peminjaman) }}"
+                                            class="btn btn-sm btn-outline-warning">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-4">Belum ada data.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

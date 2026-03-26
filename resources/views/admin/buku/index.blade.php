@@ -19,7 +19,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="fw-bold mb-1">Buku</h4>
+            <h2 class="fw-bold mb-1">Buku</h2>
             <p class="text-muted mb-0">Daftar Buku</p>
         </div>
         <a href="{{ route('admin.buku.create') }}" class="btn btn-primary">Tambah Buku</a>
@@ -30,26 +30,27 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Kode</th>
+                        <th class="text-center">No</th>
                         <th>Judul</th>
                         <th>Kategori</th>
                         <th>Pengarang</th>
-                        <th>Stok</th>
-                        <th>Rak</th>
-                        <th>Status</th>
+                        <th class="text-center">Stok</th>
+                        <th class="text-center">Rak</th>
+                        <th class="text-center">Status</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                     @forelse ($bukus as $buku)
                         <tr>
-                            <td><span class="fw-semibold">{{ $buku->kode_buku }}</span></td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            {{-- <td class="text-center"><span class="fw-semibold">{{ $buku->kode_buku }}</span></td> --}}
                             <td>{{ $buku->nama }}</td>
                             <td>{{ $buku->kategori->nama ?? '-' }}</td>
                             <td>{{ $buku->pengarang }}</td>
-                            <td>{{ $buku->stok }}</td>
-                            <td>{{ $buku->lokasi_rak }}</td>
-                            <td>
+                            <td class="text-center">{{ $buku->stok }}</td>
+                            <td class="text-center">{{ $buku->lokasi_rak }}</td>
+                            <td class="text-center">
                                 <span class="badge bg-label-{{ $buku->status_color }}">{{ $buku->status_label }}</span>
                             </td>
                             <td class="text-center">
