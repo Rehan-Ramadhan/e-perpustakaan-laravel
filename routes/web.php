@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BukuController as AdminBukuController;
 use App\Http\Controllers\Admin\KategoriController as AdminKategoriController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengembalianController;
+use App\Http\Controllers\Admin\ReportController;
 
 // publik
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -45,5 +46,6 @@ Route::middleware(['auth', 'admin'])
         Route::resource('user', UserController::class);
 
         // laporan
-        Route::get('/reports', [DashboardController::class, 'reports'])->name('reports.index');
+        Route::get('/laporan', [ReportController::class, 'index'])->name('reports.index');
+        Route::get('/laporan/export', [ReportController::class, 'exportExcel'])->name('reports.export');
     });

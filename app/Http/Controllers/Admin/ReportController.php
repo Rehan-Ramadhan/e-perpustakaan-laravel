@@ -16,27 +16,35 @@ class ReportController extends Controller
         $dateFrom = $request->date_from ?? now()->startOfMonth()->toDateString();
         $dateTo = $request->date_to ?? now()->toDateString();
 
-        $peminjamans = Peminjaman::with(['pengguna', 'peminjamanDetail.buku'])
-            ->whereDate('tgl_pinjam', '>=', $dateFrom)
-            ->whereDate('tgl_pinjam', '<=', $dateTo)
+        $peminjamans = Peminjaman::with(['pengguna'])
+            ->whereDate('tanggal_pinjam', '>=', $dateFrom)
+            ->whereDate('tanggal_pinjam', '<=', $dateTo)
             ->latest()
             ->paginate(15);
 
         $summary = DB::table('peminjamans')
             ->leftJoin('pengembalians', 'peminjamans.id', '=', 'pengembalians.peminjaman_id')
-            ->whereDate('peminjamans.tgl_pinjam', '>=', $dateFrom)
-            ->whereDate('peminjamans.tgl_pinjam', '<=', $dateTo)
+            ->whereDate('peminjamans.tanggal_pinjam', '>=', $dateFrom)
+            ->whereDate('peminjamans.tanggal_pinjam', '<=', $dateTo)
             ->selectRaw('COUNT(peminjamans.id) as total_pinjam, SUM(pengembalians.denda) as total_denda')
             ->first();
 
-        $byCategory = DB::table('peminjaman_details')
-            ->join('bukus', 'bukus.id', '=', 'peminjaman_details.buku_id')
-            ->select('bukus.rak_lokasi as kategori', DB::raw('COUNT(*) as total'))
-            ->groupBy('bukus.rak_lokasi')
+        $byCategory = DB::table('peminjamans')
+            ->join('bukus', 'bukus.id', '=', 'peminjamans.buku_id')
+            ->select('bukus.lokasi_rak as kategori', DB::raw('COUNT(*) as total'))
+            ->whereDate('peminjamans.tanggal_pinjam', '>=', $dateFrom)
+            ->whereDate('peminjamans.tanggal_pinjam', '<=', $dateTo)
+            ->groupBy('bukus.lokasi_rak')
             ->orderByDesc('total')
             ->get();
 
-        return view('admin.reports.index', compact('peminjamans', 'summary', 'byCategory', 'dateFrom', 'dateTo'));
+        return view('admin.reports.index', compact(
+            'peminjamans',
+            'summary',
+            'byCategory',
+            'dateFrom',
+            'dateTo'
+        ));
     }
 
     public function exportExcel(Request $request)

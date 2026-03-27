@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Carbon\Carbon;
 
 class LaporanPeminjamanExport implements FromQuery, WithHeadings, WithMapping, WithStyles
 {
@@ -23,21 +24,15 @@ class LaporanPeminjamanExport implements FromQuery, WithHeadings, WithMapping, W
         $this->dateTo = $dateTo;
     }
 
-    /**
-     * Query data peminjaman berdasarkan filter tanggal
-     */
     public function query()
     {
         return Peminjaman::query()
             ->with(['pengguna', 'pengembalian'])
-            ->whereDate('tgl_pinjam', '>=', $this->dateFrom)
-            ->whereDate('tgl_pinjam', '<=', $this->dateTo)
-            ->orderBy('tgl_pinjam', 'asc');
+            ->whereDate('tanggal_pinjam', '>=', $this->dateFrom)
+            ->whereDate('tanggal_pinjam', '<=', $this->dateTo)
+            ->orderBy('tanggal_pinjam', 'asc');
     }
 
-    /**
-     * Header tabel di Excel
-     */
     public function headings(): array
     {
         return [
@@ -50,24 +45,18 @@ class LaporanPeminjamanExport implements FromQuery, WithHeadings, WithMapping, W
         ];
     }
 
-    /**
-     * Mapping data ke kolom Excel
-     */
     public function map($peminjaman): array
     {
         return [
             $peminjaman->nomor_peminjaman,
-            $peminjaman->pengguna->nama,
-            \Carbon\Carbon::parse($peminjaman->tgl_pinjam)->format('d/m/Y'),
-            \Carbon\Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y'),
+            $peminjaman->pengguna->nama ?? '-',
+            Carbon::parse($peminjaman->tanggal_pinjam)->format('d/m/Y'),
+            Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y'),
             $peminjaman->pengembalian->denda ?? 0,
             ucfirst($peminjaman->status),
         ];
     }
 
-    /**
-     * Styling: Membuat baris pertama (Header) menjadi BOLD
-     */
     public function styles(Worksheet $sheet)
     {
         return [

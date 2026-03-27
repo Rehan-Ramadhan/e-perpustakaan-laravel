@@ -126,7 +126,7 @@
                                     <tr>
                                         <td><strong>{{ $trx->nomor_peminjaman }}</strong></td>
                                         <td>{{ $trx->user->name }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($trx->tgl_pinjam)->translatedFormat('d F Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($trx->tanggal_pinjam)->translatedFormat('d F Y') }}</td>
                                         <td>
                                             <span
                                                 class="badge bg-label-{{ $trx->status == 'pinjam' ? 'primary' : 'success' }} me-1">
