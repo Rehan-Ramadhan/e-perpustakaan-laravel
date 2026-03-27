@@ -60,7 +60,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between">
-                            <a href="{{ route('admin.user.index') }}" class="d-block">
+                            <a href="{{ route('admin.pengguna.index') }}" class="d-block">
                                 <div class="avatar flex-shrink-0">
                                     <span class="badge bg-label-success p-2"><i class="bx bx-user fs-3"></i></span>
                                 </div>

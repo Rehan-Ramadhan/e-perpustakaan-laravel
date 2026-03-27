@@ -34,7 +34,7 @@
         </li>
 
         <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
-            <a href="{{ route('admin.user.index') }}" class="menu-link">
+            <a href="{{ route('admin.pengguna.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div data-i18n="Tables">Data Pengguna</div>
             </a>

@@ -8,7 +8,7 @@
             <h2 class="fw-bold mb-1">Tambah Data Pengguna</h2>
             <p class="text-muted mb-0">Masukkan data pengguna baru ke sistem.</p>
         </div>
-        <a href="{{ route('admin.user.index') }}" class="btn btn-outline-secondary">Kembali</a>
+        <a href="{{ route('admin.pengguna.index') }}" class="btn btn-outline-secondary">Kembali</a>
     </div>
 
     <div class="card">
@@ -16,7 +16,7 @@
             <h5 class="mb-0">Form Pengguna Baru</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.user.store') }}" method="POST">
+            <form action="{{ route('admin.pengguna.store') }}" method="POST">
                 @csrf
                 @include('admin.user._form', [
                     'user' => null,

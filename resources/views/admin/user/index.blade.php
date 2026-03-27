@@ -22,7 +22,7 @@
             <h2 class="fw-bold mb-1">Pengguna</h2>
             <p class="text-muted mb-0">Daftar Pengguna</p>
         </div>
-        <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Tambah Pengguna</a>
+        <a href="{{ route('admin.pengguna.create') }}" class="btn btn-primary">Tambah Pengguna</a>
     </div>
 
     <div class="card shadow-sm">
@@ -43,15 +43,15 @@
                             <td>{{ $user->name }}</td>
                             <td class="text-center">{{ $user->telepon ?? '-' }}</td>
                             <td class="text-center">
-                                <form action="{{ route('admin.user.destroy', $user) }}" method="POST"
+                                <form action="{{ route('admin.pengguna.destroy', $user) }}" method="POST"
                                     onsubmit="return confirm('Yakin hapus buku ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.user.show', $user) }}" class="btn btn-sm btn-outline-info">
+                                        <a href="{{ route('admin.pengguna.show', $user) }}" class="btn btn-sm btn-outline-info">
                                             <i class="bx bx-show"></i>
                                         </a>
-                                        <a href="{{ route('admin.user.edit', $user) }}" class="btn btn-sm btn-outline-warning">
+                                        <a href="{{ route('admin.pengguna.edit', $user) }}" class="btn btn-sm btn-outline-warning">
                                             <i class="bx bx-edit"></i>
                                         </a>
                                         <button class="btn btn-sm btn-outline-danger">

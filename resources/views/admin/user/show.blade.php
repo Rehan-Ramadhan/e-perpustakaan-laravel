@@ -9,8 +9,8 @@
             <p class="text-muted mb-0">Informasi lengkap pengguna.</p>
         </div>
         <div class="d-flex gap-2">
-            <a href="{{ route('admin.user.index') }}" class="btn btn-outline-secondary">Kembali</a>
-            <a href="{{ route('admin.user.edit', $user) }}" class="btn btn-warning">Edit</a>
+            <a href="{{ route('admin.pengguna.index') }}" class="btn btn-outline-secondary">Kembali</a>
+            <a href="{{ route('admin.pengguna.edit', $user) }}" class="btn btn-warning">Edit</a>
         </div>
     </div>
 
@@ -36,7 +36,7 @@
                 <div class="form-control bg-light">{{ $user->alamat ?? '-' }}</div>
             </div>
 
-            <form action="{{ route('admin.user.destroy', $user) }}" method="POST"
+            <form action="{{ route('admin.pengguna.destroy', $user) }}" method="POST"
                 onsubmit="return confirm('Yakin hapus buku ini?')">
                 @csrf
                 @method('DELETE')

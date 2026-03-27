@@ -42,8 +42,8 @@ Route::middleware(['auth', 'admin'])
         Route::resource('peminjaman', PeminjamanController::class);
         Route::resource('pengembalian', PengembalianController::class);
 
-        // manajemen pengguna 
-        Route::resource('user', UserController::class);
+        // manajemen pengguna
+        Route::resource('pengguna', UserController::class)->parameters(['pengguna' => 'user']);
 
         // laporan
         Route::get('/laporan', [ReportController::class, 'index'])->name('reports.index');
