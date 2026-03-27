@@ -40,18 +40,9 @@
 
                 @include('admin.user._form', [
                     'user' => $user,
-                    'isEdit' => true
+                    'submitLabel' => 'Update Pengguna',
                 ])
-
-                <div class="d-flex justify-content-end gap-2 mt-4">
-                    <a href="{{ route('admin.pengguna.index') }}" class="btn btn-outline-secondary">
-                        Kembali
-                    </a>
-                    <button type="submit" class="btn btn-warning">
-                        Update Pengguna
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 @endsection
