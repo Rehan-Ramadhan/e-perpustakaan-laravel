@@ -13,120 +13,154 @@ class PengembalianController extends Controller
 {
     public function index()
     {
-        $pengembalians = Pengembalian::with('peminjaman.pengguna')->get();
+        $pengembalians = Pengembalian::with('peminjaman.user', 'peminjaman.buku')->latest()->get();
+
         return view('admin.pengembalian.index', compact('pengembalians'));
     }
 
     public function create()
     {
-        return view('admin.pengembalian.create');
+        $peminjamans = Peminjaman::with(['user', 'buku'])
+            ->where('status', 'dipinjam')
+            ->get();
+
+        return view('admin.pengembalian.create', compact('peminjamans'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'peminjaman_id' => 'required|exists:peminjamans,id',
+        ], [
+            'peminjaman_id.required' => 'Nomor peminjaman wajib dipilih.',
+            'peminjaman_id.exists' => 'Data peminjaman tidak valid.',
         ]);
 
         $peminjaman = Peminjaman::findOrFail($request->peminjaman_id);
 
-        DB::beginTransaction();
-        try {
-            $tgl_kembali_seharusnya = Carbon::parse($peminjaman->tgl_harus_kembali)->startOfDay();
-            $tgl_kembali_aktual = Carbon::now()->startOfDay();
-            $denda = 0;
-            $selisih_hari = 0;
+        if ($peminjaman->status === 'dikembalikan') {
+            return back()->with('error', 'Buku ini sudah dikembalikan.');
+        }
 
-            if ($tgl_kembali_aktual->gt($tgl_kembali_seharusnya)) {
-                $selisih_hari = $tgl_kembali_aktual->diffInDays($tgl_kembali_seharusnya);
-                $denda = $selisih_hari * 1000;
+        DB::beginTransaction();
+
+        try {
+            $tglSeharusnya = Carbon::parse($peminjaman->tanggal_jatuh_tempo)->startOfDay();
+            $tglAktual = Carbon::now()->startOfDay();
+
+            $terlambat = 0;
+            $denda = 0;
+
+            if ($tglAktual->gt($tglSeharusnya)) {
+                $terlambat = $tglAktual->diffInDays($tglSeharusnya);
+                $denda = $terlambat * 1000;
             }
 
-            $peminjaman->update(['status' => 'kembali']);
+            $peminjaman->update([
+                'status' => 'dikembalikan'
+            ]);
 
-            foreach ($peminjaman->peminjamanDetail as $detail) {
-                $detail->buku->increment('stok', $detail->jumlah);
+            if ($peminjaman->buku) {
+                $peminjaman->buku->increment('stok', 1);
             }
 
             Pengembalian::create([
                 'peminjaman_id' => $peminjaman->id,
-                'tgl_kembali_aktual' => Carbon::now(),
+                'tanggal_kembali' => now(),
+                'terlambat_hari' => $terlambat,
                 'denda' => $denda,
-                'user_id' => auth()->id(),
+                'denda_dibayar' => $denda == 0,
             ]);
 
             DB::commit();
 
-            $pesan = ($denda > 0)
-                ? "Buku dikembalikan. Terlambat {$selisih_hari} hari, denda: Rp " . number_format($denda)
-                : "Buku dikembalikan tepat waktu.";
+            $pesan = $denda > 0
+                ? "Pengembalian berhasil. Terlambat {$terlambat} hari, denda Rp " . number_format($denda, 0, ',', '.')
+                : "Pengembalian berhasil. Buku dikembalikan tepat waktu.";
 
-            return redirect()->route('pengembalian.index')->with('success', $pesan);
+            return redirect()
+                ->route('admin.pengembalian.index')
+                ->with('success', $pesan)
+                ->with('alert-type', 'primary');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menyimpan data pengembalian.');
         }
     }
 
-    public function show(string $id)
+    public function show(Pengembalian $pengembalian)
     {
-        $pengembalians = Pengembalian::with('peminjaman.pengguna', 'peminjaman.peminjamanDetail.buku')->findOrFail($id);
-        return view('admin.pengembalian.show', compact('pengembalians'));
+        $pengembalian->load('peminjaman.user', 'peminjaman.buku');
+
+        return view('admin.pengembalian.show', compact('pengembalian'));
     }
 
-    public function edit(string $id)
+    public function edit(Pengembalian $pengembalian)
     {
-        $pengembalians = Pengembalian::with('peminjaman.pengguna', 'peminjaman.peminjamanDetail.buku')->findOrFail($id);
-        return view('admin.pengembalian.edit', compact('pengembalians'));
+        $pengembalian->load('peminjaman.user', 'peminjaman.buku');
+
+        return view('admin.pengembalian.edit', compact('pengembalian'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Pengembalian $pengembalian)
     {
-        $pengembalian = Pengembalian::findOrFail($id);
-
         $peminjaman = $pengembalian->peminjaman;
-        $tgl_seharusnya = \Carbon\Carbon::parse($peminjaman->tgl_harus_kembali);
-        $tgl_aktual = \Carbon\Carbon::parse($pengembalian->tgl_kembali_aktual);
 
-        $denda_baru = 0;
-        if ($tgl_aktual->gt($tgl_seharusnya)) {
-            $selisih = $tgl_aktual->diffInDays($tgl_seharusnya);
-            $denda_baru = $selisih * 1000;
+        try {
+            $tglSeharusnya = Carbon::parse($peminjaman->tanggal_jatuh_tempo)->startOfDay();
+            $tglKembali = Carbon::parse($pengembalian->tanggal_kembali)->startOfDay();
+
+            $terlambat = 0;
+            $denda = 0;
+
+            if ($tglKembali->gt($tglSeharusnya)) {
+                $terlambat = $tglKembali->diffInDays($tglSeharusnya);
+                $denda = $terlambat * 1000;
+            }
+
+            $pengembalian->update([
+                'terlambat_hari' => $terlambat,
+                'denda' => $denda,
+            ]);
+
+            return redirect()
+                ->route('admin.pengembalian.index')
+                ->with('success', 'Data pengembalian berhasil diperbarui.')
+                ->with('alert-type', 'warning');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal memperbarui data pengembalian.');
         }
-
-        $pengembalian->update([
-            'denda' => $denda_baru,
-        ]);
-
-        return redirect()->route('pengembalian.index')
-            ->with('success', 'Data pengembalian telah diperbarui (Denda dikalkulasi ulang).')
-            ->with('alert-type', 'info');
     }
 
-    public function destroy(string $id)
+    public function destroy(Pengembalian $pengembalian)
     {
-        $pengembalians = Pengembalian::findOrFail($id);
-
         DB::beginTransaction();
+
         try {
-            $peminjaman = $pengembalians->peminjaman;
+            $peminjaman = $pengembalian->peminjaman;
 
             if ($peminjaman) {
-                $peminjaman->update(['status' => 'pinjam']);
-                foreach ($peminjaman->peminjamanDetail as $detail) {
-                    $detail->buku->decrement('stok', $detail->jumlah);
+                $peminjaman->update(['status' => 'dipinjam']);
+
+                if ($peminjaman->buku) {
+                    $peminjaman->buku->decrement('stok', 1);
                 }
             }
 
-            $pengembalians->delete();
+            $pengembalian->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Pengembalian berhasil dihapus!');
+
+            return redirect()
+                ->route('admin.pengembalian.index')
+                ->with('success', 'Data pengembalian berhasil dihapus.')
+                ->with('alert-type', 'danger');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal menghapus: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menghapus data pengembalian.');
         }
     }
 }

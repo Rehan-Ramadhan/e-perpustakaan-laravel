@@ -95,7 +95,7 @@
                             <tbody class="table-border-bottom-0">
                                 @forelse($peminjamans as $p)
                                     <tr>
-                                        <td><strong>{{ $p->kode_transaksi }}</strong></td>
+                                        <td><strong>{{ $p->nomor_peminjaman }}</strong></td>
                                         <td>{{ $p->pengguna->nama }}</td>
                                         <td>{{ \Carbon\Carbon::parse($p->tgl_pinjam)->format('d M Y') }}</td>
                                         <td>

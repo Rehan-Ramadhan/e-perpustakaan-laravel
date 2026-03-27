@@ -56,7 +56,7 @@ class LaporanPeminjamanExport implements FromQuery, WithHeadings, WithMapping, W
     public function map($peminjaman): array
     {
         return [
-            $peminjaman->kode_transaksi,
+            $peminjaman->nomor_peminjaman,
             $peminjaman->pengguna->nama,
             \Carbon\Carbon::parse($peminjaman->tgl_pinjam)->format('d/m/Y'),
             \Carbon\Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y'),

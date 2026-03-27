@@ -2,7 +2,7 @@
 
     <div class="col-md-6">
         <label class="form-label">Peminjam</label>
-        <select name="user_id" class="form-select @error('user_id') is-invalid @enderror">
+        <select name="user_id" class="form-select @error('user_id') is-invalid @enderror" required>
             <option value="">Pilih anggota</option>
             @foreach($users as $user)
                 <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>
@@ -17,7 +17,7 @@
 
     <div class="col-md-6">
         <label class="form-label">Buku</label>
-        <select name="buku_id" class="form-select @error('buku_id') is-invalid @enderror">
+        <select name="buku_id" class="form-select @error('buku_id') is-invalid @enderror" required>
             <option value="">Pilih buku</option>
             @foreach($bukus as $buku)
                 <option value="{{ $buku->id }}" @selected(old('buku_id') == $buku->id)>

@@ -6,50 +6,38 @@ use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\User;
 use App\Models\Peminjaman;
-use App\Models\PeminjamanDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Carbon\Carbon;
 
 class PeminjamanController extends Controller
 {
-    /**
-     * Menampilkan daftar transaksi peminjaman.
-     */
     public function index()
     {
-        $peminjamans = Peminjaman::with(['user', 'buku'])->latest()->get();
-        return view('admin.peminjaman.index', compact('peminjamans'));
+        return view('admin.peminjaman.index', [
+            'peminjamans' => Peminjaman::with(['user', 'buku'])->latest()->get(),
+        ]);
     }
 
-    /**
-     * Menampilkan form transaksi baru.
-     */
     public function create()
     {
-        $bukus = Buku::where('stok', '>', 0)->get();
-        $users = User::all();
-        return view('admin.peminjaman.create', compact('bukus', 'users'));
+        return view('admin.peminjaman.create', [
+            'bukus' => Buku::where('stok', '>', 0)->get(),
+            'users' => User::all(),
+        ]);
     }
 
-    /**
-     * Menyimpan transaksi peminjaman baru.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'buku_id' => 'required|exists:bukus,id',
-        ], [
-            'user_id.required' => 'Peminjam wajib dipilih.',
-            'user_id.exists' => 'Peminjam tidak valid.',
-            'buku_id.required' => 'Buku wajib dipilih.',
-            'buku_id.exists' => 'Buku tidak valid.',
-        ]);
-
-        DB::beginTransaction();
-
         try {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+                'buku_id' => 'required|exists:bukus,id',
+            ]);
+
+            DB::beginTransaction();
+
             $tgl = Carbon::now()->format('Ymd');
             $last = Peminjaman::whereDate('created_at', Carbon::today())->latest()->first();
             $count = $last ? ((int) substr($last->nomor_peminjaman, -3) + 1) : 1;
@@ -59,7 +47,9 @@ class PeminjamanController extends Controller
             $buku = Buku::find($request->buku_id);
 
             if (!$buku || $buku->stok < 1) {
-                throw new \Exception("Stok buku sedang tidak tersedia.");
+                throw ValidationException::withMessages([
+                    'buku_id' => 'Stok buku tidak tersedia.',
+                ]);
             }
 
             Peminjaman::create([
@@ -76,88 +66,83 @@ class PeminjamanController extends Controller
 
             DB::commit();
 
-            return redirect()->route('admin.peminjaman.index')
-                ->with('success', 'Buku berhasil dipinjam!')
+            return redirect()
+                ->route('admin.peminjaman.index')
+                ->with('success', 'Transaksi peminjaman berhasil ditambahkan.')
                 ->with('alert-type', 'primary');
-        } catch (\Exception $e) {
+
+        } catch (ValidationException $e) {
             DB::rollBack();
 
-            return back()->with('error', $e->getMessage())->withInput();
+            return back()
+                ->withErrors($e->validator)
+                ->withInput()
+                ->with('error', 'Data peminjaman gagal disimpan. Periksa kembali isian form.');
         }
     }
 
-    /**
-     * Menampilkan detail transaksi.
-     */
-    public function show(string $id)
+    public function show(Peminjaman $peminjaman)
     {
-        $peminjamans = Peminjaman::with(['user', 'buku'])->findOrFail($id);
-        return view('admin.peminjaman.show', compact('peminjamans'));
+        $peminjaman->load(['user', 'buku']);
+
+        return view('admin.peminjaman.show', compact('peminjaman'));
     }
 
-    /**
-     * Menampilkan halaman edit (misal perpanjang durasi).
-     */
-    public function edit(string $id)
+    public function edit(Peminjaman $peminjaman)
     {
-        $peminjamans = Peminjaman::findOrFail($id);
-        return view('admin.peminjaman.edit', compact('peminjamans'));
+        return view('admin.peminjaman.edit', compact('peminjaman'));
     }
 
-    /**
-     * Memperbarui data transaksi (Perpanjang Masa Pinjam).
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Peminjaman $peminjaman)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
-
-        $request->validate([
-            'tanggal_pinjam' => 'required|date',
-        ], [
-            'tanggal_pinjam.required' => 'Tanggal pinjam wajib diisi.',
-            'tanggal_pinjam.date' => 'Format tanggal tidak valid.',
-        ]);
-
-        $tglPinjam = Carbon::parse($request->tanggal_pinjam);
-        $jatuhTempo = $tglPinjam->copy()->addDays(7);
-
-        $peminjaman->update([
-            'tanggal_pinjam' => $tglPinjam,
-            'tanggal_jatuh_tempo' => $jatuhTempo,
-        ]);
-
-        return redirect()->route('admin.peminjaman.index')
-            ->with('success', 'Data peminjaman berhasil diperbarui!')
-            ->with('alert-type', 'warning');
-    }
-
-    /**
-     * Menghapus transaksi dan mengembalikan stok buku.
-     */
-    public function destroy(string $id)
-    {
-        $peminjaman = Peminjaman::findOrFail($id);
-
-        DB::beginTransaction();
         try {
-            if ($peminjaman->status === 'dipinjam') {
-                if ($peminjaman->buku) {
-                    $peminjaman->buku->increment('stok', 1);
-                }
+            $request->validate([
+                'tanggal_pinjam' => 'required|date',
+            ]);
+
+            $tglPinjam = Carbon::parse($request->tanggal_pinjam);
+
+            $peminjaman->update([
+                'tanggal_pinjam' => $tglPinjam,
+                'tanggal_jatuh_tempo' => $tglPinjam->copy()->addDays(7),
+            ]);
+
+            return redirect()
+                ->route('admin.peminjaman.index')
+                ->with('success', 'Data peminjaman berhasil diperbarui.')
+                ->with('alert-type', 'warning');
+
+        } catch (ValidationException $e) {
+            return back()
+                ->withErrors($e->validator)
+                ->withInput()
+                ->with('error', 'Data peminjaman gagal diperbarui.');
+        }
+    }
+
+    public function destroy(Peminjaman $peminjaman)
+    {
+        DB::beginTransaction();
+
+        try {
+            if ($peminjaman->status === 'dipinjam' && $peminjaman->buku) {
+                $peminjaman->buku->increment('stok', 1);
             }
 
             $peminjaman->delete();
 
             DB::commit();
 
-            return redirect()->route('admin.peminjaman.index')
-                ->with('success', 'Transaksi berhasil dihapus dan stok dikembalikan!')
+            return redirect()
+                ->route('admin.peminjaman.index')
+                ->with('success', 'Transaksi berhasil dihapus.')
                 ->with('alert-type', 'danger');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()
-                ->with('error', 'Gagal menghapus data: ' . $e->getMessage())
+
+            return back()
+                ->with('error', 'Data peminjaman gagal dihapus.')
                 ->with('alert-type', 'danger');
         }
     }

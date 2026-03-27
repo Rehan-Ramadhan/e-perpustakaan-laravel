@@ -1,71 +1,87 @@
-@extends('layouts.app')
+@extends('admin.app')
 
-@section('title', 'Daftar Pengembalian')
+@section('title', 'Pengembalian')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        @if(session('success'))
-            <div class="alert alert-{{ session('alert-type', 'success') }} alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Gagal!</strong> {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fw-bold mb-0">Daftar Pengembalian</h2>
-            <a href="{{ route('pengembalian.create') }}" class="btn btn-primary">Tambah Pengembalian</a>
+    @if (session('success'))
+        <div class="alert alert-{{ session('alert-type', 'light') }} alert-dismissible fade show">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
+    @endif
 
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show">
+            <strong>Gagal!</strong> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Pengembalian</h2>
+            <p class="text-muted mb-0">Daftar Pengembalian</p>
+        </div>
+        <a href="{{ route('admin.pengembalian.create') }}" class="btn btn-primary">
+            Tambah Pengembalian
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">No</th>
+                        <th>No. Pinjam</th>
+                        <th>Peminjam</th>
+                        <th>Buku</th>
+                        <th class="text-center">Tanggal Kembali</th>
+                        <th class="text-center">Denda</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($pengembalians as $data)
                         <tr>
-                            <th>No.</th>
-                            <th>Kode Pinjam</th>
-                            <th>Peminjam</th>
-                            <th>Tanggal Kembali</th>
-                            <th>Denda</th>
-                            <th>Aksi</th>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td>{{ $data->peminjaman->nomor_peminjaman }}</td>
+                            <td>{{ $data->peminjaman->user->name ?? '-' }}</td>
+                            <td>{{ $data->peminjaman->buku->nama ?? '-' }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($data->tanggal_kembali)->format('d/m/Y') }}</td>
+                            <td class="text-center">
+                                <span class="{{ $data->denda > 0 ? 'text-danger' : 'text-success' }}">
+                                    Rp {{ number_format($data->denda, 0, ',', '.') }}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <form action="{{ route('admin.pengembalian.destroy', $data) }}" method="POST"
+                                    onsubmit="return confirm('Yakin hapus pengembalian ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="btn-group">
+                                        <a href="{{ route('admin.pengembalian.show', $data) }}"
+                                            class="btn btn-sm btn-outline-info">
+                                            <i class="bx bx-show"></i>
+                                        </a>
+                                        <a href="{{ route('admin.pengembalian.edit', $data) }}"
+                                            class="btn btn-sm btn-outline-warning">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        @forelse($pengembalians as $data)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $data->peminjaman->kode_transaksi }}</td>
-                                <td>{{ $data->peminjaman->pengguna->nama }}</td>
-                                <td>{{ \Carbon\Carbon::parse($data->tgl_kembali_aktual)->translatedFormat('d/m/Y') }}</td>
-                                <td>Rp {{ number_format($data->denda, 0, ',', '.') }}</td>
-                                <td>
-                                    <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin hapus data pengembalian ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('pengembalian.show', $data->id) }}"
-                                                class="btn btn-sm btn-info text-white"><i class="bx bx-show me-1"></i></a>
-                                            <a href="{{ route('pengembalian.edit', $data->id) }}"
-                                                class="btn btn-sm btn-outline-warning"><i class="bx bx-edit me-1"></i></a>
-                                            <button type="submit" class="btn btn-sm btn-outline-danger"><i
-                                                    class="bx bx-trash me-1"></i></button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center">Belum ada data pengembalian.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center py-4">Belum ada data pengembalian.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

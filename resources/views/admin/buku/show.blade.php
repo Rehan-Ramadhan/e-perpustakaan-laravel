@@ -10,7 +10,7 @@
         </div>
         <div class="d-flex gap-2">
             <a href="{{ route('admin.buku.index') }}" class="btn btn-outline-secondary">Kembali</a>
-            <a href="{{ route('admin.buku.edit', $buku) }}" class="btn btn-primary">Edit Buku</a>
+            <a href="{{ route('admin.buku.edit', $buku) }}" class="btn btn-warning">Edit Buku</a>
         </div>
     </div>
 
@@ -64,11 +64,13 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header border-bottom">
-                    <h5 class="mb-0">Status Buku &nbsp; <span
-                            class="badge bg-label-{{ $buku->status_color }} fs-6">{{ $buku->status_label }}</span></h5>
+                    <h5 class="mb-0">Status Buku &nbsp;
+                        <span class="badge bg-label-{{ $buku->status_color }} fs-6">
+                            {{ $buku->status_label }}
+                        </span>
+                    </h5>
                 </div>
                 <div class="card-body">
-                    <div class="mb-2"></div>
                     <p class="mb-2"><strong>Visibilitas:</strong>
                         {{ $buku->is_active ? 'Aktif di katalog' : 'Disembunyikan' }}</p>
                     <p><strong>Slug:</strong> {{ $buku->slug }}</p>

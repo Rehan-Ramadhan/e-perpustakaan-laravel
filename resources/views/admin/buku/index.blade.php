@@ -44,7 +44,6 @@
                     @forelse ($bukus as $buku)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            {{-- <td class="text-center"><span class="fw-semibold">{{ $buku->kode_buku }}</span></td> --}}
                             <td>{{ $buku->nama }}</td>
                             <td>{{ $buku->kategori->nama ?? '-' }}</td>
                             <td>{{ $buku->pengarang }}</td>
@@ -59,16 +58,13 @@
                                     @csrf
                                     @method('DELETE')
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('admin.buku.show', $buku) }}" class="btn btn-sm btn-outline-info"
-                                            title="Detail" aria-label="Detail">
+                                        <a href="{{ route('admin.buku.show', $buku) }}" class="btn btn-sm btn-outline-info">
                                             <i class="bx bx-show"></i>
                                         </a>
-                                        <a href="{{ route('admin.buku.edit', $buku) }}" class="btn btn-sm btn-outline-warning"
-                                            title="Edit" aria-label="Edit">
+                                        <a href="{{ route('admin.buku.edit', $buku) }}" class="btn btn-sm btn-outline-warning">
                                             <i class="bx bx-edit"></i>
                                         </a>
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus"
-                                            aria-label="Hapus">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
                                             <i class="bx bx-trash"></i>
                                         </button>
                                     </div>

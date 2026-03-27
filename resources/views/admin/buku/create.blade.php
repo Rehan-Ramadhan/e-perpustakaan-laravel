@@ -23,7 +23,7 @@
                     'kodeBuku' => $otomatisKode,
                     'submitLabel' => 'Simpan Buku',
                 ])
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 @endsection

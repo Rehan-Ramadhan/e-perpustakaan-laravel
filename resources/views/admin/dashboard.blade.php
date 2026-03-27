@@ -18,7 +18,7 @@
                             <div class="card-body">
                                 <h5 class="card-title text-primary">Panel Kendali Administrator</h5>
                                 <p class="mb-4">
-                                    Selamat datang kembali, <strong>{{ Auth::user()->nama }}</strong>. Hari ini adalah
+                                    Selamat datang kembali, <strong>{{ Auth::user()->name }}</strong>. Hari ini adalah
                                     @php
                                         \Carbon\Carbon::setLocale('id');
                                     @endphp
@@ -124,8 +124,8 @@
                             <tbody class="table-border-bottom-0">
                                 @forelse($transaksiTerbaru as $trx)
                                     <tr>
-                                        <td><strong>{{ $trx->kode_transaksi }}</strong></td>
-                                        <td>{{ $trx->pengguna->nama }}</td>
+                                        <td><strong>{{ $trx->nomor_peminjaman }}</strong></td>
+                                        <td>{{ $trx->user->name }}</td>
                                         <td>{{ \Carbon\Carbon::parse($trx->tgl_pinjam)->translatedFormat('d F Y') }}</td>
                                         <td>
                                             <span
