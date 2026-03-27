@@ -12,6 +12,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('nik')->unique()->after('id');
             $table->enum('role', ['pengguna', 'admin'])->default('pengguna')->after('password');
             $table->string('avatar')->nullable()->after('role');
             $table->string('google_id')->nullable()->unique()->after('avatar');
@@ -28,7 +29,7 @@ return new class extends Migration {
     public function down(): void
     {
             Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['role', 'avatar', 'google_id', 'telepon', 'alamat']);
+            $table->dropColumn(['nik', 'role', 'avatar', 'google_id', 'telepon', 'alamat']);
         });
     }
 };

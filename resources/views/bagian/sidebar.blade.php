@@ -47,14 +47,14 @@
         <li class="menu-item {{ request()->is('peminjaman*') ? 'active' : '' }}">
             <a href="{{ route('admin.peminjaman.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-repost"></i>
-                <div data-i18n="Tables">Peminjaman</div>
+                <div data-i18n="Tables">Data Peminjaman</div>
             </a>
         </li>
 
         <li class="menu-item {{ request()->is('pengembalian*') ? 'active' : '' }}">
             <a href="{{ route('admin.pengembalian.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-rotate-left"></i>
-                <div data-i18n="Tables">Pengembalian</div>
+                <div data-i18n="Tables">Data Pengembalian</div>
             </a>
         </li>
 

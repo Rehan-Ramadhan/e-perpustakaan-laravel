@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
 
-// Import Controllers
 use App\Http\Controllers\Pengguna\BukuController as PenggunaBukuController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -14,38 +13,37 @@ use App\Http\Controllers\Admin\KategoriController as AdminKategoriController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengembalianController;
 
-// Publik
+// publik
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/katalog', [PenggunaBukuController::class, 'index'])->name('pengguna.buku.index');
 Route::get('/katalog/{slug}', [PenggunaBukuController::class, 'show'])->name('pengguna.buku.show');
 
-// Auth Routes
 Auth::routes();
 
-// Pengguna (Wajib Login)
+// pengguna (wajib wogin)
 Route::middleware(['auth'])->group(function () {
     Route::get('/keinginan', [PenggunaBukuController::class, 'keinginan'])->name('pengguna.keinginan.index');
 });
 
-// Admin Area
+// admin
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
-    ->name('admin.') // Semua route di bawah ini diawali 'admin.'
+    ->name('admin.')
     ->group(function () {
 
-        // Dashboard
+        // dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        // CRUD Resources
+        // crud resources
         Route::resource('buku', AdminBukuController::class);
         Route::resource('kategori', AdminKategoriController::class)->except(['show']);
         Route::resource('peminjaman', PeminjamanController::class);
         Route::resource('pengembalian', PengembalianController::class);
 
-        // Management User
-        Route::get('user', [UserController::class, 'index'])->name('user.index');
+        // manajemen pengguna 
+        Route::resource('user', UserController::class);
 
-        // Laporan
+        // laporan
         Route::get('/reports', [DashboardController::class, 'reports'])->name('reports.index');
     });

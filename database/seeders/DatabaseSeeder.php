@@ -17,21 +17,27 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Memulai pengiriman database...');
 
         User::factory()->create([
+            'nik' => '001',
             'name' => 'Administrator',
             'email' => 'admin@eperpustakaan.com',
             'role' => 'admin',
             'email_verified_at' => now(),
         ]);
 
-        User::factory(15)->create([
-            'role' => 'pengguna'
-        ]);
-
         User::factory()->create([
+            'nik' => '002',
             'name' => 'Tes',
             'email' => 'tes@gmail.com',
             'role' => 'pengguna',
             'password' => bcrypt('password'),
+        ]);
+
+        User::factory(15)->create([
+            'nik' => function () {
+                static $counter = 3;
+                return str_pad($counter++, 3, '0', STR_PAD_LEFT);
+            },
+            'role' => 'pengguna'
         ]);
 
         $this->command->info('User Admin & 15+ Pengguna berhasil dibuat.');

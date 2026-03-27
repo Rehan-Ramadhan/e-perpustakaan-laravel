@@ -23,12 +23,12 @@ class BukuController extends Controller
 
         $kategoris = Kategori::all();
 
-        return view('pengguna.buku.index', compact('bukus', 'kategoris'));
+        return view('user.buku.index', compact('bukus', 'kategoris'));
     }
 
     public function show($slug)
     {
         $buku = Buku::with(['kategori', 'gambarBukus'])->where('slug', $slug)->firstOrFail();
-        return view('pengguna.buku.show', compact('buku'));
+        return view('user.buku.show', compact('buku'));
     }
 }
