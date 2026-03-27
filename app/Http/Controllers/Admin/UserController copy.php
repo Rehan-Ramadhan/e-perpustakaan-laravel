@@ -47,7 +47,7 @@ class UserController extends Controller
             User::create($request->all());
 
             return redirect()
-                ->route('admin.user.index')
+                ->route('admin.pengguna.index')
                 ->with('success', 'User baru [' . $otomatisKode . '] berhasil ditambahkan.')
                 ->with('alert-type', 'primary');
         } catch (ValidationException $e) {
@@ -85,7 +85,7 @@ class UserController extends Controller
             $user->update($request->all());
 
             return redirect()
-                ->route('admin.user.index')
+                ->route('admin.pengguna.index')
                 ->with('success', 'Data user berhasil diperbarui.')
                 ->with('alert-type', 'warning');
         } catch (ValidationException $e) {
@@ -102,7 +102,7 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()
-            ->route('admin.user.index')
+            ->route('admin.pengguna.index')
             ->with('success', 'User [' . $nik . '] berhasil dihapus.')
             ->with('alert-type', 'danger');
     }
