@@ -7,7 +7,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ config('app.name', 'e-perpus') }}</title>
+    <title>@yield('title') | {{ config('app.name', 'e-perpustakaan') }}</title>
 
     <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/favicon/favicon.png') }}" />
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ config('app.name', 'e-perpus') }}</title>
+    <title>@yield('title') | {{ config('app.name', 'e-perpustakaan') }}</title>
 
     <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/favicon/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('admin/vendor/fonts/boxicons.css') }}" />
@@ -32,7 +32,7 @@
                             <div class="p-5 text-center">
                                 <img src="{{ asset('admin/img/favicon/favicon.png') }}" class="img-fluid mb-4"
                                     style="max-height: 120px;">
-                                <h3 class="fw-bold mb-2" style="color:#547c9a;">E-Perpus</h3>
+                                <h3 class="fw-bold mb-2" style="color:#547c9a;">e-perpustakaan</h3>
                                 <div class="mb-3">
                                     <span class="badge rounded-pill" style="background:#547C9A;">Sistem Informasi
                                         Perpustakaan</span>
