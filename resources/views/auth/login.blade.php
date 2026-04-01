@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="d-grid mb-3">
-                    <button class="btn btn-primary py-2 fw-bold">Masuk</button>
+                    <button class="btn" style="background-color: #547c9a; color: white;"   py-2 fw-bold">Masuk</button>
                 </div>
 
                 <div class="position-relative mb-3">
