@@ -1,0 +1,138 @@
+:root {
+    --primary: #547c9a;
+    --primary-dark: #3f637d;
+    --primary-light: #6f96b3;
+    --primary-soft: #e7f0f6;
+
+    --bg-main: #f4f7fb;
+    --text-main: #2c3e50;
+}
+
+body {
+    font-family: "Poppins", sans-serif !important;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+/* navbar */
+.bg-navbar-theme {
+    background: linear-gradient(135deg, #547c9a, #3f637d);
+    border-radius: 0 0 100px 100px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.bg-navbar-theme .nav-link,
+.bg-navbar-theme .dropdown-toggle {
+    color: #fff !important;
+}
+
+/* sidebar */
+.bg-menu-theme {
+    background: #f9fbfd;
+    border-right: 1px solid #e3e8ee;
+}
+
+.app-brand {
+    padding: 16px;
+}
+
+.app-brand-text {
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* menu */
+.menu-link {
+    border-radius: 12px;
+    margin: 6px 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #555;
+}
+
+.menu-link:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.menu-vertical .menu-item.active > .menu-link {
+    background: linear-gradient(135deg, #547c9a, #3f637d);
+    color: #fff !important;
+    box-shadow: 0 6px 14px rgba(84, 124, 154, 0.3);
+}
+
+/* icon */
+.menu-icon {
+    font-size: 18px;
+    margin-right: 10px;
+    color: var(--primary);
+}
+
+/* card */
+.card {
+    border: none;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* button */
+.btn-primary {
+    background: var(--primary);
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+/* table */
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: var(--primary-soft);
+}
+
+.table th {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* form control */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #dce3ea;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.15rem rgba(84, 124, 154, 0.25);
+}
+
+/* layout */
+.container-xxl {
+    max-width: 95%;
+}
+
+.layout-page {
+    padding: 10px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}

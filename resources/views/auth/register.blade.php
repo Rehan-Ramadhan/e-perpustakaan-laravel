@@ -1,79 +1,69 @@
 @extends('layouts.auth')
 
-@section('title', 'Registrasi')
+@section('title', 'Register')
 
 @section('content')
-    <div class="authentication-wrapper authentication-basic">
-        <div class="authentication-inner" style="max-width: 450px;">
-            <div class="card">
-                <div class="card-body px-4 py-4">
-                    <div class="app-brand justify-content-center">
-                        <a class="app-brand-link gap-2">
-                            <span class="app-brand-logo demo">
-                                <img src="{{ asset('assets/img/favicon/favicon.png') }}" alt="Logo" width="32">
-                            </span>
-                            <span class="app-brand-text demo text-body fw-bolder text-uppercase">e-Perpus</span>
-                        </a>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <h4 class="mb-2">Daftar Akun Baru</h4>
-                    </div>
-                    <p class="mb-4 text-center">Lengkapi formulir di bawah ini untuk mendaftarkan akun Anda.</p>
+    <div class="col-md-6">
 
-                    <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" placeholder="Masukkan nama lengkap" value="{{ old('name') }}" autofocus />
-                            @error('name')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Alamat Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                name="email" placeholder="Masukkan alamat email" value="{{ old('email') }}" />
-                            @error('email')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3 form-password-toggle">
-                            <label class="form-label" for="password">Kata Sandi</label>
-                            <div class="input-group input-group-merge">
-                                <input type="password" id="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    placeholder="Minimal 8 karakter" />
-                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="mb-3 form-password-toggle">
-                            <label class="form-label" for="password-confirm">Konfirmasi Kata Sandi</label>
-                            <div class="input-group input-group-merge">
-                                <input type="password" id="password-confirm" class="form-control"
-                                    name="password_confirmation" placeholder="Konfirmasi kata sandi" />
-                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-primary d-grid w-100" type="submit">Daftar Akun</button>
-                    </form>
-
-                    <p class="text-center">
-                        <span>Sudah memiliki akun?</span>
-                        <a href="{{ route('login') }}">
-                            <span>Masuk kembali</span>
-                        </a>
-                    </p>
-                </div>
-            </div>
+        <div style="background: linear-gradient(135deg,#547c9a,#3f637d);" class="text-white text-center py-4">
+            <h4 class="fw-bold mb-0" style="color:white;">Daftar Akun</h4>
+            <small>Lengkapi data untuk bergabung</small>
         </div>
+
+        <div class="card-body p-4 p-md-5">
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+
+                <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" name="name" placeholder="Nama lengkap">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Konfirmasi</label>
+                    <input type="password" class="form-control" name="password_confirmation" placeholder="Ulangi password">
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button class="btn btn-primary py-2 fw-bold">Daftar</button>
+                </div>
+
+                <div class="position-relative mb-3">
+                    <hr>
+                    <span class="position-absolute top-50 start-50 translate-middle bg-white px-2 small text-muted">
+                        atau
+                    </span>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <a href="#" class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-2 py-2"
+                        style="border-radius: 10px;">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18">
+                        Daftar dengan Google
+                    </a>
+                </div>
+
+                <div class="text-center">
+                    <small>
+                        Sudah punya akun?
+                        <a href="{{ route('login') }}" style="color:#547c9a;" class="fw-bold">
+                            Masuk
+                        </a>
+                    </small>
+                </div>
+
+            </form>
+        </div>
+
     </div>
 @endsection

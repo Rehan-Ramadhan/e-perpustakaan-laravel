@@ -3,85 +3,74 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="authentication-wrapper authentication-basic">
-        <div class="authentication-inner">
-            <div class="card">
-                <div class="card-body">
-                    <div class="app-brand justify-content-center">
-                        <a class="app-brand-link gap-2">
-                            <span class="app-brand-logo demo">
-                                <img src="{{ asset('assets/img/favicon/favicon.png') }}" alt="Logo" width="32">
-                            </span>
-                            <span class="app-brand-text demo text-body fw-bolder text-uppercase">e-Perpus</span>
-                        </a>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <h4 class="mb-2">Selamat Datang Kembali!</h4>
-                    </div>
-                    <p class="mb-4 text-center">Silakan masuk untuk mengakses sistem perpustakaan.</p>
+    <div class="col-md-6">
 
-                    <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Alamat Email</label>
-                            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                                name="email" placeholder="Masukkan email Anda" value="{{ old('email') }}" autofocus />
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3 form-password-toggle">
-                            <div class="d-flex justify-content-between">
-                                <label class="form-label" for="password">Kata Sandi</label>
-                            </div>
-                            <div class="input-group input-group-merge">
-                                <input type="password" id="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    placeholder="Minimal 8 karakter" aria-describedby="password" />
-                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" name="remember"
-                                    {{ old('remember') ? 'checked' : '' }} />
-                                <label class="form-check-label" for="remember-me"> Ingat Saya </label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100" type="submit">Masuk</button>
-                        </div>
-                    </form>
-
-                    <p class="text-center">
-                        <span>Belum memiliki akun?</span>
-                        <a href="{{ route('register') }}">
-                            <span>Daftar sekarang</span>
-                        </a>
-                    </p>
-                </div>
-            </div>
+        <div style="background: linear-gradient(135deg,#547c9a,#3f637d);" class="text-white text-center py-4">
+            <h4 class="fw-bold mb-0" style="color:white;">Selamat Datang Kembali</h4>
+            <small>Akses akunmu dan lanjutkan perjalanan literasimu!</small>
         </div>
+
+        <div class="card-body p-4 p-md-5">
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                            <i class="bx bx-envelope"></i>
+                        </span>
+                        <input type="email" class="form-control border-start-0 @error('email') is-invalid @enderror"
+                            name="email" value="{{ old('email') }}" placeholder="Masukkan email">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                            <i class="bx bx-lock"></i>
+                        </span>
+                        <input type="password" class="form-control border-start-0 @error('password') is-invalid @enderror"
+                            name="password" placeholder="Masukkan password">
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" name="remember">
+                    <label class="form-check-label">Ingat saya</label>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button class="btn btn-primary py-2 fw-bold">Masuk</button>
+                </div>
+
+                <div class="position-relative mb-3">
+                    <hr>
+                    <span class="position-absolute top-50 start-50 translate-middle bg-white px-2 small text-muted">
+                        atau
+                    </span>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <a href="#" class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-2 py-2"
+                        style="border-radius: 10px;">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18">
+                        Login dengan Google
+                    </a>
+                </div>
+
+                <div class="text-center">
+                    <small>
+                        Belum punya akun?
+                        <a href="{{ route('register') }}" style="color:#547c9a;" class="fw-bold">
+                            Daftar
+                        </a>
+                    </small>
+                </div>
+
+            </form>
+        </div>
+
     </div>
-
-    <style>
-        .authentication-wrapper.authentication-basic {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .authentication-inner {
-            max-width: 400px;
-            width: 100%;
-        }
-    </style>
 @endsection

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-xxl">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="fw-bold mb-0">Dashboard</h2>
             <a href="{{ route('admin.reports.index') }}" class="btn btn-primary">
@@ -16,7 +16,7 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-7">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Panel Kendali Administrator</h5>
+                                <h5 class="card-title">Panel Kendali Administrator</h5>
                                 <p class="mb-4">
                                     Selamat datang kembali, <strong>{{ Auth::user()->name }}</strong>. Hari ini adalah
                                     @php
@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-sm-5 text-center text-sm-left">
                             <div class="card-body pb-0 px-0 px-md-4">
-                                <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}" height="140"
+                                <img src="{{ asset('admin/img/illustrations/man-with-laptop-light.png') }}" height="140"
                                     alt="Admin Dashboard">
                             </div>
                         </div>
