@@ -9,6 +9,7 @@ use App\Services\BukuService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Exception;
 
 class BukuController extends Controller
 {
@@ -41,22 +42,13 @@ class BukuController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $buku = new Buku();
             $buku->fill($request->all());
             $buku->is_active = $request->boolean('is_active');
 
-            $this->bukuService->validate($buku);
-
             $request->validate([
                 'images' => 'required|array|min:1',
                 'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-            ], [
-                'images.required' => 'Minimal 1 gambar wajib diupload.',
-                'images.min' => 'Minimal 1 gambar wajib diupload.',
-                'images.*.image' => 'File harus berupa gambar.',
-                'images.*.mimes' => 'Format gambar harus jpeg, png, atau jpg.',
-                'images.*.max' => 'Ukuran gambar maksimal 2MB.',
             ]);
 
             $this->bukuService->create($buku);
@@ -66,26 +58,10 @@ class BukuController extends Controller
             }
 
             DB::commit();
-
-            return redirect()
-                ->route('admin.buku.index')
-                ->with('success', 'Buku baru [' . $buku->kode_buku . '] berhasil ditambahkan.')
-                ->with('alert-type', 'primary');
-
-        } catch (ValidationException $e) {
+            return redirect()->route('admin.buku.index')->with('success', 'Buku berhasil disimpan.');
+        } catch (Exception $e) {
             DB::rollBack();
-
-            return back()
-                ->withErrors($e->validator)
-                ->withInput()
-                ->with('error', 'Data buku gagal disimpan. Periksa kembali isian form.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return back()
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan saat menyimpan data buku.');
+            return back()->withInput()->with('error', $e->getMessage());
         }
     }
 
@@ -97,31 +73,16 @@ class BukuController extends Controller
 
     public function edit(Buku $buku)
     {
-        $buku->load('gambarBukus');
-
-        return view('admin.buku.edit', [
-            'buku' => $buku,
-            'kategoris' => Kategori::all(),
-        ]);
+        $kategoris = Kategori::all();
+        return view('admin.buku.edit', compact('buku', 'kategoris'));
     }
 
     public function update(Request $request, Buku $buku)
     {
         try {
             DB::beginTransaction();
-
             $buku->fill($request->all());
             $buku->is_active = $request->boolean('is_active');
-
-            $this->bukuService->validate($buku);
-
-            $request->validate([
-                'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-            ], [
-                'images.*.image' => 'File harus berupa gambar.',
-                'images.*.mimes' => 'Format gambar harus jpeg, png, atau jpg.',
-                'images.*.max' => 'Ukuran gambar maksimal 2MB.',
-            ]);
 
             $this->bukuService->update($buku);
 
@@ -130,43 +91,16 @@ class BukuController extends Controller
             }
 
             DB::commit();
-
-            return redirect()
-                ->route('admin.buku.index')
-                ->with('success', 'Data buku berhasil diperbarui.')
-                ->with('alert-type', 'warning');
-
-        } catch (ValidationException $e) {
+            return redirect()->route('admin.buku.index')->with('success', 'Buku diperbarui.');
+        } catch (Exception $e) {
             DB::rollBack();
-
-            return back()
-                ->withErrors($e->validator)
-                ->withInput()
-                ->with('error', 'Data buku gagal diperbarui. Periksa kembali isian form.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return back()
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan saat memperbarui data buku.');
+            return back()->withInput()->with('error', $e->getMessage());
         }
     }
 
     public function destroy(Buku $buku)
     {
-        try {
-            $kode = $buku->kode_buku;
-
-            $this->bukuService->delete($buku);
-
-            return redirect()
-                ->route('admin.buku.index')
-                ->with('success', 'Buku [' . $kode . '] berhasil dihapus.')
-                ->with('alert-type', 'danger');
-
-        } catch (\Exception $e) {
-            return back()->with('error', 'Data buku gagal dihapus.');
-        }
+        $this->bukuService->delete($buku);
+        return redirect()->route('admin.buku.index')->with('success', 'Buku dihapus.');
     }
 }

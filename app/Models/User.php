@@ -48,6 +48,7 @@ class User extends Authenticatable
         ];
     }
 
+    // ==================== RELATIONSHIPS ====================
 
     /**
      * User memiliki satu keranjang aktif.
@@ -82,6 +83,8 @@ class User extends Authenticatable
         return $this->hasMany(Peminjaman::class);
     }
 
+    // ==================== HELPER METHODS ====================
+
     /**
      * Cek apakah user adalah admin.
      */
@@ -107,7 +110,6 @@ class User extends Authenticatable
             ->where('buku_id', $buku->id)
             ->exists();
     }
-
 
     /**
      * Mendapatkan URL Avatar dengan logika prioritas:
