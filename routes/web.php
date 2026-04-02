@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\GoogleController;
+
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\Pengguna\BukuController as PenggunaBukuController;
@@ -21,6 +24,13 @@ Route::get('/katalog', [PenggunaBukuController::class, 'index'])->name('pengguna
 Route::get('/katalog/{slug}', [PenggunaBukuController::class, 'show'])->name('pengguna.buku.show');
 
 Auth::routes();
+
+Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5,1');
+
+Route::controller(GoogleController::class)->group(function () {
+    Route::get('/auth/google', 'redirect')->name('auth.google');
+    Route::get('/auth/google/callback', 'callback')->name('auth.google.callback');
+});
 
 // pengguna (wajib wogin)
 Route::middleware(['auth'])->group(function () {

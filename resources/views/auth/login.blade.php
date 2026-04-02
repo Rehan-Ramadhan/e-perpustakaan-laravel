@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="d-grid mb-3">
-                    <a href="#" class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-2 py-2"
+                    <a href="{{ route('auth.google') }}" class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-2 py-2"
                         style="border-radius: 10px;">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18">
                         Login dengan Google
