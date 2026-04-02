@@ -16,14 +16,14 @@
             <h5 class="mb-0">Form Buku Baru</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.buku.store') }}" method="POST">
+            <form action="{{ route('admin.buku.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('admin.buku._form', [
                     'buku' => null,
                     'kodeBuku' => $otomatisKode,
                     'submitLabel' => 'Simpan Buku',
                 ])
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
 @endsection

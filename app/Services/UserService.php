@@ -26,7 +26,13 @@ class UserService
             'alamat' => 'required|string',
         ], [
             'required' => ':attribute wajib diisi.',
-            'unique' => 'Nomor user sudah terdaftar.',
+            'unique' => ':attribute sudah terdaftar.',
+            'numeric' => ':attribute harus berupa angka.',
+        ], [
+            'nik' => 'NIK',
+            'name' => 'Nama',
+            'telepon' => 'Telepon',
+            'alamat' => 'Alamat',
         ]);
 
         if ($validator->fails()) {

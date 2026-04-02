@@ -176,23 +176,30 @@ class BukuSeeder extends Seeder
             ],
         ];
 
-        foreach ($bukus as $buku) {
-            $categoryId = $kategoris[$buku['kategori']] ?? null;
+        foreach ($bukus as $bukuData) {
+            $categoryId = $kategoris[$bukuData['kategori']] ?? null;
 
             if ($categoryId) {
-                Buku::create([
+                $newBuku = Buku::create([
                     'kategori_id' => $categoryId,
-                    'nama' => $buku['nama'],
-                    'slug' => Str::slug($buku['nama'] . '-' . Str::random(5)),
-                    'pengarang' => $buku['pengarang'],
-                    'penerbit' => $buku['penerbit'],
-                    'tahun_terbit' => $buku['tahun_terbit'],
-                    'lokasi_rak' => $buku['lokasi_rak'],
-                    'deskripsi' => $buku['deskripsi'],
-                    'gambar' => 'books/' . $buku['gambar'],
+                    'nama' => $bukuData['nama'],
+                    'slug' => Str::slug($bukuData['nama'] . '-' . Str::random(5)),
+                    'pengarang' => $bukuData['pengarang'],
+                    'penerbit' => $bukuData['penerbit'],
+                    'tahun_terbit' => $bukuData['tahun_terbit'],
+                    'lokasi_rak' => $bukuData['lokasi_rak'],
+                    'deskripsi' => $bukuData['deskripsi'],
+                    'gambar' => 'books/' . $bukuData['gambar'],
                     'stok' => rand(5, 50),
                     'is_active' => true,
                     'is_featured' => rand(0, 1),
+                ]);
+
+                \App\Models\GambarBuku::create([
+                    'buku_id' => $newBuku->id,
+                    'lokasi_gambar' => 'books/' . $bukuData['gambar'],
+                    'is_primary' => true,
+                    'urutan' => 0,
                 ]);
             }
         }

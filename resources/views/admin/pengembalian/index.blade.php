@@ -4,7 +4,7 @@
 
 @section('content')
     @if (session('success'))
-        <div class="alert alert-{{ session('alert-type', 'light') }} alert-dismissible fade show">
+        <div class="alert alert-{{ session('alert-type', 'primary') }} alert-dismissible fade show">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>

@@ -10,7 +10,7 @@ class GambarBuku extends Model
 {
     protected $fillable = [
         'buku_id',
-        'lokasi_sampul',
+        'lokasi_gambar',
         'is_primary',
         'urutan',
     ];
@@ -35,11 +35,11 @@ class GambarBuku extends Model
      */
     public function getUrlGambarAttribute(): string
     {
-        if (str_starts_with($this->lokasi_sampul ?? '', 'http')) {
-            return $this->lokasi_sampul;
+        if (str_starts_with($this->lokasi_gambar ?? '', 'http')) {
+            return $this->lokasi_gambar;
         }
 
-        return asset('storage/' . $this->lokasi_sampul);
+        return asset('storage/' . $this->lokasi_gambar);
     }
 
 
@@ -51,8 +51,8 @@ class GambarBuku extends Model
         parent::boot();
 
         static::deleting(function ($gambar) {
-            if ($gambar->lokasi_sampul && Storage::disk('public')->exists($gambar->lokasi_sampul)) {
-                Storage::disk('public')->delete($gambar->lokasi_sampul);
+            if ($gambar->lokasi_gambar && Storage::disk('public')->exists($gambar->lokasi_gambar)) {
+                Storage::disk('public')->delete($gambar->lokasi_gambar);
             }
         });
     }

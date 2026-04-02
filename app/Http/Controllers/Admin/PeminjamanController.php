@@ -34,6 +34,11 @@ class PeminjamanController extends Controller
             $request->validate([
                 'user_id' => 'required|exists:users,id',
                 'buku_id' => 'required|exists:bukus,id',
+            ], [
+                'user_id.required' => 'Peminjam wajib dipilih.',
+                'user_id.exists' => 'Peminjam tidak valid.',
+                'buku_id.required' => 'Buku wajib dipilih.',
+                'buku_id.exists' => 'Buku tidak valid.',
             ]);
 
             DB::beginTransaction();

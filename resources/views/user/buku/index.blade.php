@@ -33,7 +33,7 @@
                                 <div class="card-body">
                                     <span class="badge bg-info text-dark mb-2">{{ $buku->kategori->nama }}</span>
                                     <h5 class="card-title fw-bold text-truncate">{{ $buku->nama }}</h5>
-                                    <p class="card-text text-muted small">Penulis: {{ $buku->pengarang }}</p>
+                                    <p class="card-text text-muted small">Pengarang: {{ $buku->pengarang }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span class="text-{{ $buku->stok > 0 ? 'success' : 'danger' }} fw-bold">
                                             Stok: {{ $buku->stok }}

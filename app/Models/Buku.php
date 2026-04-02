@@ -98,13 +98,13 @@ class Buku extends Model
 
     public function getImageUrlAttribute(): string
     {
-        if ($this->primaryImage && $this->primaryImage->lokasi_sampul) {
-            return asset('storage/' . $this->primaryImage->lokasi_sampul);
+        if ($this->primaryImage && $this->primaryImage->lokasi_gambar) {
+            return asset('storage/' . $this->primaryImage->lokasi_gambar);
         } elseif ($this->gambar) {
             return asset('storage/' . $this->gambar);
         }
 
-        return asset('assets/img/elements/18.jpg');
+        return asset('admin/img/elements/18.jpg');
     }
 
     public function getKodeBukuAttribute(): string

@@ -51,6 +51,17 @@
                             <div class="form-control bg-light">{{ $buku->lokasi_rak }}</div>
                         </div>
                         <div class="col-12">
+                            <label class="form-label text-muted">Gambar Buku</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                @forelse ($buku->gambarBukus as $gambar)
+                                    <img src="{{ asset('storage/' . $gambar->lokasi_gambar) }}" alt="gambar buku"
+                                        style="width: 100px; height: 140px; object-fit: cover; border-radius: 8px;">
+                                @empty
+                                    <p class="text-muted">Belum ada gambar.</p>
+                                @endforelse
+                            </div>
+                        </div>
+                        <div class="col-12">
                             <label class="form-label text-muted">Deskripsi</label>
                             <div class="form-control bg-light" style="min-height: 120px;">
                                 {{ $buku->deskripsi ?: 'Belum ada deskripsi.' }}
