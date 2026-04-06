@@ -189,7 +189,7 @@ class BukuSeeder extends Seeder
                     'tahun_terbit' => $bukuData['tahun_terbit'],
                     'lokasi_rak' => $bukuData['lokasi_rak'],
                     'deskripsi' => $bukuData['deskripsi'],
-                    'gambar' => 'books/' . $bukuData['gambar'],
+                    'gambar' => 'buku/' . $bukuData['gambar'],
                     'stok' => rand(5, 50),
                     'is_active' => true,
                     'is_featured' => rand(0, 1),
@@ -197,7 +197,7 @@ class BukuSeeder extends Seeder
 
                 \App\Models\GambarBuku::create([
                     'buku_id' => $newBuku->id,
-                    'lokasi_gambar' => 'books/' . $bukuData['gambar'],
+                    'lokasi_gambar' => 'buku/' . $bukuData['gambar'],
                     'is_primary' => true,
                     'urutan' => 0,
                 ]);
