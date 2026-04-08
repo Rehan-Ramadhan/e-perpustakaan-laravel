@@ -8,7 +8,7 @@
 
     <title>@yield('title') | {{ config('app.name', 'e-perpustakaan') }}</title>
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/favicon/favicon.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/favicon/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('admin/vendor/fonts/boxicons.css') }}" />
     <link rel="stylesheet" href="{{ asset('admin/vendor/css/core.css') }}" />
     <link rel="stylesheet" href="{{ asset('admin/vendor/css/theme-default.css') }}" />
@@ -30,7 +30,7 @@
                         <div
                             class="col-md-6 d-none d-md-flex align-items-center justify-content-center bg-light border-end">
                             <div class="p-5 text-center">
-                                <img src="{{ asset('admin/img/favicon/favicon.png') }}" class="img-fluid mb-4"
+                                <img src="{{ asset('admin/img/favicon/logo.png') }}" class="img-fluid mb-4"
                                     style="max-height: 120px;">
                                 <h3 class="fw-bold mb-2" style="color:#547c9a;">e-perpustakaan</h3>
                                 <div class="mb-3">

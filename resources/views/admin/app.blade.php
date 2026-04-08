@@ -9,7 +9,7 @@
 
     <title>@yield('title') | {{ config('app.name', 'e-perpustakaan') }}</title>
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/favicon/favicon.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/favicon/logo.png') }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="{{ asset('admin/vendor/fonts/boxicons.css') }}" />

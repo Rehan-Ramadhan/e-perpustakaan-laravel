@@ -2,7 +2,7 @@
     <div class="app-brand demo">
         <a href="{{ route('home') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ asset('admin/img/favicon/favicon.png') }}" alt="Logo" width="25">
+                <img src="{{ asset('admin/img/favicon/logo.png') }}" alt="Logo" width="25">
             </span>
             <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: uppercase;">e-perpustakaan</span>
         </a>
