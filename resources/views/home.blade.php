@@ -1283,14 +1283,5 @@
         </div>
       </div>
     </section>
-
-    <script src="{{ asset('pengguna/js/jquery-1.11.0.min.js') }}"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="{{ asset('pengguna/js/plugins.js') }}"></script>
-
-    <script src="{{ asset('pengguna/js/script.js') }}"></script>
   </div>
 @endsection
