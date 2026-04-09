@@ -3,20 +3,6 @@
 @section('title', 'Pengguna')
 
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-{{ session('alert-type', 'primary') }} alert-dismissible fade show">
-            {{ session('success') }}
-            <button class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show">
-            <strong>Gagal!</strong> {{ session('error') }}
-            <button class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-1">Pengguna</h2>
