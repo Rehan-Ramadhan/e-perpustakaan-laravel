@@ -2,33 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
+use App\Models\Buku;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable|\Illuminate\Http\RedirectResponse
-     */
     public function index()
     {
-        $role = auth()->user()->role;
+        $categories = Kategori::query()
+            ->where('is_active', true)
+            ->withCount([
+                'bukus' => function ($q) {
+                    $q->where('is_active', true)
+                        ->where('stok', '>', 0);
+                }
+            ])
+            ->having('bukus_count', '>', 0)
+            ->orderBy('nama')
+            ->take(6)
+            ->get();
 
-        if ($role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        }
+        $featuredBooks = Buku::query()
+            ->with(['kategori'])
+            ->where('is_active', true)
+            ->where('is_featured', true)
+            ->latest()
+            ->take(8)
+            ->get();
 
-        return view('home');
+        $latestBooks = Buku::query()
+            ->with(['kategori'])
+            ->where('is_active', true)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view('home', compact(
+            'categories',
+            'featuredBooks',
+            'latestBooks'
+        ));
     }
 }

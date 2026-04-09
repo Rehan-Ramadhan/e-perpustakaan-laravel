@@ -10,30 +10,36 @@
 
     <div class="navbar-nav align-items-center flex-grow-1 ms-2">
       <div class="nav-item d-flex align-items-center w-100">
-        <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." />
+        <input type="text" class="form-control border-0 shadow-none" placeholder="Cari..." />
       </div>
     </div>
 
     <ul class="navbar-nav flex-row align-items-center ms-auto">
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
+
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
-            <img src="{{ asset('admin/img/avatars/2.png') }}" class="w-px-40 h-auto rounded-circle" />
+            <img src="{{ auth()->user()->avatar_url ?? asset('admin/img/avatars/2.png') }}"
+              class="w-px-40 h-auto rounded-circle" />
           </div>
         </a>
 
         <ul class="dropdown-menu dropdown-menu-end">
+
           <li>
             <a class="dropdown-item" href="#">
               <div class="d-flex">
                 <div class="flex-shrink-0 me-3">
                   <div class="avatar avatar-online">
-                    <img src="{{ asset('admin/img/avatars/2.png') }}" class="w-px-40 h-auto rounded-circle" />
+                    <img src="{{ auth()->user()->avatar_url ?? asset('admin/img/avatars/2.png') }}"
+                      class="w-px-40 h-auto rounded-circle" />
                   </div>
                 </div>
                 <div class="flex-grow-1">
-                  <span class="fw-semibold d-block">Rehan Ramadhan</span>
-                  <small class="text-muted">Admin</small>
+                  <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
+                  <small class="text-muted">
+                    {{ auth()->user()->isAdmin() ? 'Admin' : 'User' }}
+                  </small>
                 </div>
               </div>
             </a>
@@ -46,21 +52,14 @@
           <li>
             <a class="dropdown-item" href="#">
               <i class="bx bx-user me-2"></i>
-              <span>My Profile</span>
+              <span>Profil</span>
             </a>
           </li>
 
           <li>
-            <a class="dropdown-item" href="#">
-              <i class="bx bx-cog me-2"></i>
-              <span>Settings</span>
-            </a>
-          </li>
-
-          <li>
-            <a class="dropdown-item" href="#">
-              <i class="bx bx-credit-card me-2"></i>
-              <span>Billing</span>
+            <a class="dropdown-item" href="{{ route('home') }}" target="_blank">
+              <i class="bx bx-link-external me-2"></i>
+              <span>Beranda</span>
             </a>
           </li>
 
@@ -72,13 +71,14 @@
             <a class="dropdown-item" href="{{ route('logout') }}"
               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="bx bx-power-off me-2"></i>
-              <span>Log Out</span>
+              <span>Logout</span>
             </a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
               @csrf
             </form>
           </li>
+
         </ul>
       </li>
     </ul>
