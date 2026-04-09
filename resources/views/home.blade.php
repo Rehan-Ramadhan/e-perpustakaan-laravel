@@ -1,756 +1,615 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-  <title>template</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
+@section('title', 'Beranda')
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="pengguna/css/vendor.css">
-  <link rel="stylesheet" type="text/css" href="pengguna/style.css">
+@section('content')
+  <div>
+    <section class="py-3"
+      style="background-image: url('{{ asset('pengguna/images/background-pattern.jpg') }}');background-repeat: no-repeat;background-size: cover;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-    rel="stylesheet">
+            <div class="banner-blocks">
 
-</head>
+              <div class="banner-ad large bg-info block-1">
 
-<body>
+                <div class="swiper main-swiper">
+                  <div class="swiper-wrapper">
 
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <defs>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="link" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M12 19a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm5 0a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm0-4a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm-5 0a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm7-12h-1V2a1 1 0 0 0-2 0v1H8V2a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3Zm1 17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9h16Zm0-11H4V6a1 1 0 0 1 1-1h1v1a1 1 0 0 0 2 0V5h8v1a1 1 0 0 0 2 0V5h1a1 1 0 0 1 1 1ZM7 15a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm0 4a1 1 0 1 0-1-1a1 1 0 0 0 1 1Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="arrow-right" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M17.92 11.62a1 1 0 0 0-.21-.33l-5-5a1 1 0 0 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l5-5a1 1 0 0 0 .21-.33a1 1 0 0 0 0-.76Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="category" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M19 5.5h-6.28l-.32-1a3 3 0 0 0-2.84-2H5a3 3 0 0 0-3 3v13a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-10a3 3 0 0 0-3-3Zm1 13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1h4.56a1 1 0 0 1 .95.68l.54 1.64a1 1 0 0 0 .95.68h7a1 1 0 0 1 1 1Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="calendar" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="heart" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M20.16 4.61A6.27 6.27 0 0 0 12 4a6.27 6.27 0 0 0-8.16 9.48l7.45 7.45a1 1 0 0 0 1.42 0l7.45-7.45a6.27 6.27 0 0 0 0-8.87Zm-1.41 7.46L12 18.81l-6.75-6.74a4.28 4.28 0 0 1 3-7.3a4.25 4.25 0 0 1 3 1.25a1 1 0 0 0 1.42 0a4.27 4.27 0 0 1 6 6.05Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="plus" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="minus" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M19 11H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="cart" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M8.5 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 8.5 19ZM19 16H7a1 1 0 0 1 0-2h8.491a3.013 3.013 0 0 0 2.885-2.176l1.585-5.55A1 1 0 0 0 19 5H6.74a3.007 3.007 0 0 0-2.82-2H3a1 1 0 0 0 0 2h.921a1.005 1.005 0 0 1 .962.725l.155.545v.005l1.641 5.742A3 3 0 0 0 7 18h12a1 1 0 0 0 0-2Zm-1.326-9l-1.22 4.274a1.005 1.005 0 0 1-.963.726H8.754l-.255-.892L7.326 7ZM16.5 19a1.5 1.5 0 1 0 1.5 1.5a1.5 1.5 0 0 0-1.5-1.5Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="check" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M18.71 7.21a1 1 0 0 0-1.42 0l-7.45 7.46l-3.13-3.14A1 1 0 1 0 5.29 13l3.84 3.84a1 1 0 0 0 1.42 0l8.16-8.16a1 1 0 0 0 0-1.47Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="trash" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M10 18a1 1 0 0 0 1-1v-6a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1ZM20 6h-4V5a3 3 0 0 0-3-3h-2a3 3 0 0 0-3 3v1H4a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2ZM10 5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h-4Zm7 14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8h10Zm-3-1a1 1 0 0 0 1-1v-6a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="star-outline" viewBox="0 0 15 15">
-        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-          d="M7.5 9.804L5.337 11l.413-2.533L4 6.674l2.418-.37L7.5 4l1.082 2.304l2.418.37l-1.75 1.793L9.663 11L7.5 9.804Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="star-solid" viewBox="0 0 15 15">
-        <path fill="currentColor"
-          d="M7.953 3.788a.5.5 0 0 0-.906 0L6.08 5.85l-2.154.33a.5.5 0 0 0-.283.843l1.574 1.613l-.373 2.284a.5.5 0 0 0 .736.518l1.92-1.063l1.921 1.063a.5.5 0 0 0 .736-.519l-.373-2.283l1.574-1.613a.5.5 0 0 0-.283-.844L8.921 5.85l-.968-2.062Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="search" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="user" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M15.71 12.71a6 6 0 1 0-7.42 0a10 10 0 0 0-6.22 8.18a1 1 0 0 0 2 .22a8 8 0 0 1 15.9 0a1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1a10 10 0 0 0-6.25-8.19ZM12 12a4 4 0 1 1 4-4a4 4 0 0 1-4 4Z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="close" viewBox="0 0 15 15">
-        <path fill="currentColor"
-          d="M7.953 3.788a.5.5 0 0 0-.906 0L6.08 5.85l-2.154.33a.5.5 0 0 0-.283.843l1.574 1.613l-.373 2.284a.5.5 0 0 0 .736.518l1.92-1.063l1.921 1.063a.5.5 0 0 0 .736-.519l-.373-2.283l1.574-1.613a.5.5 0 0 0-.283-.844L8.921 5.85l-.968-2.062Z" />
-      </symbol>
-    </defs>
-  </svg>
+                    <div class="swiper-slide">
+                      <div class="row banner-content p-5">
+                        <div class="content-wrapper col-md-7">
+                          <div class="categories my-3">100% natural</div>
+                          <h3 class="display-4">Fresh Smoothie & Summer Juice</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+                          <a href="#"
+                            class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Shop Now</a>
+                        </div>
+                        <div class="img-wrapper col-md-5">
+                          <img src="{{ asset('pengguna/images/product-thumb-1.png') }}" class="img-fluid">
+                        </div>
+                      </div>
+                    </div>
 
-  <header>
-    <div class="container-fluid">
-      <div class="row py-3 border-bottom">
+                    <div class="swiper-slide">
+                      <div class="row banner-content p-5">
+                        <div class="content-wrapper col-md-7">
+                          <div class="categories mb-3 pb-3">100% natural</div>
+                          <h3 class="banner-title">Fresh Smoothie & Summer Juice</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Shop
+                            Collection</a>
+                        </div>
+                        <div class="img-wrapper col-md-5">
+                          <img src="{{ asset('pengguna/images/product-thumb-1.png') }}" class="img-fluid">
+                        </div>
+                      </div>
+                    </div>
 
-        <div class="col-sm-4 col-lg-3 text-center text-sm-start">
-          <div class="main-logo">
-            <a href="{{ route('home') }}"
-              class="text-decoration-none d-flex align-items-center justify-content-center justify-content-sm-start">
-              <img src="{{ asset('pengguna/images/favicon/logo.png') }}" alt="logo" class="img-fluid" width="65">
-              <span class="app-brand-text demo menu-text fw-bolder ms-2 text-dark"
-                style="text-transform: uppercase; letter-spacing: 1px;">
-                e-perpustakaan
-              </span>
-            </a>
+                    <div class="swiper-slide">
+                      <div class="row banner-content p-5">
+                        <div class="content-wrapper col-md-7">
+                          <div class="categories mb-3 pb-3">100% natural</div>
+                          <h3 class="banner-title">Heinz Tomato Ketchup</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Shop
+                            Collection</a>
+                        </div>
+                        <div class="img-wrapper col-md-5">
+                          <img src="{{ asset('pengguna/images/product-thumb-2.png') }}" class="img-fluid">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="swiper-pagination"></div>
+
+                </div>
+              </div>
+
+              <div class="banner-ad bg-success-subtle block-2"
+                style="background:url('{{ asset('pengguna/images/ad-image-1.png') }}') no-repeat;background-position: right bottom">
+                <div class="row banner-content p-5">
+
+                  <div class="content-wrapper col-md-7">
+                    <div class="categories sale mb-3 pb-3">20% off</div>
+                    <h3 class="banner-title">Fruits & Vegetables</h3>
+                    <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
+                        <use xlink:href="#arrow-right"></use>
+                      </svg></a>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="banner-ad bg-danger block-3"
+                style="background:url('{{ asset('pengguna/images/ad-image-2.png') }}') no-repeat;background-position: right bottom">
+                <div class="row banner-content p-5">
+
+                  <div class="content-wrapper col-md-7">
+                    <div class="categories sale mb-3 pb-3">15% off</div>
+                    <h3 class="item-title">Baked Products</h3>
+                    <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
+                        <use xlink:href="#arrow-right"></use>
+                      </svg></a>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <!-- / Banner Blocks -->
+
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
-          <div class="search-bar row bg-light p-2 my-2 rounded-4">
-            <div class="col-md-3 d-none d-md-block">
-              <select class="form-select border-0 bg-transparent">
-                <option>Kategori</option>
-                <option>Groceries</option>
-                <option>Drinks</option>
-                <option>Chocolates</option>
-              </select>
+    {{-- kategori --}}
+    <section class="py-5 overflow-hidden">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="section-header d-flex flex-wrap justify-content-between mb-5">
+              <h2 class="section-title">Category</h2>
+
+              <div class="d-flex align-items-center">
+                <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+                <div class="swiper-buttons">
+                  <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+                  <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+                </div>
+              </div>
             </div>
-            <div class="col-11 col-md-8">
-              <form id="search-form" class="text-center" action="#" method="post">
-                <input type="text" name="q" class="form-control" placeholder="Cari buku..." value="{{ request('q') }}">
-              </form>
-            </div>
-            <div class="col-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
-              </svg>
-            </div>
+
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
 
-        <div
-          class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
-          <div class="support-box text-end d-none d-xl-block">
-            <span class="fs-6 text-muted">Untuk Dukungan?</span>
-            <h5 class="mb-0">62+ 123-4567-8910</h5>
-          </div>
-
-          <ul class="d-flex justify-content-end list-unstyled m-0 align-items-center">
-            @auth
-              <li class="nav-item dropdown mx-1">
-                <a href="#"
-                  class="rounded-circle bg-light p-2 d-flex align-items-center justify-content-center dropdown-toggle hide-arrow"
-                  id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width: 45px; height: 45px;">
-                  <img src="{{ auth()->user()->avatar_url }}" class="rounded-circle" width="30" height="30"
-                    alt="{{ auth()->user()->name }}">
+            <div class="category-carousel swiper">
+              <div class="swiper-wrapper">
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                  <li class="px-3 py-2"><strong>Halo, {{ auth()->user()->name }}!</strong></li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profil</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-bag me-2"></i> Pesanan</a></li>
-                  @if(auth()->user()->isAdmin())
-                    <li><a class="dropdown-item text-primary" href="#"><i class="bi bi-speedometer2 me-2"></i> Admin
-                        Panel</a>
-                    </li>
-                  @endif
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <form method="POST" action="{{ route('logout') }}">
-                      @csrf
-                      <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>
-                        Logout</button>
-                    </form>
-                  </li>
-                </ul>
-              </li>
-
-              {{-- Wishlist --}}
-              <li class="mx-1">
-                <a href="#"
-                  class="rounded-circle bg-light p-2 d-flex align-items-center justify-content-center position-relative"
-                  style="width: 45px; height: 45px;">
-                  <svg width="24" height="24" viewBox="0 0 24 24">
-                    <use xlink:href="#heart"></use>
-                  </svg>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-bread-baguette.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Breads & Sweets</h3>
                 </a>
-              </li>
-
-            @else
-              <li class="nav-item me-2">
-                <a class="nav-link fw-bold" href="#">Masuk</a>
-              </li>
-              <li class="nav-item">
-                <a class="btn btn-warning rounded-pill px-3 btn-sm" href="#">Daftar</a>
-              </li>
-            @endauth
-          </ul>
-
-          <div class="cart text-end d-none d-lg-block">
-            <a href="#" class="border-0 bg-transparent d-flex flex-column gap-2 lh-1 text-decoration-none">
-              <span class="fs-6 text-muted">Keranjang Saya</span>
-              <span class="cart-total fs-5 fw-bold text-dark">
-                Total 0
-              </span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </header>
-
-  {{-- banner --}}
-  <section class="py-3"
-    style="background-image: url('{{ asset('pengguna/images/background-pattern.jpg') }}');background-repeat: no-repeat;background-size: cover;">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="banner-blocks">
-
-            <div class="banner-ad large bg-info block-1">
-
-              <div class="swiper main-swiper">
-                <div class="swiper-wrapper">
-
-                  <div class="swiper-slide">
-                    <div class="row banner-content p-5">
-                      <div class="content-wrapper col-md-7">
-                        <div class="categories my-3">100% natural</div>
-                        <h3 class="display-4">Fresh Smoothie & Summer Juice</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                        <a href="#"
-                          class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Shop Now</a>
-                      </div>
-                      <div class="img-wrapper col-md-5">
-                        <img src="{{ asset('pengguna/images/product-thumb-1.png') }}" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="swiper-slide">
-                    <div class="row banner-content p-5">
-                      <div class="content-wrapper col-md-7">
-                        <div class="categories mb-3 pb-3">100% natural</div>
-                        <h3 class="banner-title">Fresh Smoothie & Summer Juice</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                        <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Shop
-                          Collection</a>
-                      </div>
-                      <div class="img-wrapper col-md-5">
-                        <img src="{{ asset('pengguna/images/product-thumb-1.png') }}" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="swiper-slide">
-                    <div class="row banner-content p-5">
-                      <div class="content-wrapper col-md-7">
-                        <div class="categories mb-3 pb-3">100% natural</div>
-                        <h3 class="banner-title">Heinz Tomato Ketchup</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                        <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Shop
-                          Collection</a>
-                      </div>
-                      <div class="img-wrapper col-md-5">
-                        <img src="{{ asset('pengguna/images/product-thumb-2.png') }}" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="swiper-pagination"></div>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-soft-drinks-bottle.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-wine-glass-bottle.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-animal-products-drumsticks.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-bread-herb-flour.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
+                <a href="#" class="nav-link category-item swiper-slide">
+                  <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
+                  <h3 class="category-title">Fruits & Veges</h3>
+                </a>
 
               </div>
             </div>
 
-            <div class="banner-ad bg-success-subtle block-2"
-              style="background:url('{{ asset('pengguna/images/ad-image-1.png') }}') no-repeat;background-position: right bottom">
-              <div class="row banner-content p-5">
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">20% off</div>
-                  <h3 class="banner-title">Fruits & Vegetables</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
-                      <use xlink:href="#arrow-right"></use>
+    {{-- terlaris --}}
+    <section class="py-5 overflow-hidden">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="section-header d-flex flex-wrap justify-content-between my-5">
+
+              <h2 class="section-title">Buku-Buku Terbaik</h2>
+
+              <div class="d-flex align-items-center">
+                <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+                <div class="swiper-buttons">
+                  <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
+                  <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="products-carousel swiper">
+              <div class="swiper-wrapper">
+
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
                     </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
                 </div>
 
-              </div>
-            </div>
-
-            <div class="banner-ad bg-danger block-3"
-              style="background:url('{{ asset('pengguna/images/ad-image-2.png') }}') no-repeat;background-position: right bottom">
-              <div class="row banner-content p-5">
-
-                <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">15% off</div>
-                  <h3 class="item-title">Baked Products</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
-                      <use xlink:href="#arrow-right"></use>
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
                     </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{{ asset('pengguna/images/thumb-bananas.png') }}}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
                 </div>
 
               </div>
             </div>
+            <!-- / products-carousel -->
 
           </div>
-          <!-- / Banner Blocks -->
-
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  {{-- kategori --}}
-  <section class="py-5 overflow-hidden">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
+    {{-- baru --}}
+    <section class="py-5 overflow-hidden">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
 
-          <div class="section-header d-flex flex-wrap justify-content-between mb-5">
-            <h2 class="section-title">Category</h2>
+            <div class="section-header d-flex flex-wrap flex-wrap justify-content-between mb-5">
 
-            <div class="d-flex align-items-center">
-              <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
-              <div class="swiper-buttons">
-                <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
-                <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+              <h2 class="section-title">Buku-Buku Baru yang Baru Saja Tiba</h2>
+
+              <div class="d-flex align-items-center">
+                <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+                <div class="swiper-buttons">
+                  <button class="swiper-prev brand-carousel-prev btn btn-yellow">❮</button>
+                  <button class="swiper-next brand-carousel-next btn btn-yellow">❯</button>
+                </div>
               </div>
             </div>
+
           </div>
-
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
 
-          <div class="category-carousel swiper">
-            <div class="swiper-wrapper">
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-bread-baguette.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Breads & Sweets</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-soft-drinks-bottle.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-wine-glass-bottle.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-animal-products-drumsticks.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-bread-herb-flour.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="{{ asset('pengguna/images/icon-vegetables-broccoli.png') }}" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
+            <div class="brand-carousel swiper">
+              <div class="swiper-wrapper">
 
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {{-- terlaris --}}
-  <section class="py-5 overflow-hidden">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="section-header d-flex flex-wrap justify-content-between my-5">
-
-            <h2 class="section-title">Buku-Buku Terbaik</h2>
-
-            <div class="d-flex align-items-center">
-              <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
-              <div class="swiper-buttons">
-                <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
-                <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="products-carousel swiper">
-            <div class="swiper-wrapper">
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                    <a href="#" class="nav-link">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="{{ asset('pengguna/images/product-thumb-11.jpg') }}" class="img-fluid rounded"
+                            alt="Card title">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body py-0">
+                            <p class="text-muted mb-0">Amber Jar</p>
+                            <h5 class="card-title">Honey best nectar you wish to get</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
                 </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{ asset('pengguna/images/product-thumb-12.jpg') }}" class="img-fluid rounded"
+                          alt="Card title">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Amber Jar</p>
+                          <h5 class="card-title">Honey best nectar you wish to get</h5>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
                 </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{ asset('pengguna/images/product-thumb-13.jpg') }}" class="img-fluid rounded"
+                          alt="Card title">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Amber Jar</p>
+                          <h5 class="card-title">Honey best nectar you wish to get</h5>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
                 </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{{ asset('pengguna/images/thumb-bananas.png') }}}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{ asset('pengguna/images/product-thumb-14.jpg') }}" class="img-fluid rounded"
+                          alt="Card title">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Amber Jar</p>
+                          <h5 class="card-title">Honey best nectar you wish to get</h5>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
                 </div>
-              </div>
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <!-- / products-carousel -->
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {{-- baru --}}
-  <section class="py-5 overflow-hidden">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="section-header d-flex flex-wrap flex-wrap justify-content-between mb-5">
-
-            <h2 class="section-title">Buku-Buku Baru yang Baru Saja Tiba</h2>
-
-            <div class="d-flex align-items-center">
-              <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
-              <div class="swiper-buttons">
-                <button class="swiper-prev brand-carousel-prev btn btn-yellow">❮</button>
-                <button class="swiper-next brand-carousel-next btn btn-yellow">❯</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="brand-carousel swiper">
-            <div class="swiper-wrapper">
-
-              <div class="swiper-slide">
-                <div class="card mb-3 p-3 rounded-4 shadow border-0">
-                  <a href="#" class="nav-link">
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
                         <img src="{{ asset('pengguna/images/product-thumb-11.jpg') }}" class="img-fluid rounded"
@@ -763,88 +622,62 @@
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card mb-3 p-3 rounded-4 shadow border-0">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img src="{{ asset('pengguna/images/product-thumb-12.jpg') }}" class="img-fluid rounded"
-                        alt="Card title">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body py-0">
-                        <p class="text-muted mb-0">Amber Jar</p>
-                        <h5 class="card-title">Honey best nectar you wish to get</h5>
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{ asset('pengguna/images/product-thumb-12.jpg') }}" class="img-fluid rounded"
+                          alt="Card title">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Amber Jar</p>
+                          <h5 class="card-title">Honey best nectar you wish to get</h5>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
-              <div class="swiper-slide">
-                <div class="card mb-3 p-3 rounded-4 shadow border-0">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img src="{{ asset('pengguna/images/product-thumb-13.jpg') }}" class="img-fluid rounded"
-                        alt="Card title">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body py-0">
-                        <p class="text-muted mb-0">Amber Jar</p>
-                        <h5 class="card-title">Honey best nectar you wish to get</h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{-- diskon --}}
+    <section class="py-5">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="banner-ad bg-danger mb-3"
+              style="background: url('{{ asset('pengguna/images/ad-image-3.png') }}');background-repeat: no-repeat;background-position: right bottom;">
+              <div class="banner-content p-5">
+
+                <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
+                <h3 class="banner-title">Luxa Dark Chocolate</h3>
+                <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
+                <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
+
               </div>
-              <div class="swiper-slide">
-                <div class="card mb-3 p-3 rounded-4 shadow border-0">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img src="{{ asset('pengguna/images/product-thumb-14.jpg') }}" class="img-fluid rounded"
-                        alt="Card title">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body py-0">
-                        <p class="text-muted mb-0">Amber Jar</p>
-                        <h5 class="card-title">Honey best nectar you wish to get</h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card mb-3 p-3 rounded-4 shadow border-0">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img src="{{ asset('pengguna/images/product-thumb-11.jpg') }}" class="img-fluid rounded"
-                        alt="Card title">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body py-0">
-                        <p class="text-muted mb-0">Amber Jar</p>
-                        <h5 class="card-title">Honey best nectar you wish to get</h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card mb-3 p-3 rounded-4 shadow border-0">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img src="{{ asset('pengguna/images/product-thumb-12.jpg') }}" class="img-fluid rounded"
-                        alt="Card title">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body py-0">
-                        <p class="text-muted mb-0">Amber Jar</p>
-                        <h5 class="card-title">Honey best nectar you wish to get</h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="banner-ad bg-info"
+              style="background: url('{{ asset('pengguna/images/ad-image-4.png') }}');background-repeat: no-repeat;background-position: right bottom;">
+              <div class="banner-content p-5">
+
+                <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
+                <h3 class="banner-title">Creamy Muffins</h3>
+                <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
+                <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
+
               </div>
 
             </div>
@@ -852,765 +685,612 @@
 
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  {{-- diskon --}}
-  <section class="py-5">
-    <div class="container-fluid">
-      <div class="row">
+    {{-- unggulan --}}
+    <section class="py-5 overflow-hidden">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
 
-        <div class="col-md-6">
-          <div class="banner-ad bg-danger mb-3"
-            style="background: url('{{ asset('pengguna/images/ad-image-3.png') }}');background-repeat: no-repeat;background-position: right bottom;">
-            <div class="banner-content p-5">
+            <div class="section-header d-flex flex-wrap justify-content-between my-5">
 
-              <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-              <h3 class="banner-title">Luxa Dark Chocolate</h3>
-              <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
-              <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
+              <h2 class="section-title">Lengkapi Koleksimu</h2>
 
+              <div class="d-flex align-items-center">
+                <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+                <div class="swiper-buttons">
+                  <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
+                  <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+                </div>
+              </div>
             </div>
 
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="banner-ad bg-info"
-            style="background: url('{{ asset('pengguna/images/ad-image-4.png') }}');background-repeat: no-repeat;background-position: right bottom;">
-            <div class="banner-content p-5">
+        <div class="row">
+          <div class="col-md-12">
 
-              <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-              <h3 class="banner-title">Creamy Muffins</h3>
-              <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
-              <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
+            <div class="products-carousel swiper">
+              <div class="swiper-wrapper">
 
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <span class="badge bg-success position-absolute m-3">-15%</span>
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{{ asset('pengguna/images/thumb-bananas.png') }}}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                      <use xlink:href="#heart"></use>
+                    </svg></a>
+                  <figure>
+                    <a href="#" title="Product Title">
+                      <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Sunstar Fresh Melon Juice</h3>
+                  <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
+                      <use xlink:href="#star-solid"></use>
+                    </svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+              </div>
             </div>
+            <!-- / products-carousel -->
 
           </div>
         </div>
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  {{-- unggulan --}}
-  <section class="py-5 overflow-hidden">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
+    {{-- daftar --}}
+    <section class="py-5">
+      <div class="container-fluid">
 
-          <div class="section-header d-flex flex-wrap justify-content-between my-5">
-
-            <h2 class="section-title">Lengkapi Koleksimu</h2>
-
-            <div class="d-flex align-items-center">
-              <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
-              <div class="swiper-buttons">
-                <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
-                <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="products-carousel swiper">
-            <div class="swiper-wrapper">
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <span class="badge bg-success position-absolute m-3">-15%</span>
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{{ asset('pengguna/images/thumb-bananas.png') }}}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoes.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-tomatoketchup.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-              <div class="product-item swiper-slide">
-                <a href="#" class="btn-wishlist"><svg width="24" height="24">
-                    <use xlink:href="#heart"></use>
-                  </svg></a>
-                <figure>
-                  <a href="#" title="Product Title">
-                    <img src="{{ asset('pengguna/images/thumb-bananas.png') }}" class="tab-image">
-                  </a>
-                </figure>
-                <h3>Sunstar Fresh Melon Juice</h3>
-                <span class="qty">1 Unit</span><span class="rating"><svg width="24" height="24" class="text-primary">
-                    <use xlink:href="#star-solid"></use>
-                  </svg> 4.5</span>
-                <span class="price">$18.00</span>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="input-group product-qty">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#minus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                    <span class="input-group-btn">
-                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                        <svg width="16" height="16">
-                          <use xlink:href="#plus"></use>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <!-- / products-carousel -->
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {{-- daftar --}}
-  <section class="py-5">
-    <div class="container-fluid">
-
-      <div class="bg-secondary py-5 my-5 rounded-5"
-        style="background: url('{{ asset('pengguna/images/bg-leaves-img-pattern.png') }}') no-repeat;">
-        <div class="container my-5">
-          <div class="row">
-            <div class="col-md-6 p-5">
-              <div class="section-header">
-                <h2 class="section-title display-4">Get <span class="text-primary">25% Discount</span> on your first
-                  purchase</h2>
-              </div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictumst amet, metus, sit massa posuere
-                maecenas. At tellus ut nunc amet vel egestas.</p>
-            </div>
-            <div class="col-md-6 p-5">
-              <form>
-                <div class="mb-3">
-                  <label for="name" class="form-label">Nama</label>
-                  <input type="text" class="form-control form-control-lg" name="name" id="name" placeholder="Nama Anda">
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control form-control-lg" name="email" id="email"
-                    placeholder="abc@mail.com">
-                </div>
-                <div class="form-check form-check-inline mb-3 d-flex align-items-center">
-                  <input class="form-check-input me-2" type="checkbox" id="subscribe" value="subscribe">
-                  <label class="form-check-label" for="subscribe" style="cursor: pointer;">
-                    Berlangganan buletin
-                  </label>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-dark btn-lg">Submit</button>
-                </div>
-              </form>
-
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  {{-- blog --}}
-  <section id="latest-blog" class="py-5">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="section-header d-flex align-items-center justify-content-between my-5">
-          <h2 class="section-title">Blog Terbaru Kita</h2>
-          <div class="btn-wrap align-right">
-            <a href="#" class="d-flex align-items-center nav-link">Read All Articles <svg width="24" height="24">
-                <use xlink:href="#arrow-right"></use>
-              </svg></a>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <article class="post-item card border-0 shadow-sm p-3">
-            <div class="image-holder zoom-effect">
-              <a href="#">
-                <img src="{{ asset('pengguna/images/post-thumb-1.jpg') }}" alt="post" class="card-img-top">
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                <div class="meta-date"><svg width="16" height="16">
-                    <use xlink:href="#calendar"></use>
-                  </svg>22 Aug 2021</div>
-                <div class="meta-categories"><svg width="16" height="16">
-                    <use xlink:href="#category"></use>
-                  </svg>tips & tricks</div>
-              </div>
-              <div class="post-header">
-                <h3 class="post-title">
-                  <a href="#" class="text-decoration-none">Top 10 casual look ideas to dress up your kids</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec
-                  quam. A in arcu, hendrerit neque dolor morbi...</p>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="post-item card border-0 shadow-sm p-3">
-            <div class="image-holder zoom-effect">
-              <a href="#">
-                <img src="{{ asset('pengguna/images/post-thumb-2.jpg') }}" alt="post" class="card-img-top">
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                <div class="meta-date"><svg width="16" height="16">
-                    <use xlink:href="#calendar"></use>
-                  </svg>25 Aug 2021</div>
-                <div class="meta-categories"><svg width="16" height="16">
-                    <use xlink:href="#category"></use>
-                  </svg>trending</div>
-              </div>
-              <div class="post-header">
-                <h3 class="post-title">
-                  <a href="#" class="text-decoration-none">Latest trends of wearing street wears supremely</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec
-                  quam. A in arcu, hendrerit neque dolor morbi...</p>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="post-item card border-0 shadow-sm p-3">
-            <div class="image-holder zoom-effect">
-              <a href="#">
-                <img src="{{ asset('pengguna/images/post-thumb-3.jpg') }}" alt="post" class="card-img-top">
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                <div class="meta-date"><svg width="16" height="16">
-                    <use xlink:href="#calendar"></use>
-                  </svg>28 Aug 2021</div>
-                <div class="meta-categories"><svg width="16" height="16">
-                    <use xlink:href="#category"></use>
-                  </svg>inspiration</div>
-              </div>
-              <div class="post-header">
-                <h3 class="post-title">
-                  <a href="#" class="text-decoration-none">10 Different Types of comfortable clothes ideas for women</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec
-                  quam. A in arcu, hendrerit neque dolor morbi...</p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {{-- informasi --}}
-  <section class="py-5 my-5">
-    <div class="container-fluid">
-
-      <div class="bg-warning py-5 rounded-5" style="background-image: url('images/bg-pattern-2.png') no-repeat;">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <img src="{{ asset('pengguna/images/phone.png') }}" alt="phone" class="image-float img-fluid">
-            </div>
-            <div class="col-md-8">
-              <h2 class="my-5">Belanja lebih cepat dengan Aplikasi e-perpustakaan</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet
-                psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in
-                suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis
-                sed ptibus liberolectus non et psryroin.</p>
-              <div class="d-flex gap-2 flex-wrap">
-                <img src="{{ asset('pengguna/images/app-store.jpg') }}" alt="app-store">
-                <img src="{{ asset('pengguna/images/google-play.jpg') }}" alt="google-play">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  {{-- atas footer --}}
-  <section class="py-5">
-    <div class="container-fluid">
-      <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-5">
-        <div class="col">
-          <div class="card mb-3 border-0">
+        <div class="bg-secondary py-5 my-5 rounded-5"
+          style="background: url('{{ asset('pengguna/images/bg-leaves-img-pattern.png') }}') no-repeat;">
+          <div class="container my-5">
             <div class="row">
-              <div class="col-md-2 text-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M21.5 15a3 3 0 0 0-1.9-2.78l1.87-7a1 1 0 0 0-.18-.87A1 1 0 0 0 20.5 4H6.8l-.33-1.26A1 1 0 0 0 5.5 2h-2v2h1.23l2.48 9.26a1 1 0 0 0 1 .74H18.5a1 1 0 0 1 0 2h-13a1 1 0 0 0 0 2h1.18a3 3 0 1 0 5.64 0h2.36a3 3 0 1 0 5.82 1a2.94 2.94 0 0 0-.4-1.47A3 3 0 0 0 21.5 15Zm-3.91-3H9L7.34 6H19.2ZM9.5 20a1 1 0 1 1 1-1a1 1 0 0 1-1 1Zm8 0a1 1 0 1 1 1-1a1 1 0 0 1-1 1Z" />
-                </svg>
+              <div class="col-md-6 p-5">
+                <div class="section-header">
+                  <h2 class="section-title display-4">Get <span class="text-primary">25% Discount</span> on your first
+                    purchase</h2>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictumst amet, metus, sit massa posuere
+                  maecenas. At tellus ut nunc amet vel egestas.</p>
               </div>
-              <div class="col-md-10">
-                <div class="card-body p-0">
-                  <h5>Pengiriman Gratis</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+              <div class="col-md-6 p-5">
+                <form>
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" class="form-control form-control-lg" name="name" id="name" placeholder="Nama Anda">
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control form-control-lg" name="email" id="email"
+                      placeholder="abc@mail.com">
+                  </div>
+                  <div class="form-check form-check-inline mb-3 d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" id="subscribe" value="subscribe">
+                    <label class="form-check-label" for="subscribe" style="cursor: pointer;">
+                      Berlangganan buletin
+                    </label>
+                  </div>
+                  <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+                  </div>
+                </form>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {{-- blog --}}
+    <section id="latest-blog" class="py-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="section-header d-flex align-items-center justify-content-between my-5">
+            <h2 class="section-title">Blog Terbaru Kita</h2>
+            <div class="btn-wrap align-right">
+              <a href="#" class="d-flex align-items-center nav-link">Read All Articles <svg width="24" height="24">
+                  <use xlink:href="#arrow-right"></use>
+                </svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <article class="post-item card border-0 shadow-sm p-3">
+              <div class="image-holder zoom-effect">
+                <a href="#">
+                  <img src="{{ asset('pengguna/images/post-thumb-1.jpg') }}" alt="post" class="card-img-top">
+                </a>
+              </div>
+              <div class="card-body">
+                <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
+                  <div class="meta-date"><svg width="16" height="16">
+                      <use xlink:href="#calendar"></use>
+                    </svg>22 Aug 2021</div>
+                  <div class="meta-categories"><svg width="16" height="16">
+                      <use xlink:href="#category"></use>
+                    </svg>tips & tricks</div>
+                </div>
+                <div class="post-header">
+                  <h3 class="post-title">
+                    <a href="#" class="text-decoration-none">Top 10 casual look ideas to dress up your kids</a>
+                  </h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec
+                    quam. A in arcu, hendrerit neque dolor morbi...</p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="post-item card border-0 shadow-sm p-3">
+              <div class="image-holder zoom-effect">
+                <a href="#">
+                  <img src="{{ asset('pengguna/images/post-thumb-2.jpg') }}" alt="post" class="card-img-top">
+                </a>
+              </div>
+              <div class="card-body">
+                <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
+                  <div class="meta-date"><svg width="16" height="16">
+                      <use xlink:href="#calendar"></use>
+                    </svg>25 Aug 2021</div>
+                  <div class="meta-categories"><svg width="16" height="16">
+                      <use xlink:href="#category"></use>
+                    </svg>trending</div>
+                </div>
+                <div class="post-header">
+                  <h3 class="post-title">
+                    <a href="#" class="text-decoration-none">Latest trends of wearing street wears supremely</a>
+                  </h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec
+                    quam. A in arcu, hendrerit neque dolor morbi...</p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="post-item card border-0 shadow-sm p-3">
+              <div class="image-holder zoom-effect">
+                <a href="#">
+                  <img src="{{ asset('pengguna/images/post-thumb-3.jpg') }}" alt="post" class="card-img-top">
+                </a>
+              </div>
+              <div class="card-body">
+                <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
+                  <div class="meta-date"><svg width="16" height="16">
+                      <use xlink:href="#calendar"></use>
+                    </svg>28 Aug 2021</div>
+                  <div class="meta-categories"><svg width="16" height="16">
+                      <use xlink:href="#category"></use>
+                    </svg>inspiration</div>
+                </div>
+                <div class="post-header">
+                  <h3 class="post-title">
+                    <a href="#" class="text-decoration-none">10 Different Types of comfortable clothes ideas for women</a>
+                  </h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec
+                    quam. A in arcu, hendrerit neque dolor morbi...</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{-- informasi --}}
+    <section class="py-5 my-5">
+      <div class="container-fluid">
+
+        <div class="bg-warning py-5 rounded-5" style="background-image: url('images/bg-pattern-2.png') no-repeat;">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="{{ asset('pengguna/images/phone.png') }}" alt="phone" class="image-float img-fluid">
+              </div>
+              <div class="col-md-8">
+                <h2 class="my-5">Belanja lebih cepat dengan Aplikasi e-perpustakaan</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet
+                  psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in
+                  suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis
+                  sed ptibus liberolectus non et psryroin.</p>
+                <div class="d-flex gap-2 flex-wrap">
+                  <img src="{{ asset('pengguna/images/app-store.jpg') }}" alt="app-store">
+                  <img src="{{ asset('pengguna/images/google-play.jpg') }}" alt="google-play">
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card mb-3 border-0">
-            <div class="row">
-              <div class="col-md-2 text-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M19.63 3.65a1 1 0 0 0-.84-.2a8 8 0 0 1-6.22-1.27a1 1 0 0 0-1.14 0a8 8 0 0 1-6.22 1.27a1 1 0 0 0-.84.2a1 1 0 0 0-.37.78v7.45a9 9 0 0 0 3.77 7.33l3.65 2.6a1 1 0 0 0 1.16 0l3.65-2.6A9 9 0 0 0 20 11.88V4.43a1 1 0 0 0-.37-.78ZM18 11.88a7 7 0 0 1-2.93 5.7L12 19.77l-3.07-2.19A7 7 0 0 1 6 11.88v-6.3a10 10 0 0 0 6-1.39a10 10 0 0 0 6 1.39Zm-4.46-2.29l-2.69 2.7l-.89-.9a1 1 0 0 0-1.42 1.42l1.6 1.6a1 1 0 0 0 1.42 0L15 11a1 1 0 0 0-1.42-1.42Z" />
-                </svg>
-              </div>
-              <div class="col-md-10">
-                <div class="card-body p-0">
-                  <h5>Pembayaran 100% Aman</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+
+      </div>
+    </section>
+
+    {{-- atas footer --}}
+    <section class="py-5">
+      <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-5">
+          <div class="col">
+            <div class="card mb-3 border-0">
+              <div class="row">
+                <div class="col-md-2 text-dark">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M21.5 15a3 3 0 0 0-1.9-2.78l1.87-7a1 1 0 0 0-.18-.87A1 1 0 0 0 20.5 4H6.8l-.33-1.26A1 1 0 0 0 5.5 2h-2v2h1.23l2.48 9.26a1 1 0 0 0 1 .74H18.5a1 1 0 0 1 0 2h-13a1 1 0 0 0 0 2h1.18a3 3 0 1 0 5.64 0h2.36a3 3 0 1 0 5.82 1a2.94 2.94 0 0 0-.4-1.47A3 3 0 0 0 21.5 15Zm-3.91-3H9L7.34 6H19.2ZM9.5 20a1 1 0 1 1 1-1a1 1 0 0 1-1 1Zm8 0a1 1 0 1 1 1-1a1 1 0 0 1-1 1Z" />
+                  </svg>
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body p-0">
+                    <h5>Pengiriman Gratis</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card mb-3 border-0">
-            <div class="row">
-              <div class="col-md-2 text-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M22 5H2a1 1 0 0 0-1 1v4a3 3 0 0 0 2 2.82V22a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-9.18A3 3 0 0 0 23 10V6a1 1 0 0 0-1-1Zm-7 2h2v3a1 1 0 0 1-2 0Zm-4 0h2v3a1 1 0 0 1-2 0ZM7 7h2v3a1 1 0 0 1-2 0Zm-3 4a1 1 0 0 1-1-1V7h2v3a1 1 0 0 1-1 1Zm10 10h-4v-2a2 2 0 0 1 4 0Zm5 0h-3v-2a4 4 0 0 0-8 0v2H5v-8.18a3.17 3.17 0 0 0 1-.6a3 3 0 0 0 4 0a3 3 0 0 0 4 0a3 3 0 0 0 4 0a3.17 3.17 0 0 0 1 .6Zm2-11a1 1 0 0 1-2 0V7h2ZM4.3 3H20a1 1 0 0 0 0-2H4.3a1 1 0 0 0 0 2Z" />
-                </svg>
-              </div>
-              <div class="col-md-10">
-                <div class="card-body p-0">
-                  <h5>Jaminan Kualitas</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+          <div class="col">
+            <div class="card mb-3 border-0">
+              <div class="row">
+                <div class="col-md-2 text-dark">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M19.63 3.65a1 1 0 0 0-.84-.2a8 8 0 0 1-6.22-1.27a1 1 0 0 0-1.14 0a8 8 0 0 1-6.22 1.27a1 1 0 0 0-.84.2a1 1 0 0 0-.37.78v7.45a9 9 0 0 0 3.77 7.33l3.65 2.6a1 1 0 0 0 1.16 0l3.65-2.6A9 9 0 0 0 20 11.88V4.43a1 1 0 0 0-.37-.78ZM18 11.88a7 7 0 0 1-2.93 5.7L12 19.77l-3.07-2.19A7 7 0 0 1 6 11.88v-6.3a10 10 0 0 0 6-1.39a10 10 0 0 0 6 1.39Zm-4.46-2.29l-2.69 2.7l-.89-.9a1 1 0 0 0-1.42 1.42l1.6 1.6a1 1 0 0 0 1.42 0L15 11a1 1 0 0 0-1.42-1.42Z" />
+                  </svg>
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body p-0">
+                    <h5>Pembayaran 100% Aman</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card mb-3 border-0">
-            <div class="row">
-              <div class="col-md-2 text-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M12 8.35a3.07 3.07 0 0 0-3.54.53a3 3 0 0 0 0 4.24L11.29 16a1 1 0 0 0 1.42 0l2.83-2.83a3 3 0 0 0 0-4.24A3.07 3.07 0 0 0 12 8.35Zm2.12 3.36L12 13.83l-2.12-2.12a1 1 0 0 1 0-1.42a1 1 0 0 1 1.41 0a1 1 0 0 0 1.42 0a1 1 0 0 1 1.41 0a1 1 0 0 1 0 1.42ZM12 2A10 10 0 0 0 2 12a9.89 9.89 0 0 0 2.26 6.33l-2 2a1 1 0 0 0-.21 1.09A1 1 0 0 0 3 22h9a10 10 0 0 0 0-20Zm0 18H5.41l.93-.93a1 1 0 0 0 0-1.41A8 8 0 1 1 12 20Z" />
-                </svg>
-              </div>
-              <div class="col-md-10">
-                <div class="card-body p-0">
-                  <h5>Hemat</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+          <div class="col">
+            <div class="card mb-3 border-0">
+              <div class="row">
+                <div class="col-md-2 text-dark">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M22 5H2a1 1 0 0 0-1 1v4a3 3 0 0 0 2 2.82V22a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-9.18A3 3 0 0 0 23 10V6a1 1 0 0 0-1-1Zm-7 2h2v3a1 1 0 0 1-2 0Zm-4 0h2v3a1 1 0 0 1-2 0ZM7 7h2v3a1 1 0 0 1-2 0Zm-3 4a1 1 0 0 1-1-1V7h2v3a1 1 0 0 1-1 1Zm10 10h-4v-2a2 2 0 0 1 4 0Zm5 0h-3v-2a4 4 0 0 0-8 0v2H5v-8.18a3.17 3.17 0 0 0 1-.6a3 3 0 0 0 4 0a3 3 0 0 0 4 0a3 3 0 0 0 4 0a3.17 3.17 0 0 0 1 .6Zm2-11a1 1 0 0 1-2 0V7h2ZM4.3 3H20a1 1 0 0 0 0-2H4.3a1 1 0 0 0 0 2Z" />
+                  </svg>
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body p-0">
+                    <h5>Jaminan Kualitas</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card mb-3 border-0">
-            <div class="row">
-              <div class="col-md-2 text-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M18 7h-.35A3.45 3.45 0 0 0 18 5.5a3.49 3.49 0 0 0-6-2.44A3.49 3.49 0 0 0 6 5.5A3.45 3.45 0 0 0 6.35 7H6a3 3 0 0 0-3 3v2a1 1 0 0 0 1 1h1v6a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-6h1a1 1 0 0 0 1-1v-2a3 3 0 0 0-3-3Zm-7 13H8a1 1 0 0 1-1-1v-6h4Zm0-9H5v-1a1 1 0 0 1 1-1h5Zm0-4H9.5A1.5 1.5 0 1 1 11 5.5Zm2-1.5A1.5 1.5 0 1 1 14.5 7H13ZM17 19a1 1 0 0 1-1 1h-3v-7h4Zm2-8h-6V9h5a1 1 0 0 1 1 1Z" />
-                </svg>
+          <div class="col">
+            <div class="card mb-3 border-0">
+              <div class="row">
+                <div class="col-md-2 text-dark">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M12 8.35a3.07 3.07 0 0 0-3.54.53a3 3 0 0 0 0 4.24L11.29 16a1 1 0 0 0 1.42 0l2.83-2.83a3 3 0 0 0 0-4.24A3.07 3.07 0 0 0 12 8.35Zm2.12 3.36L12 13.83l-2.12-2.12a1 1 0 0 1 0-1.42a1 1 0 0 1 1.41 0a1 1 0 0 0 1.42 0a1 1 0 0 1 1.41 0a1 1 0 0 1 0 1.42ZM12 2A10 10 0 0 0 2 12a9.89 9.89 0 0 0 2.26 6.33l-2 2a1 1 0 0 0-.21 1.09A1 1 0 0 0 3 22h9a10 10 0 0 0 0-20Zm0 18H5.41l.93-.93a1 1 0 0 0 0-1.41A8 8 0 1 1 12 20Z" />
+                  </svg>
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body p-0">
+                    <h5>Hemat</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                  </div>
+                </div>
               </div>
-              <div class="col-md-10">
-                <div class="card-body p-0">
-                  <h5>Penawaran Harian</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-3 border-0">
+              <div class="row">
+                <div class="col-md-2 text-dark">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M18 7h-.35A3.45 3.45 0 0 0 18 5.5a3.49 3.49 0 0 0-6-2.44A3.49 3.49 0 0 0 6 5.5A3.45 3.45 0 0 0 6.35 7H6a3 3 0 0 0-3 3v2a1 1 0 0 0 1 1h1v6a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-6h1a1 1 0 0 0 1-1v-2a3 3 0 0 0-3-3Zm-7 13H8a1 1 0 0 1-1-1v-6h4Zm0-9H5v-1a1 1 0 0 1 1-1h5Zm0-4H9.5A1.5 1.5 0 1 1 11 5.5Zm2-1.5A1.5 1.5 0 1 1 14.5 7H13ZM17 19a1 1 0 0 1-1 1h-3v-7h4Zm2-8h-6V9h5a1 1 0 0 1 1 1Z" />
+                  </svg>
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body p-0">
+                    <h5>Penawaran Harian</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  {{-- footer --}}
-  <footer class="py-5">
-    <div class="container-fluid">
-      <div class="row">
+    <script src="{{ asset('pengguna/js/jquery-1.11.0.min.js') }}"></script>
 
-        <div class="col-lg-3 col-md-6 col-sm-6 text-center">
-          <div class="footer-menu">
-            <img src="{{ asset('pengguna/images/favicon/logo.png') }}" alt="logo" class="img-fluid"
-              style="max-width: 45%;">
-            <div class="social-links mt-5">
-              <ul class="d-flex list-unstyled gap-3 justify-content-center">
-                <li>
-                  <a href="https://www.instagram.com/swimgoodchild" class="btn btn-outline-light">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                      <path fill="currentColor"
-                        d="M17.34 5.46a1.2 1.2 0 1 0 1.2 1.2a1.2 1.2 0 0 0-1.2-1.2Zm4.6 2.42a7.59 7.59 0 0 0-.46-2.43a4.94 4.94 0 0 0-1.16-1.77a4.7 4.7 0 0 0-1.77-1.15a7.3 7.3 0 0 0-2.43-.47C15.06 2 14.72 2 12 2s-3.06 0-4.12.06a7.3 7.3 0 0 0-2.43.47a4.78 4.78 0 0 0-1.77 1.15a4.7 4.7 0 0 0-1.15 1.77a7.3 7.3 0 0 0-.47 2.43C2 8.94 2 9.28 2 12s0 3.06.06 4.12a7.3 7.3 0 0 0 .47 2.43a4.7 4.7 0 0 0 1.15 1.77a4.78 4.78 0 0 0 1.77 1.15a7.3 7.3 0 0 0 2.43.47C8.94 22 9.28 22 12 22s3.06 0 4.12-.06a7.3 7.3 0 0 0 2.43-.47a4.7 4.7 0 0 0 1.77-1.15a4.85 4.85 0 0 0 1.16-1.77a7.59 7.59 0 0 0 .46-2.43c0-1.06.06-1.4.06-4.12s0-3.06-.06-4.12ZM20.14 16a5.61 5.61 0 0 1-.34 1.86a3.06 3.06 0 0 1-.75 1.15a3.19 3.19 0 0 1-1.15.75a5.61 5.61 0 0 1-1.86.34c-1 .05-1.37.06-4 .06s-3 0-4-.06a5.73 5.73 0 0 1-1.94-.3a3.27 3.27 0 0 1-1.1-.75a3 3 0 0 1-.74-1.15a5.54 5.54 0 0 1-.4-1.9c0-1-.06-1.37-.06-4s0-3 .06-4a5.54 5.54 0 0 1 .35-1.9A3 3 0 0 1 5 5a3.14 3.14 0 0 1 1.1-.8A5.73 5.73 0 0 1 8 3.86c1 0 1.37-.06 4-.06s3 0 4 .06a5.61 5.61 0 0 1 1.86.34a3.06 3.06 0 0 1 1.19.8a3.06 3.06 0 0 1 .75 1.1a5.61 5.61 0 0 1 .34 1.9c.05 1 .06 1.37.06 4s-.01 3-.06 4ZM12 6.87A5.13 5.13 0 1 0 17.14 12A5.12 5.12 0 0 0 12 6.87Zm0 8.46A3.33 3.33 0 1 1 15.33 12A3.33 3.33 0 0 1 12 15.33Z" />
-                    </svg>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/Rehan-Ramadhan" class="btn btn-outline-light" target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                      <path fill="currentColor"
-                        d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.89 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z" />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <div class="col-md-2 col-sm-6">
-          <div class="footer-menu">
-            <h5 class="widget-title">Ultras</h5>
-            <ul class="menu-list list-unstyled">
-              <li class="menu-item">
-                <a href="#" class="nav-link">About us</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Conditions </a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Our Journals</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Careers</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Affiliate Programme</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Ultras Press</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-2 col-sm-6">
-          <div class="footer-menu">
-            <h5 class="widget-title">Customer Service</h5>
-            <ul class="menu-list list-unstyled">
-              <li class="menu-item">
-                <a href="#" class="nav-link">FAQ</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Contact</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Privacy Policy</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Returns & Refunds</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Cookie Guidelines</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Delivery Information</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="footer-menu">
-            <h5 class="widget-title">Berlangganan untuk Kami</h5>
-            <p>Berlangganan buletin kami untuk mendapatkan informasi terbaru tentang penawaran menarik kami.</p>
-            <form class="d-flex mt-3 gap-0" role="newsletter">
-              <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Email Address"
-                aria-label="Alamat Email">
-              <button class="btn btn-dark rounded-end rounded-0" type="submit">Berlangganan</button>
-            </form>
-          </div>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="{{ asset('pengguna/js/plugins.js') }}"></script>
 
-      </div>
-    </div>
-  </footer>
-
-  {{-- iklan --}}
-  <div id="footer-bottom">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 copyright">
-          <p>© 2026 e-perpustakaan.</p>
-        </div>
-        <div class="col-md-6 credit-link text-start text-md-end">
-          <p>made with by <a href="https://github.com/Rehan-Ramadhan/e-perpustakaan-laravel">Rehan Ramadhan</a>
-            didistribusikan oleh <a href="https://github.com/Rehan-Ramadhan">Rehan Ramadhan</a></p>
-        </div>
-      </div>
-    </div>
+    <script src="{{ asset('pengguna/js/script.js') }}"></script>
   </div>
-
-  <script src="{{ asset('pengguna/js/jquery-1.11.0.min.js') }}"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <script src="{{ asset('pengguna/js/plugins.js') }}"></script>
-
-  <script src="{{ asset('pengguna/js/script.js') }}"></script>
-</body>
-
-</html>
+@endsection

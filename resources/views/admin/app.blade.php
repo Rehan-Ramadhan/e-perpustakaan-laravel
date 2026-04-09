@@ -22,32 +22,25 @@
     <link rel="stylesheet" href="{{ asset('admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <script src="{{ asset('admin/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('admin/js/config.js') }}"></script>
-    
+
 </head>
 
 <body>
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-
-            @auth
-                @include('bagian.sidebar')
-                <div class="layout-page">
-                    @include('bagian.navbar')
-                    <div class="content-wrapper">
-                        <div class="container-xxl flex-grow-1 container-p-y">
-                            @yield('content')
-                        </div>
-                        @include('bagian.footer')
+            @include('admin.bagian.sidebar')
+            <div class="layout-page">
+                @include('admin.bagian.navbar')
+                <div class="container mt-3">
+                    @include('bagian.flash-messages')
+                </div>
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @yield('content')
                     </div>
+                    @include('admin.bagian.footer')
                 </div>
-            @endauth
-
-            @guest
-                <div class="container-xxl">
-                    @yield('content')
-                </div>
-            @endguest
-
+            </div>
         </div>
     </div>
 
