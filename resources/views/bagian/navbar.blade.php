@@ -19,8 +19,8 @@
                 <div class="search-bar row bg-light p-2 my-2 rounded-4">
                     <div class="col-md-3 d-none d-md-block">
                         <div class="bg-white rounded-pill px-2 py-1 shadow-sm border">
-                            <select class="form-select border-0 bg-transparent small fw-bold text-muted"
-                                style="box-shadow: none; cursor: pointer; font-size: 0.85rem;">
+                            <select class="form-select border-0 bg-transparent fw-bold text-muted pe-0"
+                                style="box-shadow: none; cursor: pointer; font-size: 0.85rem; min-width: 100%;">
                                 <option selected disabled>Kategori</option>
                                 @foreach($kategori as $k)
                                     <option value="{{ $k->id }}">{{ $k->nama }}</option>
