@@ -25,7 +25,7 @@
                           <h3 class="display-4">Jendela Dunia di Ujung Jari</h3>
                           <p>Temukan ribuan referensi buku, jurnal, dan literatur pilihan untuk mendukung riset dan
                             wawasan Anda.</p>
-                          <a href="#unggulan"
+                          <a href="{{ route('katalog.index') }}"
                             class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Mulai
                             Membaca</a>
                         </div>

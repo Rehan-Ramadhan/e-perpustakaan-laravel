@@ -8,7 +8,6 @@ use App\Http\Controllers\Auth\GoogleController;
 
 use App\Http\Controllers\HomeController;
 
-use App\Http\Controllers\Pengguna\BukuController as PenggunaBukuController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BukuController as AdminBukuController;
@@ -17,11 +16,15 @@ use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengembalianController;
 use App\Http\Controllers\Admin\ReportController;
 
+use App\Http\Controllers\BukuController as PenggunaBukuController;
+use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\KeranjangController;
+
 // publik
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/katalog', [PenggunaBukuController::class, 'index'])->name('pengguna.buku.index');
-Route::get('/katalog/{slug}', [PenggunaBukuController::class, 'show'])->name('pengguna.buku.show');
+Route::get('/products', [KatalogController::class, 'index'])->name('katalog.index');
+Route::get('/products/{slug}', [KatalogController::class, 'show'])->name('katalog.show');
 
 Auth::routes();
 
@@ -35,6 +38,11 @@ Route::controller(GoogleController::class)->group(function () {
 // pengguna (wajib wogin)
 Route::middleware(['auth'])->group(function () {
     Route::get('/keinginan', [PenggunaBukuController::class, 'keinginan'])->name('pengguna.keinginan.index');
+
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
+    Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
+    Route::patch('/keranjang/{id}', [KeranjangController::class, 'update'])->name('keranjang.update');
+    Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
 });
 
 // admin

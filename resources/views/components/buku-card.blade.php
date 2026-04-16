@@ -8,7 +8,7 @@
 @if ($display === 'list')
 
     <div class="card mb-3 p-3 rounded-4 shadow border-0">
-        <a href="{{ route('admin.buku.show', $buku->id) }}" class="nav-link">
+        <a href="{{ route('katalog.show', $buku->slug) }}" class="nav-link">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="{{ $path }}" class="img-fluid rounded" style="height: 100px; width: 100%; object-fit: cover;"
@@ -39,7 +39,7 @@
         </a>
 
         <figure>
-            <a href="{{ route('admin.buku.show', $buku->id) }}" title="{{ $buku->nama }}">
+            <a href="{{ route('katalog.show', $buku->slug) }}" title="{{ $buku->nama }}">
                 <img src="{{ $path }}" class="tab-image" style="height: 250px; object-fit: cover;">
             </a>
         </figure>
@@ -57,7 +57,7 @@
             <div class="product-qty-info">
                 <span class="badge border text-dark fw-light">Tersedia: {{ $buku->stok }}</span>
             </div>
-            <form action="#" method="POST">
+            <form action="{{ route('keranjang.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="buku_id" value="{{ $buku->id }}">
                 <button type="submit" class="nav-link fw-bold border-0 bg-transparent" @if($buku->stok <= 0) disabled @endif>

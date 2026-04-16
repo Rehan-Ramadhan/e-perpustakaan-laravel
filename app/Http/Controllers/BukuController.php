@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Pengguna;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;

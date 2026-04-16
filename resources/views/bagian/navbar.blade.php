@@ -31,7 +31,7 @@
 
                     <div class="col-11 col-md-9">
                         <form id="search-form"
-                            class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm" action="#"
+                            class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm" action="{{ route('katalog.index') }}"
                             method="get">
                             <input type="text" name="q" class="form-control border-0 bg-transparent me-2"
                                 placeholder="Cari buku..." value="{{ request('q') }}" style="box-shadow: none;">
@@ -110,9 +110,10 @@
                 {{-- keranjang --}}
                 @auth
                     <div class="cart text-end d-none d-lg-block">
-                        <a href="#" class="border-0 bg-transparent d-flex flex-column gap-2 lh-1 text-decoration-none">
+                        <a href="{{ route('keranjang.index') }}"
+                            class="border-0 bg-transparent d-flex flex-column gap-2 lh-1 text-decoration-none">
                             <span class="fs-6 text-muted">Daftar Pinjam</span>
-                            <span class="cart-total fs-5 fw-bold text-dark">Total Buku: 0</span>
+                            <span class="cart-total fs-5 fw-bold text-dark">Total Buku: {{ $totalItemKeranjang }}</span>
                         </a>
                     </div>
                 @endauth
