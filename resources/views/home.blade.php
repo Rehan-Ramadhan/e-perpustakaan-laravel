@@ -132,11 +132,10 @@
           <div class="col-md-12">
             <div class="category-carousel swiper">
               <div class="swiper-wrapper">
-                @foreach($categories as $category)
+                @foreach($kategori as $k)
                   <a href="#" class="nav-link category-item swiper-slide">
-                    <img src="{{ $category->image_url ?? asset('pengguna/images/icon-category.png') }}"
-                      alt="{{ $category->nama }}">
-                    <h3 class="category-title">{{ $category->nama }}</h3>
+                    <img src="{{ $k->image_url ?? asset('pengguna/images/icon-category.png') }}" alt="{{ $k->nama }}">
+                    <h3 class="category-title">{{ $k->nama }}</h3>
                   </a>
                 @endforeach
               </div>
@@ -146,13 +145,13 @@
       </div>
     </section>
 
-    {{-- populer --}}
-    <section id="terpopuler" class="py-5 overflow-hidden">
+    {{-- unggulan --}}
+    <section id="unggulan" class="py-5 overflow-hidden">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
             <div class="section-header d-flex flex-wrap justify-content-between my-5">
-              <h2 class="section-title">Terpopuler</h2
+              <h2 class="section-title">Unggulan</h2>
               <div class="d-flex align-items-center">
                 <a href="#" class="btn-link text-decoration-none">Lihat Semua Kategori →</a>
                 <div class="swiper-buttons">
@@ -162,99 +161,13 @@
               </div>
             </div>
           </div>
-        </div
+        </div>
         <div class="row">
           <div class="col-md-12">
             <div class="products-carousel swiper">
               <div class="swiper-wrapper">
-                @foreach($popularBooks as $buku)
-                  <div class="product-item swiper-slide">
-                    @if($buku->stok <= 0)
-                      <span class="badge bg-danger position-absolute m-3">Habis</span>
-                    @elseif($buku->is_featured)
-                      <span class="badge bg-success position-absolute m-3">Unggulan</span>
-                    @endif
-                    <a href="#" class="btn-wishlist">
-                      <svg width="24" height="24">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </a>
-                    <figure>
-                      <a href="{{ route('admin.buku.show', $buku->id) }}" title="{{ $buku->nama }}">
-                        @php
-                          $cover = $buku->gambarBukus->first();
-                          $path = $cover ? asset('storage/' . $cover->lokasi_gambar) : asset('pengguna/images/no-cover.png');
-                        @endphp
-                        <img src="{{ $path }}" class="tab-image" style="height: 250px; object-fit: cover;">
-                      </a>
-                    </figure>
-                    <h3>{{ Str::limit($buku->nama, 35) }}</h3>
-                    <span class="qty">{{ $buku->penerbit }}</span>
-                    <span class="rating">
-                      <svg width="24" height="24" class="text-primary">
-                        <use xlink:href="#star-solid"></use>
-                      </svg> 5.0
-                    </span>
-                    <span class="price">{{ $buku->kategori->nama ?? 'Umum' }}</span>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div class="product-qty-info">
-                        <span class="badge border text-dark fw-light">Tersedia: {{ $buku->stok }}</span>
-                      </div>
-                      <a href="#" class="nav-link fw-bold">Pinjam <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
-                    </div>
-                  </div>
-                @endforeach
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {{-- terbaru --}}
-    <section id="terbaru" class="py-5 overflow-hidden">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-header d-flex flex-wrap flex-wrap justify-content-between mb-5">
-              <h2 class="section-title">Terbaru</h2>
-              <div class="d-flex align-items-center">
-                <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
-                <div class="swiper-buttons">
-                  <button class="swiper-prev brand-carousel-prev btn btn-yellow">❮</button>
-                  <button class="swiper-next brand-carousel-next btn btn-yellow">❯</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="brand-carousel swiper">
-              <div class="swiper-wrapper">
-                @foreach($latestBooks as $buku)
-                  <div class="swiper-slide">
-                    <div class="card mb-3 p-3 rounded-4 shadow border-0">
-                      <a href="{{ route('admin.buku.show', $buku->id) }}" class="nav-link">
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            @php
-                              $cover = $buku->gambarBukus->first();
-                              $path = $cover ? asset('storage/' . $cover->lokasi_gambar) : asset('pengguna/images/no-cover.png');
-                            @endphp
-                            <img src="{{ $path }}" class="img-fluid rounded"
-                              style="height: 100px; width: 100%; object-fit: cover;" alt="{{ $buku->nama }}">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body py-0">
-                              <p class="text-muted mb-0">{{ $buku->pengarang }}</p>
-                              <h5 class="card-title">{{ Str::limit($buku->nama, 25) }}</h5>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
+                @foreach($bukuUnggulan as $buku)
+                  <x-buku-card :buku="$buku" display="grid" />
                 @endforeach
               </div>
             </div>
@@ -301,18 +214,18 @@
       </div>
     </section>
 
-    {{-- unggulan --}}
-    <section id="unggulan" class="py-5 overflow-hidden">
+    {{-- terbaru --}}
+    <section id="terbaru" class="py-5 overflow-hidden">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <div class="section-header d-flex flex-wrap justify-content-between my-5">
-              <h2 class="section-title">Unggulan</h2>
+            <div class="section-header d-flex flex-wrap flex-wrap justify-content-between mb-5">
+              <h2 class="section-title">Terbaru</h2>
               <div class="d-flex align-items-center">
-                <a href="#" class="btn-link text-decoration-none">Lihat Semua Kategori →</a>
+                <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
                 <div class="swiper-buttons">
-                  <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
-                  <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+                  <button class="swiper-prev brand-carousel-prev btn btn-yellow">❮</button>
+                  <button class="swiper-next brand-carousel-next btn btn-yellow">❯</button>
                 </div>
               </div>
             </div>
@@ -320,43 +233,11 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div class="products-carousel swiper">
+            <div class="brand-carousel swiper">
               <div class="swiper-wrapper">
-                @foreach($featuredBooks as $buku)
-                  <div class="product-item swiper-slide">
-                    @if($buku->stok <= 0)
-                      <span class="badge bg-danger position-absolute m-3">Habis</span>
-                    @elseif($buku->is_featured)
-                      <span class="badge bg-success position-absolute m-3">Unggulan</span>
-                    @endif
-                    <a href="#" class="btn-wishlist">
-                      <svg width="24" height="24">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </a>
-                    <figure>
-                      <a href="{{ route('admin.buku.show', $buku->id) }}" title="{{ $buku->nama }}">
-                        @php
-                          $cover = $buku->gambarBukus->first();
-                          $path = $cover ? asset('storage/' . $cover->lokasi_gambar) : asset('pengguna/images/no-cover.png');
-                        @endphp
-                        <img src="{{ $path }}" class="tab-image" style="height: 250px; object-fit: cover;">
-                      </a>
-                    </figure>
-                    <h3>{{ Str::limit($buku->nama, 35) }}</h3>
-                    <span class="qty">{{ $buku->penerbit }}</span>
-                    <span class="rating">
-                      <svg width="24" height="24" class="text-primary">
-                        <use xlink:href="#star-solid"></use>
-                      </svg> 5.0
-                    </span>
-                    <span class="price">{{ $buku->kategori->nama ?? 'Umum' }}</span>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div class="product-qty-info">
-                        <span class="badge border text-dark fw-light">Tersedia: {{ $buku->stok }}</span>
-                      </div>
-                      <a href="#" class="nav-link fw-bold">Pinjam <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
-                    </div>
+                @foreach($bukuTerbaru as $buku)
+                  <div class="swiper-slide">
+                    <x-buku-card :buku="$buku" display="list" />
                   </div>
                 @endforeach
               </div>

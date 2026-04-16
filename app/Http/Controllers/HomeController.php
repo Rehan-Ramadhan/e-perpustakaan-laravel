@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = Kategori::query()
+        $kategori = Kategori::query()
             ->where('is_active', true)
             ->withCount([
                 'bukus' => function ($q) {
@@ -21,7 +21,7 @@ class HomeController extends Controller
             ->orderBy('nama')
             ->get();
 
-        $featuredBooks = Buku::query()
+        $bukuUnggulan = Buku::query()
             ->with(['kategori', 'gambarBukus'])
             ->where('is_active', true)
             ->where('is_featured', true)
@@ -29,21 +29,13 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        $popularBooks = Buku::query()
-            ->with(['kategori', 'gambarBukus'])
-            ->where('is_active', true)
-            ->withCount('itemPesanans')
-            ->orderBy('item_pesanans_count', 'desc')
-            ->take(10)
-            ->get();
-
-        $latestBooks = Buku::query()
+        $bukuTerbaru = Buku::query()
             ->with(['kategori', 'gambarBukus'])
             ->where('is_active', true)
             ->latest()
             ->take(10)
             ->get();
 
-        return view('home', compact('categories', 'featuredBooks', 'popularBooks', 'latestBooks'));
+        return view('home', compact('kategori', 'bukuUnggulan', 'bukuTerbaru'));
     }
 }

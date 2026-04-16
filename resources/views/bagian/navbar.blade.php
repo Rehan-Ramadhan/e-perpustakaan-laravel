@@ -22,8 +22,8 @@
                             <select class="form-select border-0 bg-transparent small fw-bold text-muted"
                                 style="box-shadow: none; cursor: pointer; font-size: 0.85rem;">
                                 <option selected disabled>Kategori</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->nama }}</option>
+                                @foreach($kategori as $k)
+                                    <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                 @endforeach
                             </select>
                         </div>

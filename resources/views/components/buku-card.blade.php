@@ -1,33 +1,69 @@
-@props(['product'])
+@props(['buku', 'display' => 'grid'])
 
-<div class="card h-100 border-0 shadow-sm product-card">
-    {{-- Gambar --}}
-    <div class="position-relative overflow-hidden bg-light" style="padding-top: 100%;">
-        <img src="{{ $product->image_url }}"
-            class="card-img-top position-absolute top-0 start-0 w-100 h-100 object-fit-cover">
+@php
+    $cover = $buku->gambarBukus->first();
+    $path = $cover ? asset('storage/' . $cover->lokasi_gambar) : asset('pengguna/images/no-cover.png');
+@endphp
 
-        @if($product->has_discount)
-            <span class="position-absolute top-0 start-0 m-2 badge bg-danger">
-                -{{ $product->discount_percentage }}%
-            </span>
-        @endif
+@if ($display === 'list')
+
+    <div class="card mb-3 p-3 rounded-4 shadow border-0">
+        <a href="{{ route('admin.buku.show', $buku->id) }}" class="nav-link">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ $path }}" class="img-fluid rounded" style="height: 100px; width: 100%; object-fit: cover;"
+                        alt="{{ $buku->nama }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body py-0">
+                        <p class="text-muted mb-0">{{ $buku->pengarang }}</p>
+                        <h5 class="card-title">{{ Str::limit($buku->nama, 25) }}</h5>
+                    </div>
+                </div>
+            </div>
+        </a>
     </div>
+@else
 
-    {{-- Info --}}
-    <div class="card-body d-flex flex-column">
-        <small class="text-muted mb-1">{{ $product->category->name }}</small>
-        <h6 class="card-title mb-2">
-            <a href="{{ route('catalog.show', $product->slug) }}" class="text-decoration-none text-dark stretched-link">
-                {{ $product->name }}
+    <div class="product-item swiper-slide">
+        @if ($buku->stok <= 0)
+            <span class="badge bg-danger position-absolute m-3">Habis</span>
+        @elseif($buku->is_featured)
+            <span class="badge bg-success position-absolute m-3">Unggulan</span>
+        @endif
+
+        <a href="#" class="btn-wishlist">
+            <svg width="24" height="24">
+                <use xlink:href="#heart"></use>
+            </svg>
+        </a>
+
+        <figure>
+            <a href="{{ route('admin.buku.show', $buku->id) }}" title="{{ $buku->nama }}">
+                <img src="{{ $path }}" class="tab-image" style="height: 250px; object-fit: cover;">
             </a>
-        </h6>
-        <div class="mt-auto">
-            @if($product->has_discount)
-                <p class="fw-bold text-danger mb-0">{{ $product->formatted_price }}</p>
-                <small class="text-decoration-line-through text-muted">{{ $product->formatted_original_price }}</small>
-            @else
-                <p class="fw-bold text-primary mb-0">{{ $product->formatted_price }}</p>
-            @endif
+        </figure>
+
+        <h3>{{ Str::limit($buku->nama, 35) }}</h3>
+        <span class="qty">{{ $buku->penerbit }}</span>
+        <span class="rating">
+            <svg width="24" height="24" class="text-primary">
+                <use xlink:href="#star-solid"></use>
+            </svg> 5.0
+        </span>
+        <span class="price">{{ $buku->kategori->nama ?? 'Umum' }}</span>
+
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="product-qty-info">
+                <span class="badge border text-dark fw-light">Tersedia: {{ $buku->stok }}</span>
+            </div>
+            <form action="#" method="POST">
+                @csrf
+                <input type="hidden" name="buku_id" value="{{ $buku->id }}">
+                <button type="submit" class="nav-link fw-bold border-0 bg-transparent" @if($buku->stok <= 0) disabled @endif>
+                    Pinjam <iconify-icon icon="uil:shopping-cart"></iconify-icon>
+                </button>
+            </form>
         </div>
     </div>
-</div>
+@endif
