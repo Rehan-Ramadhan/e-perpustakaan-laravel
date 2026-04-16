@@ -14,34 +14,36 @@ class HomeController extends Controller
             ->where('is_active', true)
             ->withCount([
                 'bukus' => function ($q) {
-                    $q->where('is_active', true)
-                        ->where('stok', '>', 0);
+                    $q->where('is_active', true)->where('stok', '>', 0);
                 }
             ])
             ->having('bukus_count', '>', 0)
             ->orderBy('nama')
-            ->take(6)
             ->get();
 
         $featuredBooks = Buku::query()
-            ->with(['kategori'])
+            ->with(['kategori', 'gambarBukus'])
             ->where('is_active', true)
             ->where('is_featured', true)
             ->latest()
-            ->take(8)
+            ->take(10)
+            ->get();
+
+        $popularBooks = Buku::query()
+            ->with(['kategori', 'gambarBukus'])
+            ->where('is_active', true)
+            ->withCount('itemPesanans')
+            ->orderBy('item_pesanans_count', 'desc')
+            ->take(10)
             ->get();
 
         $latestBooks = Buku::query()
-            ->with(['kategori'])
+            ->with(['kategori', 'gambarBukus'])
             ->where('is_active', true)
             ->latest()
-            ->take(8)
+            ->take(10)
             ->get();
 
-        return view('home', compact(
-            'categories',
-            'featuredBooks',
-            'latestBooks'
-        ));
+        return view('home', compact('categories', 'featuredBooks', 'popularBooks', 'latestBooks'));
     }
 }

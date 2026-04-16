@@ -23,7 +23,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Informatika',
                 'tahun_terbit' => 2024,
                 'lokasi_rak' => 'T-01',
-                'gambar' => 'laravel-11.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Panduan lengkap membangun aplikasi web modern dengan Laravel 11.',
             ],
             [
@@ -33,7 +33,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Andi Offset',
                 'tahun_terbit' => 2023,
                 'lokasi_rak' => 'T-02',
-                'gambar' => 'ai-masakin.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Mengenal konsep neural networks dan machine learning secara mendalam.',
             ],
             [
@@ -43,7 +43,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Elex Media',
                 'tahun_terbit' => 2022,
                 'lokasi_rak' => 'T-03',
-                'gambar' => 'cyber-sec.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Cara mengamankan jaringan komputer dari serangan peretas.',
             ],
 
@@ -55,7 +55,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Kepustakaan Populer Gramedia',
                 'tahun_terbit' => 2021,
                 'lokasi_rak' => 'S-01',
-                'gambar' => 'kosmos.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Menjelajahi evolusi alam semesta dan peradaban manusia.',
             ],
             [
@@ -65,7 +65,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Erlangga',
                 'tahun_terbit' => 2020,
                 'lokasi_rak' => 'S-02',
-                'gambar' => 'biologi-mol.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Pembahasan mendalam mengenai struktur DNA dan genetika.',
             ],
             [
@@ -75,7 +75,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Bumi Aksara',
                 'tahun_terbit' => 2023,
                 'lokasi_rak' => 'S-03',
-                'gambar' => 'fisika-kuantum.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Memahami dunia atom dengan bahasa yang sederhana.',
             ],
 
@@ -87,7 +87,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Gramedia',
                 'tahun_terbit' => 2018,
                 'lokasi_rak' => 'F-01',
-                'gambar' => 'negeri-ujung.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Sebuah kisah tentang intrik politik dan perjuangan prinsip.',
             ],
             [
@@ -97,7 +97,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Bentang Pustaka',
                 'tahun_terbit' => 2005,
                 'lokasi_rak' => 'F-02',
-                'gambar' => 'laskar-pelangi.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Kisah inspiratif anak-anak Belitong menggapai mimpi.',
             ],
             [
@@ -107,7 +107,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Gramedia',
                 'tahun_terbit' => 2015,
                 'lokasi_rak' => 'F-03',
-                'gambar' => 'cantik-luka.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Novel realisme magis yang telah diterjemahkan ke banyak bahasa.',
             ],
 
@@ -119,7 +119,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Alvabet',
                 'tahun_terbit' => 2019,
                 'lokasi_rak' => 'SJ-01',
-                'gambar' => 'sejarah-dunia.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Menelisik sisi lain sejarah dari perspektif perkumpulan rahasia.',
             ],
             [
@@ -129,7 +129,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Tiga Serangkai',
                 'tahun_terbit' => 2017,
                 'lokasi_rak' => 'SJ-02',
-                'gambar' => 'gadjah-mada.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Kisah kejayaan Majapahit di bawah sumpah sang Mahapatih.',
             ],
             [
@@ -139,7 +139,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Salam Madani',
                 'tahun_terbit' => 2015,
                 'lokasi_rak' => 'SJ-03',
-                'gambar' => 'api-sejarah.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Mahakarya perjuangan ulama dan santri dalam menjaga NKRI.',
             ],
 
@@ -151,7 +151,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Qisthi Press',
                 'tahun_terbit' => 2016,
                 'lokasi_rak' => 'A-01',
-                'gambar' => 'la-tahzan.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Buku motivasi spiritual yang sangat fenomenal.',
             ],
             [
@@ -161,7 +161,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Pustaka Sunnah',
                 'tahun_terbit' => 2021,
                 'lokasi_rak' => 'A-02',
-                'gambar' => 'bukhari.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Kumpulan hadits-hadits sahih untuk pedoman hidup.',
             ],
             [
@@ -171,7 +171,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Al-Itishom',
                 'tahun_terbit' => 2020,
                 'lokasi_rak' => 'A-03',
-                'gambar' => 'fiqih-wanita.jpg',
+                'gambar' => 'buku.jpg',
                 'deskripsi' => 'Panduan hukum-hukum agama khusus bagi muslimah.',
             ],
         ];
@@ -189,7 +189,7 @@ class BukuSeeder extends Seeder
                     'tahun_terbit' => $bukuData['tahun_terbit'],
                     'lokasi_rak' => $bukuData['lokasi_rak'],
                     'deskripsi' => $bukuData['deskripsi'],
-                    'gambar' => 'buku/' . $bukuData['gambar'],
+                    'gambar' => 'buku.jpg',
                     'stok' => rand(5, 50),
                     'is_active' => true,
                     'is_featured' => rand(0, 1),
