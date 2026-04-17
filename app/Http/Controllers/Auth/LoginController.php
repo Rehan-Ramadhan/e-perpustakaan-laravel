@@ -59,4 +59,14 @@ class LoginController extends Controller
             'password.min' => 'Password minimal 8 karakter.',
         ]);
     }
+
+    /**
+     */
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard()->attempt(
+            $this->credentials($request),
+            $request->filled('remember')
+        );
+    }
 }

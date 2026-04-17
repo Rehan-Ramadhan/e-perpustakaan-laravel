@@ -37,12 +37,12 @@
                 </div>
 
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" name="remember">
-                    <label class="form-check-label">Ingat saya</label>
+                    <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="remember">Ingat saya</label>
                 </div>
 
                 <div class="d-grid mb-3">
-                    <button class="btn" style="background-color: #547c9a; color: white;"   py-2 fw-bold">Masuk</button>
+                    <button class="btn" style="background-color: #547c9a; color: white;" py-2 fw-bold">Masuk</button>
                 </div>
 
                 <div class="position-relative mb-3">
@@ -53,7 +53,8 @@
                 </div>
 
                 <div class="d-grid mb-3">
-                    <a href="{{ route('auth.google') }}" class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-2 py-2"
+                    <a href="{{ route('auth.google') }}"
+                        class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-2 py-2"
                         style="border-radius: 10px;">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18">
                         Login dengan Google
