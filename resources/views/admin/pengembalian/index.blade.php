@@ -3,8 +3,6 @@
 @section('title', 'Pengembalian')
 
 @section('content')
-    @endif
-
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-1">Pengembalian</h2>
