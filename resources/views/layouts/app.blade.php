@@ -54,9 +54,7 @@
             const data = await response.json();
 
             if (data.status === "success") {
-                // 1. Update Warna Ikon (UI)
                 updateKeinginanUI(bukuId, data.added);
-                // 2. Update Angka di Navbar (Counter)
                 updateKeinginanCounter(data.count);
             }
         } catch (error) {
@@ -67,7 +65,7 @@
     function updateKeinginanUI(bukuId, isAdded) {
     const buttons = document.querySelectorAll(`.wishlist-btn-${bukuId}`);
     buttons.forEach((btn) => {
-        const textSpan = btn.querySelector(".wishlist-text"); // Target teksnya
+        const textSpan = btn.querySelector(".wishlist-text");
         
         if (isAdded) {
             btn.classList.remove("text-secondary");
