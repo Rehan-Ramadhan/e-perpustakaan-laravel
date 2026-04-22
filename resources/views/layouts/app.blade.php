@@ -34,17 +34,11 @@
     @stack('pricing-styles')
 </head>
 
-{{--
 <script>
-    /**
-     * Fungsi AJAX untuk Toggle Wishlist
-     * Menggunakan Fetch API (Modern JS) daripada jQuery.
-     */
-    async function toggleWishlist(productId) {
+    async function toggleWishlist(bukuId) {
         try {
             const token = document.querySelector('meta[name="csrf-token"]').content;
-
-            const response = await fetch(`/wishlist/toggle/${productId}`, {
+            const response = await fetch(`/keinginan/toggle/${bukuId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -60,39 +54,41 @@
             const data = await response.json();
 
             if (data.status === "success") {
-                updateWishlistUI(productId, data.added);
-                updateWishlistCounter(data.count);
-                showToast(data.message);
+                // 1. Update Warna Ikon (UI)
+                updateKeinginanUI(bukuId, data.added);
+                // 2. Update Angka di Navbar (Counter)
+                updateKeinginanCounter(data.count);
             }
         } catch (error) {
             console.error("Error:", error);
-            showToast("Terjadi kesalahan sistem.", "error");
         }
     }
 
-    function updateWishlistUI(productId, isAdded) {
-        const buttons = document.querySelectorAll(`.wishlist-btn-${productId}`);
+    function updateKeinginanUI(bukuId, isAdded) {
+    const buttons = document.querySelectorAll(`.wishlist-btn-${bukuId}`);
+    buttons.forEach((btn) => {
+        const textSpan = btn.querySelector(".wishlist-text"); // Target teksnya
+        
+        if (isAdded) {
+            btn.classList.remove("text-secondary");
+            btn.classList.add("text-danger");
+            if(textSpan) textSpan.innerText = "Hapus dari Daftar Suka";
+        } else {
+            btn.classList.remove("text-danger");
+            btn.classList.add("text-secondary");
+            if(textSpan) textSpan.innerText = "Tambah ke Daftar Suka";
+        }
+    });
+}
 
-        buttons.forEach((btn) => {
-            const icon = btn.querySelector("i");
-            if (isAdded) {
-                icon.classList.remove("bi-heart", "text-secondary");
-                icon.classList.add("bi-heart-fill", "text-danger");
-            } else {
-                icon.classList.remove("bi-heart-fill", "text-danger");
-                icon.classList.add("bi-heart", "text-secondary");
-            }
-        });
-    }
-
-    function updateWishlistCounter(count) {
+    function updateKeinginanCounter(count) {
         const badge = document.getElementById("wishlist-count");
         if (badge) {
             badge.innerText = count;
             badge.style.display = count > 0 ? "inline-block" : "none";
         }
     }
-</script> --}}
+</script>
 
 <body class="bg-light">
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

@@ -12,12 +12,12 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BukuController as AdminBukuController;
 use App\Http\Controllers\Admin\KategoriController as AdminKategoriController;
-use App\Http\Controllers\Admin\PeminjamanController;
-use App\Http\Controllers\Admin\PengembalianController;
+use App\Http\Controllers\Admin\PeminjamanController as AdminPeminjamanController;
+use App\Http\Controllers\Admin\PengembalianController as AdminPengembalianController;
 use App\Http\Controllers\Admin\ReportController;
 
-use App\Http\Controllers\BukuController as PenggunaBukuController;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\KeinginanController;
 use App\Http\Controllers\KeranjangController;
 
 // publik
@@ -37,7 +37,8 @@ Route::controller(GoogleController::class)->group(function () {
 
 // pengguna (wajib wogin)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/keinginan', [PenggunaBukuController::class, 'keinginan'])->name('pengguna.keinginan.index');
+    Route::get('/keinginan', [KeinginanController::class, 'index'])->name('keinginan.index');
+    Route::post('/keinginan/toggle/{buku}', [KeinginanController::class, 'toggle'])->name('keinginan.toggle');
 
     Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
     Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
@@ -57,8 +58,8 @@ Route::middleware(['auth', 'admin'])
         // crud resources
         Route::resource('buku', AdminBukuController::class);
         Route::resource('kategori', AdminKategoriController::class)->except(['show']);
-        Route::resource('peminjaman', PeminjamanController::class);
-        Route::resource('pengembalian', PengembalianController::class);
+        Route::resource('peminjaman', AdminPeminjamanController::class);
+        Route::resource('pengembalian', AdminPengembalianController::class);
 
         // manajemen pengguna
         Route::resource('pengguna', UserController::class)->parameters(['pengguna' => 'user']);

@@ -188,7 +188,7 @@
                   <div class="col-md-7">
                     <div class="categories text-primary fs-3 fw-bold">Koleksi Spesial</div>
                     <h3 class="categories text-primary fs-3 fw-bold">Sastra Dunia</h3>
-                    <p>Jelajahi karya-karya sastra klasik hingga modern dari penulis ternama.</p>
+                    <p>Jelajahi karya-karya sastra klasik hingga modern dari pengarang ternama.</p>
                     <a href="#" class="btn btn-dark text-uppercase mt-3">Cek Sekarang</a>
                   </div>
                 </div>

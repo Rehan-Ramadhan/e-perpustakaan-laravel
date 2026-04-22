@@ -724,3 +724,15 @@ h1,h2,h3,h4,h5,h6 {
 #userDropdown::after {
     display: none !important;
 }
+
+/* Warna saat BELUM disukai */
+.text-secondary {
+    color: #ffffff !important;
+    border-color: #6c757d !important;
+}
+
+/* Warna saat SUDAH disukai */
+.text-danger {
+    color: #ffffff !important;
+    border-color: #dc3545 !important;
+}

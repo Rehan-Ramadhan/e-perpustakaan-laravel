@@ -64,7 +64,7 @@ class Kategori extends Model
     public function getGambarUrlAttribute(): string
     {
         if (!$this->gambar) {
-            return asset('assets/img/illustrations/page-misc-error-light.png');
+            return asset('admin/img/illustrations/page-misc-error-light.png');
         }
 
         if (str_contains($this->gambar, 'kategoris/')) {

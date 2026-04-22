@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     /**
-     * User memiliki banyak buku di daftar keinginan (Wishlist).
+     * User memiliki banyak buku di daftar keinginan.
      */
     public function keinginan(): BelongsToMany
     {

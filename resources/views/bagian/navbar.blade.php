@@ -31,8 +31,8 @@
 
                     <div class="col-11 col-md-9">
                         <form id="search-form"
-                            class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm" action="{{ route('katalog.index') }}"
-                            method="get">
+                            class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm"
+                            action="{{ route('katalog.index') }}" method="get">
                             <input type="text" name="q" class="form-control border-0 bg-transparent me-2"
                                 placeholder="Cari buku..." value="{{ request('q') }}" style="box-shadow: none;">
                             <button type="submit" class="btn border-0 p-0 text-muted ms-1">
@@ -84,11 +84,25 @@
 
                         {{-- suka --}}
                         <li class="mx-1">
-                            <a href="#" class="rounded-circle bg-light p-2 d-flex align-items-center justify-content-center"
+                            <a href="{{ route('keinginan.index') }}"
+                                class="rounded-circle bg-light p-2 d-flex align-items-center justify-content-center position-relative"
                                 style="width: 45px; height: 45px;">
+
                                 <svg width="24" height="24">
                                     <use xlink:href="#heart"></use>
                                 </svg>
+
+                                @auth
+                                    @php
+                                        $wishlistCount = auth()->user()->keinginan()->count();
+                                    @endphp
+
+                                    <span id="wishlist-count"
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                        style="font-size: 0.6rem; {{ $wishlistCount > 0 ? '' : 'display: none;' }}">
+                                        {{ $wishlistCount }}
+                                    </span>
+                                @endauth
                             </a>
                         </li>
                     @else

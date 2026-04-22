@@ -32,12 +32,6 @@
             <span class="badge bg-success position-absolute m-3">Unggulan</span>
         @endif
 
-        <a href="#" class="btn-wishlist">
-            <svg width="24" height="24">
-                <use xlink:href="#heart"></use>
-            </svg>
-        </a>
-
         <figure>
             <a href="{{ route('katalog.show', $buku->slug) }}" title="{{ $buku->nama }}">
                 <img src="{{ $path }}" class="tab-image" style="height: 250px; object-fit: cover;">
