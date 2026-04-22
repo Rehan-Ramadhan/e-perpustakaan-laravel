@@ -61,7 +61,7 @@ class User extends Authenticatable
     /**
      * User memiliki banyak buku di daftar keinginan.
      */
-    public function keinginan(): BelongsToMany
+    public function keinginans(): BelongsToMany
     {
         return $this->belongsToMany(Buku::class, 'keinginans')
             ->withTimestamps();
@@ -106,7 +106,7 @@ class User extends Authenticatable
      */
     public function hasInKeinginan(Buku $buku): bool
     {
-        return $this->keinginan()
+        return $this->keinginans()
             ->where('buku_id', $buku->id)
             ->exists();
     }

@@ -28,11 +28,11 @@ class KeinginanController extends Controller
         $user = auth()->user();
 
         if ($user->hasInKeinginan($buku)) {
-            $user->keinginan()->detach($buku->id);
+            $user->keinginans()->detach($buku->id);
             $added = false;
             $message = 'Buku dihapus dari daftar suka.';
         } else {
-            $user->keinginan()->attach($buku->id);
+            $user->keinginans()->attach($buku->id);
             $added = true;
             $message = 'Buku ditambahkan ke daftar suka!';
         }
@@ -41,7 +41,7 @@ class KeinginanController extends Controller
             'status' => 'success',
             'added' => $added,
             'message' => $message,
-            'count' => $user->keinginan()->count()
+            'count' => $user->keinginans()->count()
         ]);
     }
 }

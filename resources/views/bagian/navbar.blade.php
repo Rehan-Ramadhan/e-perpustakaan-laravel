@@ -94,12 +94,11 @@
 
                                 @auth
                                     @php
-                                        $wishlistCount = auth()->user()->keinginan()->count();
+                                        $wishlistCount = auth()->user()->keinginans()->count();
                                     @endphp
 
-                                    <span id="wishlist-count"
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                        style="font-size: 0.6rem; {{ $wishlistCount > 0 ? '' : 'display: none;' }}">
+                                    <span id="wishlist-count" class="position-absolute translate-middle badge rounded-pill"
+                                        style="top: 15%; left: 85%; font-size: 0.6rem; background-color: #dc3545 !important; color: #ffffff !important; z-index: 10; display: {{ $wishlistCount > 0 ? 'inline-block' : 'none' }}; border: 1.5px solid white; min-width: 18px; height: 18px; padding: 0; display: flex; align-items: center; justify-content: center;">
                                         {{ $wishlistCount }}
                                     </span>
                                 @endauth
