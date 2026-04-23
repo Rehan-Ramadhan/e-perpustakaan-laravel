@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\KeranjangService;
 use Illuminate\Http\Request;
-use App\Models\Buku;
-use App\Models\Keranjang;
-use App\Models\ItemKeranjang;
-use Illuminate\Support\Facades\Auth;
 
 class KeranjangController extends Controller
 {
+    protected $keranjangService;
+
+    // Inject Service
+    public function __construct(KeranjangService $keranjangService)
+    {
+        $this->keranjangService = $keranjangService;
+    }
+
     public function index()
     {
-        $keranjang = Keranjang::where('user_id', Auth::id())
-            ->with('items.buku.gambarBukus')
-            ->first();
-
-        $items = $keranjang ? $keranjang->items : collect();
+        $items = $this->keranjangService->getItems();
         $totalBuku = $items->sum('jumlah');
 
         return view('keranjang.index', compact('items', 'totalBuku'));
@@ -29,38 +30,33 @@ class KeranjangController extends Controller
             'jumlah' => 'required|integer|min:1'
         ]);
 
-        $keranjang = Keranjang::firstOrCreate(['user_id' => Auth::id()]);
-
-        $item = ItemKeranjang::where('keranjang_id', $keranjang->id)
-            ->where('buku_id', $request->buku_id)
-            ->first();
-
-        if ($item) {
-            $item->increment('jumlah', $request->jumlah);
-        } else {
-            ItemKeranjang::create([
-                'keranjang_id' => $keranjang->id,
-                'buku_id' => $request->buku_id,
-                'jumlah' => $request->jumlah
-            ]);
+        try {
+            $this->keranjangService->addBuku($request->buku_id, $request->jumlah);
+            return back()->with('success', 'Buku berhasil dimasukkan ke daftar pinjam.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        return back()->with('success', 'Buku berhasil dimasukkan ke daftar pinjam.');
     }
 
     public function update(Request $request, $id)
     {
         $request->validate(['jumlah' => 'required|integer|min:1']);
 
-        $item = ItemKeranjang::findOrFail($id);
-        $item->update(['jumlah' => $request->jumlah]);
-
-        return back()->with('success', 'Jumlah buku diperbarui.');
+        try {
+            $this->keranjangService->updateJumlah($id, $request->jumlah);
+            return back()->with('success', 'Jumlah buku diperbarui.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function destroy($id)
     {
-        ItemKeranjang::findOrFail($id)->delete();
-        return back()->with('success', 'Buku dihapus dari daftar.');
+        try {
+            $this->keranjangService->removeItem($id);
+            return back()->with('success', 'Buku dihapus dari daftar.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menghapus item.');
+        }
     }
 }
