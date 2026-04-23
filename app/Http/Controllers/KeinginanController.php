@@ -12,7 +12,7 @@ class KeinginanController extends Controller
      */
     public function index()
     {
-        $bukus = auth()->user()->keinginan()
+        $bukus = auth()->user()->keinginans()
             ->with(['kategori', 'gambarBukus'])
             ->latest('keinginans.created_at')
             ->paginate(12);

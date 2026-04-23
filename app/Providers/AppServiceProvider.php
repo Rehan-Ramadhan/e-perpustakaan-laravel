@@ -37,9 +37,19 @@ class AppServiceProvider extends ServiceProvider
                 $totalItemKeranjang = $keranjang ? $keranjang->items_count : 0;
             }
 
+            $keinginanCount = 0;
+
+            if (auth()->check()) {
+                $keranjang = Keranjang::where('user_id', auth()->id())->withCount('items')->first();
+                $totalItemKeranjang = $keranjang ? $keranjang->items_count : 0;
+
+                $keinginanCount = auth()->user()->keinginans()->count();
+            }
+
             $view->with([
                 'kategori' => $kategori,
-                'totalItemKeranjang' => $totalItemKeranjang
+                'totalItemKeranjang' => $totalItemKeranjang,
+                'keinginanCount' => $keinginanCount
             ]);
         });
     }

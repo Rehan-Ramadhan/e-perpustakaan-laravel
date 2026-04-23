@@ -92,16 +92,10 @@
                                     <use xlink:href="#heart"></use>
                                 </svg>
 
-                                @auth
-                                    @php
-                                        $wishlistCount = auth()->user()->keinginans()->count();
-                                    @endphp
-
-                                    <span id="wishlist-count" class="position-absolute translate-middle badge rounded-pill"
-                                        style="top: 15%; left: 85%; font-size: 0.6rem; background-color: #dc3545 !important; color: #ffffff !important; z-index: 10; display: {{ $wishlistCount > 0 ? 'inline-block' : 'none' }}; border: 1.5px solid white; min-width: 18px; height: 18px; padding: 0; display: flex; align-items: center; justify-content: center;">
-                                        {{ $wishlistCount }}
-                                    </span>
-                                @endauth
+                                <span id="wishlist-count" class="position-absolute translate-middle badge rounded-pill"
+                                    style="top: 15%; left: 85%; font-size: 0.6rem; background-color: #dc3545 !important; color: #ffffff !important; z-index: 10; display: {{ $keinginanCount > 0 ? 'flex' : 'none' }}; border: 1.5px solid white; min-width: 18px; height: 18px; padding: 0; align-items: center; justify-content: center;">
+                                    {{ $keinginanCount }}
+                                </span>
                             </a>
                         </li>
                     @else
