@@ -133,8 +133,10 @@
             <div class="category-carousel swiper">
               <div class="swiper-wrapper">
                 @foreach($kategori as $k)
-                  <a href="#" class="nav-link category-item swiper-slide">
-                    <img src="{{ $k->image_url ?? asset('pengguna/images/icon-category.png') }}" alt="{{ $k->nama }}">
+                  <a href="{{ route('katalog.index', ['kategori' => $k->slug]) }}"
+                    class="nav-link category-item swiper-slide">
+                    <img src="{{ $k->gambar_url }}" alt="{{ $k->nama }}"
+                      style="width: 80px; height: 80px; object-fit: cover;" class="rounded-circle">
                     <h3 class="category-title">{{ $k->nama }}</h3>
                   </a>
                 @endforeach

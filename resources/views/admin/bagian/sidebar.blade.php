@@ -33,6 +33,13 @@
             </a>
         </li>
 
+        <li class="menu-item {{ request()->is('kategori*') ? 'active' : '' }}">
+            <a href="{{ route('admin.kategori.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-category"></i>
+                <div data-i18n="Tables">Data Kategori</div>
+            </a>
+        </li>
+
         <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
             <a href="{{ route('admin.pengguna.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>

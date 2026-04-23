@@ -57,7 +57,7 @@ Route::middleware(['auth', 'admin'])
 
         // crud resources
         Route::resource('buku', AdminBukuController::class);
-        Route::resource('kategori', AdminKategoriController::class)->except(['show']);
+        Route::resource('kategori', AdminKategoriController::class);
         Route::resource('peminjaman', AdminPeminjamanController::class);
         Route::resource('pengembalian', AdminPengembalianController::class);
 

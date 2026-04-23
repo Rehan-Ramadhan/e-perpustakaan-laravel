@@ -2,26 +2,33 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Kategori;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class KategoriSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $kategoris = [
-            ['nama' => 'Teknologi', 'slug' => 'teknologi'],
-            ['nama' => 'Sains', 'slug' => 'sains'],
-            ['nama' => 'Fiksi', 'slug' => 'fiksi'],
-            ['nama' => 'Sejarah', 'slug' => 'sejarah'],
-            ['nama' => 'Agama', 'slug' => 'agama'],
+            ['nama' => 'Teknologi', 'deskripsi' => 'Buku tentang perkembangan IT dan Gadget.'],
+            ['nama' => 'Sains', 'deskripsi' => 'Ilmu pengetahuan alam, fisika, dan biologi.'],
+            ['nama' => 'Fiksi', 'deskripsi' => 'Novel, cerpen, dan karya imajinatif lainnya.'],
+            ['nama' => 'Sejarah', 'deskripsi' => 'Catatan peristiwa masa lalu dunia dan nasional.'],
+            ['nama' => 'Agama', 'deskripsi' => 'Buku tuntunan ibadah dan spiritual.'],
         ];
 
         foreach ($kategoris as $k) {
-            \App\Models\Kategori::create($k);
+            $slug = Str::slug($k['nama']);
+            Kategori::create([
+                'nama' => $k['nama'],
+                'slug' => $slug,
+                'deskripsi' => $k['deskripsi'],
+                'is_active' => true,
+                'gambar' => 'icon-' . $slug . '.png',
+            ]);
         }
+
+        $this->command->info('Seeder Kategori berhasil dijalankan dengan nama file gambar!');
     }
 }

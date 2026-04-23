@@ -67,11 +67,11 @@ class Kategori extends Model
             return asset('admin/img/illustrations/page-misc-error-light.png');
         }
 
-        if (str_contains($this->gambar, 'kategoris/')) {
+        if (str_contains($this->gambar, 'kategori/')) {
             return asset('storage/' . $this->gambar);
         }
 
-        return asset('assets/img/elements/' . $this->gambar);
+        return asset('storage/kategori/' . $this->gambar);
     }
 
     /**
