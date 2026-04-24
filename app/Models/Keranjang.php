@@ -15,7 +15,7 @@ class Keranjang extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function items(): HasMany
+    public function itemKeranjangs(): HasMany
     {
         return $this->hasMany(ItemKeranjang::class);
     }

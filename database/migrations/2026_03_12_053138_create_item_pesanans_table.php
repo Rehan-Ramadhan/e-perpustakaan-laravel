@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('pesanan_id')->constrained()->cascadeOnDelete();
             $table->foreignId('buku_id')->constrained()->restrictOnDelete();
             $table->string('nama_buku');
-            $table->integer('quantity');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }

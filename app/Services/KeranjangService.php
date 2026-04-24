@@ -17,10 +17,10 @@ class KeranjangService
     public function getItems()
     {
         $keranjang = Keranjang::where('user_id', Auth::id())
-            ->with('items.buku.gambarBukus')
+            ->with('itemKeranjangs.buku.gambarBukus')
             ->first();
 
-        return $keranjang ? $keranjang->items : collect();
+        return $keranjang ? $keranjang->itemKeranjangs : collect();
     }
 
     public function addBuku(int $bukuId, int $jumlah)
@@ -28,27 +28,19 @@ class KeranjangService
         $buku = Buku::findOrFail($bukuId);
         $keranjang = $this->getKeranjang();
 
-        if ($buku->stok < $jumlah) {
-            throw new \Exception("Stok tidak mencukupi. Sisa: {$buku->stok}");
-        }
-
         $item = ItemKeranjang::where('keranjang_id', $keranjang->id)
             ->where('buku_id', $bukuId)
             ->first();
 
         if ($item) {
-            $totalBaru = $item->jumlah + $jumlah;
-            if ($totalBaru > $buku->stok) {
-                throw new \Exception("Total di keranjang melebihi stok. Maksimal: {$buku->stok}");
-            }
-            $item->increment('jumlah', $jumlah);
-        } else {
-            ItemKeranjang::create([
-                'keranjang_id' => $keranjang->id,
-                'buku_id' => $bukuId,
-                'jumlah' => $jumlah
-            ]);
+            throw new \Exception("buku '{$buku->nama}' sudah ada di daftar pinjam.");
         }
+
+        ItemKeranjang::create([
+            'keranjang_id' => $keranjang->id,
+            'buku_id' => $bukuId,
+            'jumlah' => 1
+        ]);
     }
 
     public function updateJumlah(int $itemId, int $jumlah)
@@ -56,11 +48,11 @@ class KeranjangService
         $item = ItemKeranjang::with('buku')->findOrFail($itemId);
 
         if ($item->keranjang->user_id !== Auth::id()) {
-            abort(403, 'Aksi tidak diizinkan.');
+            abort(403, 'aksi tidak diizinkan.');
         }
 
         if ($jumlah > $item->buku->stok) {
-            throw new \Exception("Stok terbatas. Hanya tersedia {$item->buku->stok}");
+            throw new \Exception("stok terbatas. hanya tersedia {$item->buku->stok}");
         }
 
         $item->update(['jumlah' => $jumlah]);

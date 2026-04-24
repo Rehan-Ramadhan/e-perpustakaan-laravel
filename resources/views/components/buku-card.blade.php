@@ -51,6 +51,7 @@
                     <form action="{{ route('keranjang.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="buku_id" value="{{ $buku->id }}">
+                        <input type="hidden" name="jumlah" value="1">
                         <button type="submit" class="btn btn-link p-0 text-primary fw-bold text-decoration-none"
                             @if($buku->stok <= 0) disabled @endif>
                             Pinjam <iconify-icon icon="uil:shopping-cart"></iconify-icon>
