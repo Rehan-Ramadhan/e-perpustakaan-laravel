@@ -74,7 +74,10 @@ Route::middleware(['auth', 'admin'])
         // crud utama
         Route::resource('buku', AdminBukuController::class);
         Route::resource('kategori', AdminKategoriController::class);
+
+        Route::post('peminjaman/setujui/{id}', [AdminPeminjamanController::class, 'setujuiPesanan'])->name('peminjaman.setujui');
         Route::resource('peminjaman', AdminPeminjamanController::class);
+
         Route::resource('pengembalian', AdminPengembalianController::class);
 
         // manajemen pengguna
