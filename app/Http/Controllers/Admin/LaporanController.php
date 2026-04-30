@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\LaporanPeminjamanExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ReportController extends Controller
+class LaporanController extends Controller
 {
     public function index(Request $request)
     {
@@ -38,7 +38,7 @@ class ReportController extends Controller
             ->orderByDesc('total')
             ->get();
 
-        return view('admin.reports.index', compact(
+        return view('admin.laporan.index', compact(
             'peminjamans',
             'summary',
             'byCategory',

@@ -6,7 +6,7 @@
     <div class="container-xxl">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="fw-bold mb-0">Dashboard</h2>
-            <a href="{{ route('admin.reports.index') }}" class="btn btn-primary">
+            <a href="{{ route('admin.laporan.index') }}" class="btn btn-primary">
                 Lihat Laporan Lengkap <i class="bx bx-right-arrow-alt"></i>
             </a>
         </div>

@@ -30,7 +30,7 @@
                     <button class="btn btn-primary w-100">
                         Filter
                     </button>
-                    <a href="{{ route('admin.reports.export', request()->all()) }}" class="btn btn-outline-success w-100">
+                    <a href="{{ route('admin.laporan.export', request()->all()) }}" class="btn btn-outline-success w-100">
                         Export Excel
                     </a>
                 </div>
