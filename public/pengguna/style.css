@@ -725,14 +725,35 @@ h1,h2,h3,h4,h5,h6 {
     display: none !important;
 }
 
-/* Warna saat BELUM disukai */
+/* warna saat belum disukai */
 .text-secondary {
     color: #ffffff !important;
     border-color: #6c757d !important;
 }
 
-/* Warna saat SUDAH disukai */
+/* warna saat sudah disukai */
 .text-danger {
     color: #ffffff !important;
     border-color: #dc3545 !important;
+}
+
+/* dropdown menu melayang di atas konten lain */
+.dropdown-menu {
+    z-index: 1060 !important;
+}
+
+/* mengatur posisi agar dropdown tidak terpotong jika induknya memiliki overflow */
+.nav-item.dropdown {
+    position: relative;
+    z-index: 1051;
+}
+
+header, .navbar {
+    z-index: 1050 !important; 
+    overflow: visible !important;
+}
+
+/* hapus arrow dropdown sesuai class hide-arrow */
+.hide-arrow::after {
+    display: none !important;
 }
