@@ -742,7 +742,7 @@ h1,h2,h3,h4,h5,h6 {
     z-index: 1060 !important;
 }
 
-/* mengatur posisi agar dropdown tidak terpotong jika induknya memiliki overflow */
+/* \dropdown tidak terpotong jika induknya memiliki overflow */
 .nav-item.dropdown {
     position: relative;
     z-index: 1051;
