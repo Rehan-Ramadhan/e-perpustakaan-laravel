@@ -73,6 +73,14 @@ body {
     color: var(--primary);
 }
 
+.menu-vertical .menu-item.active > .menu-link .menu-icon {
+    color: #fff !important;
+}
+
+.menu-link:hover .menu-icon {
+    color: var(--primary) !important;
+}
+
 /* card */
 .card {
     border: none;
