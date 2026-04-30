@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class PesananService
 {
-    public function buatPesanan(User $user): Pesanan
+    public function buatPesanan(User $user, ?string $catatan = null): Pesanan
     {
         $keranjang = Keranjang::where('user_id', $user->id)
             ->with('itemKeranjangs.buku')
@@ -20,7 +20,7 @@ class PesananService
             throw new \Exception("Daftar pinjam kosong.");
         }
 
-        return DB::transaction(function () use ($user, $keranjang) {
+        return DB::transaction(function () use ($user, $keranjang, $catatan) {
             foreach ($keranjang->itemKeranjangs as $item) {
                 if (!$item->buku || $item->buku->stok < 1) {
                     throw new \Exception("Buku '{$item->buku->nama}' baru saja habis.");
@@ -31,7 +31,7 @@ class PesananService
                 'user_id' => $user->id,
                 'nomor_order' => 'REQ-' . strtoupper(Str::random(10)),
                 'status' => 'tertunda',
-                'catatan' => null,
+                'catatan' => $catatan,
             ]);
 
             foreach ($keranjang->itemKeranjangs as $item) {

@@ -29,10 +29,12 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         try {
-            $pesanan = $this->pesananService->buatPesanan(Auth::user());
+            $catatan = $request->input('catatan');
+
+            $pesanan = $this->pesananService->buatPesanan(Auth::user(), $catatan);
 
             return redirect()->route('katalog.index')
-                ->with('success', 'Berhasil! Pesanan ' . $pesanan->kode_pesanan . ' sedang menunggu konfirmasi admin.');
+                ->with('success', 'Berhasil! Pesanan ' . $pesanan->nomor_order . ' sedang menunggu konfirmasi admin.');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

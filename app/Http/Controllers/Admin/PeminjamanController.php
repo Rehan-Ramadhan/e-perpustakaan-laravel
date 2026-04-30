@@ -114,7 +114,7 @@ class PeminjamanController extends Controller
 
     public function show(Peminjaman $peminjaman)
     {
-        $peminjaman->load(['user', 'buku']);
+        $peminjaman->load(['user', 'buku', 'pesanan']);
         return view('admin.peminjaman.show', compact('peminjaman'));
     }
 

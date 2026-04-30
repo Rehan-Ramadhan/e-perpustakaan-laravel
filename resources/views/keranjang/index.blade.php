@@ -87,6 +87,14 @@
 
                         <form action="{{ route('checkout.store') }}" method="POST">
                             @csrf
+
+                            <div class="mb-4">
+                                <label for="catatan" class="form-label small fw-bold text-muted text-uppercase">Catatan</label>
+                                <textarea name="catatan" id="catatan" rows="3"
+                                    class="form-control rounded-3 border-0 shadow-sm bg-light"
+                                    placeholder="contoh: saya ambil nanti ya min..."></textarea>
+                            </div>
+
                             <button type="submit" class="btn btn-dark w-100 py-2 rounded-pill fw-bold mb-2 shadow-sm" {{ $items->isEmpty() ? 'disabled' : '' }}>
                                 Konfirmasi Peminjaman
                             </button>

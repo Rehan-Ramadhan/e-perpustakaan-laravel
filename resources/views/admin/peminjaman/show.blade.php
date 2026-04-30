@@ -35,6 +35,13 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label text-muted">Catatan Pesanan</label>
+                <div class="form-control bg-light">
+                    {{ $peminjaman->pesanan->catatan ?? 'Tidak ada.' }}
+                </div>
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label text-muted">Jatuh Tempo</label>
                 <div class="form-control bg-light">
                     {{ \Carbon\Carbon::parse($peminjaman->tanggal_jatuh_tempo)->format('d F Y') }}
