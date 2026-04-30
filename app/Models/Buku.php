@@ -90,25 +90,38 @@ class Buku extends Model
         return $this->hasOne(GambarBuku::class)->where('is_primary', true);
     }
 
-    public function itemPesanans(): HasMany
-    {
-        return $this->hasMany(ItemPesanan::class);
-    }
-
     /**
-     * Accessor: Mendapatkan URL Cover Buku (Pintar).
-     * Sesuai dengan panggilan di Blade: $buku->gambar_url
+     * Accessor Utama: Digunakan di Blade dengan $buku->cover_url
      */
-    public function getGambarUrlAttribute(): string
+    public function getCoverUrlAttribute(): string
     {
         if ($this->primaryImage && $this->primaryImage->lokasi_gambar) {
             return asset('storage/' . $this->primaryImage->lokasi_gambar);
         }
+
+        $firstImg = $this->gambarBukus->first();
+        if ($firstImg && $firstImg->lokasi_gambar) {
+            return asset('storage/' . $firstImg->lokasi_gambar);
+        }
+
         if ($this->gambar) {
             return asset('storage/' . $this->gambar);
         }
 
         return asset('pengguna/images/no-cover.png');
+    }
+
+    /**
+     * Accessor Alias: Supaya kode lama $buku->gambar_url tetep jalan tanpa duplikat logic
+     */
+    public function getGambarUrlAttribute(): string
+    {
+        return $this->cover_url;
+    }
+
+    public function itemPesanans(): HasMany
+    {
+        return $this->hasMany(ItemPesanan::class);
     }
 
     /**
