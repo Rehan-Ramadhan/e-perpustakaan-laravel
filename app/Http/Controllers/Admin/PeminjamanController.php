@@ -29,12 +29,13 @@ class PeminjamanController extends Controller
             DB::beginTransaction();
 
             $pesanan = Pesanan::with(['items.buku', 'user'])->findOrFail($id);
+            $tgl = Carbon::now()->format('Ymd');
+
+            $last = Peminjaman::whereDate('created_at', Carbon::today())->latest()->first();
+            $nextCount = $last ? ((int) substr($last->nomor_peminjaman, -3) + 1) : 1;
 
             foreach ($pesanan->items as $item) {
-                $tgl = Carbon::now()->format('Ymd');
-                $last = Peminjaman::whereDate('created_at', Carbon::today())->latest()->first();
-                $count = $last ? ((int) substr($last->nomor_peminjaman, -3) + 1) : 1;
-                $nomor = 'PMJ-' . $tgl . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
+                $nomor = 'PMJ-' . $tgl . '-' . str_pad($nextCount, 3, '0', STR_PAD_LEFT);
 
                 Peminjaman::create([
                     'pesanan_id' => $pesanan->id,
@@ -45,16 +46,17 @@ class PeminjamanController extends Controller
                     'tanggal_jatuh_tempo' => now()->addDays(7),
                     'status' => 'dipinjam',
                 ]);
+
+                $nextCount++;
             }
 
             $pesanan->update(['status' => 'selesai']);
 
             DB::commit();
-
-            return redirect()->back()->with('success', 'Pesanan berhasil disetujui menjadi peminjaman.');
+            return redirect()->back()->with('success', 'Pesanan disetujui. Batas waktu pinjam 7 hari dari sekarang.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal memproses pesanan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal: ' . $e->getMessage());
         }
     }
 
@@ -68,34 +70,30 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'user_id' => 'required|exists:users,id',
-                'buku_id' => 'required|exists:bukus,id',
-            ], [
-                'user_id.required' => 'Peminjam wajib dipilih.',
-                'user_id.exists' => 'Peminjam tidak valid.',
-                'buku_id.required' => 'Buku wajib dipilih.',
-                'buku_id.exists' => 'Buku tidak valid.',
-            ]);
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'buku_id' => 'required|exists:bukus,id',
+        ], [
+            'user_id.required' => 'Peminjam wajib dipilih.',
+            'user_id.exists' => 'Peminjam tidak valid.',
+            'buku_id.required' => 'Buku wajib dipilih.',
+            'buku_id.exists' => 'Buku tidak valid.',
+        ]);
 
+        try {
             DB::beginTransaction();
+
+            $buku = Buku::findOrFail($request->buku_id);
+            if ($buku->stok < 1) {
+                throw new \Exception('Stok buku habis.');
+            }
 
             $tgl = Carbon::now()->format('Ymd');
             $last = Peminjaman::whereDate('created_at', Carbon::today())->latest()->first();
             $count = $last ? ((int) substr($last->nomor_peminjaman, -3) + 1) : 1;
             $nomor = 'PMJ-' . $tgl . '-' . str_pad($count, 3, '0', STR_PAD_LEFT);
 
-            $buku = Buku::find($request->buku_id);
-
-            if (!$buku || $buku->stok < 1) {
-                throw ValidationException::withMessages([
-                    'buku_id' => 'Stok buku tidak tersedia.',
-                ]);
-            }
-
             Peminjaman::create([
-                'pesanan_id' => null,
                 'user_id' => $request->user_id,
                 'buku_id' => $request->buku_id,
                 'nomor_peminjaman' => $nomor,
@@ -107,14 +105,10 @@ class PeminjamanController extends Controller
             $buku->decrement('stok', 1);
 
             DB::commit();
-
-            return redirect()
-                ->route('admin.peminjaman.index')
-                ->with('success', 'Transaksi peminjaman berhasil ditambahkan.')
-                ->with('alert-type', 'primary');
-        } catch (ValidationException $e) {
+            return redirect()->route('admin.peminjaman.index')->with('success', 'Peminjaman berhasil.');
+        } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withErrors($e->validator)->withInput()->with('error', 'Data peminjaman gagal disimpan.');
+            return back()->with('error', $e->getMessage());
         }
     }
 
@@ -131,16 +125,19 @@ class PeminjamanController extends Controller
 
     public function update(Request $request, Peminjaman $peminjaman)
     {
+        $request->validate([
+            'tanggal_pinjam' => 'required|date',
+            'tanggal_jatuh_tempo' => 'required|date|after_or_equal:tanggal_pinjam',
+        ]);
+
         try {
-            $request->validate(['tanggal_pinjam' => 'required|date']);
-            $tglPinjam = Carbon::parse($request->tanggal_pinjam);
             $peminjaman->update([
-                'tanggal_pinjam' => $tglPinjam,
-                'tanggal_jatuh_tempo' => $tglPinjam->copy()->addDays(7),
+                'tanggal_pinjam' => $request->tanggal_pinjam,
+                'tanggal_jatuh_tempo' => $request->tanggal_jatuh_tempo,
             ]);
-            return redirect()->route('admin.peminjaman.index')->with('success', 'Data diperbarui.');
+            return redirect()->route('admin.peminjaman.index')->with('success', 'Batas waktu berhasil diperbarui.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal diperbarui.');
+            return back()->with('error', 'Gagal memperbarui data.');
         }
     }
 
