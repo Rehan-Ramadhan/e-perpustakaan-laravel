@@ -18,7 +18,7 @@ class PeminjamanController extends Controller
     public function index()
     {
         return view('admin.peminjaman.index', [
-            'antreanPesanan' => Pesanan::with(['user', 'items.buku'])->where('status', 'tertunda')->latest()->get(),
+            'antreanPesanan' => Pesanan::with(['user', 'itemPesanans.buku'])->where('status', 'tertunda')->latest()->get(),
             'peminjamans' => Peminjaman::with(['user', 'buku'])->latest()->get(),
         ]);
     }
@@ -28,13 +28,13 @@ class PeminjamanController extends Controller
         try {
             DB::beginTransaction();
 
-            $pesanan = Pesanan::with(['items.buku', 'user'])->findOrFail($id);
+            $pesanan = Pesanan::with(['itemPesanans.buku', 'user'])->findOrFail($id);
             $tgl = Carbon::now()->format('Ymd');
 
             $last = Peminjaman::whereDate('created_at', Carbon::today())->latest()->first();
             $nextCount = $last ? ((int) substr($last->nomor_peminjaman, -3) + 1) : 1;
 
-            foreach ($pesanan->items as $item) {
+            foreach ($pesanan->itemPesanans as $item) {
                 $nomor = 'PMJ-' . $tgl . '-' . str_pad($nextCount, 3, '0', STR_PAD_LEFT);
 
                 Peminjaman::create([

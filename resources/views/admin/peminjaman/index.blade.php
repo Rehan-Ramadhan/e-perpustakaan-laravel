@@ -35,7 +35,7 @@
                             <td>{{ $pesanan->user->name ?? '-' }}</td>
                             <td>
                                 <ul class="mb-0 ps-3">
-                                    @foreach($pesanan->items as $item)
+                                    @foreach($pesanan->itemPesanans as $item)
                                         <li>{{ $item->nama_buku }}</li>
                                     @endforeach
                                 </ul>

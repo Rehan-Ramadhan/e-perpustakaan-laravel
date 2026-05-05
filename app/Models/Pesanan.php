@@ -19,7 +19,7 @@ class Pesanan extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function items(): HasMany
+    public function itemPesanans(): HasMany
     {
         return $this->hasMany(ItemPesanan::class);
     }

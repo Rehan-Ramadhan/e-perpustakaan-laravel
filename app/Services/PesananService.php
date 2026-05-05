@@ -35,7 +35,7 @@ class PesananService
             ]);
 
             foreach ($keranjang->itemKeranjangs as $item) {
-                $pesanan->items()->create([
+                $pesanan->itemPesanans()->create([
                     'buku_id' => $item->buku_id,
                     'nama_buku' => $item->buku->nama,
                     'jumlah' => 1,

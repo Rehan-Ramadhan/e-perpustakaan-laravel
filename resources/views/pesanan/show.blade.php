@@ -1,0 +1,110 @@
+@extends('layouts.app')
+
+@section('title', 'Detail Permohonan Pinjam')
+
+@section('content')
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="mb-4">
+                    <a href="{{ route('pesanan.index') }}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                        <i class="bi bi-arrow-left"></i> Kembali ke Riwayat Pesanan
+                    </a>
+                </div>
+
+                <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                    <div class="card-header bg-white py-4 border-bottom">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                            <div>
+                                <h1 class="h3 fw-bold mb-1">Order #{{ $pesanan->nomor_order }}</h1>
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-calendar3"></i> {{ $pesanan->created_at->format('d M Y, H:i') }}
+                                </p>
+                            </div>
+
+                            <div class="mt-3 mt-md-0">
+                                @php
+                                    $statusClasses = [
+                                        'tertunda' => 'bg-warning text-dark',
+                                        'selesai' => 'bg-success text-white',
+                                        'dibatalkan' => 'bg-danger text-white',
+                                    ];
+                                    $badgeClass = $statusClasses[$pesanan->status] ?? 'bg-secondary text-white';
+                                @endphp
+                                <span class="badge rounded-pill px-4 py-2 fs-6 {{ $badgeClass }}">
+                                    {{ ucfirst($pesanan->status) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="p-4 p-md-5">
+                            <h5 class="fw-bold mb-4">Buku yang Dipinjam</h5>
+                            <div class="table-responsive">
+                                <table class="table align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col" class="py-3 ps-4">Judul Buku</th>
+                                            <th scope="col" class="text-center py-3">Jumlah</th>
+                                            <th scope="col" class="text-end py-3 pe-4">Status Stok</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($pesanan->itemPesanans as $item)
+                                            <tr>
+                                                <td class="py-3 ps-4">
+                                                    <span class="fw-medium text-dark">{{ $item->nama_buku }}</span>
+                                                </td>
+                                                <td class="text-center py-3">1</td>
+                                                <td class="text-end py-3 pe-4">
+                                                    <span class="text-success small"><i class="bi bi-check-circle"></i>
+                                                        Tersedia</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="border-top-0">
+                                        <tr>
+                                            <td colspan="2" class="text-end pt-4 border-0 fw-bold fs-5">TOTAL BUKU:</td>
+                                            <td class="text-end pt-4 border-0 fw-bold fs-5 text-primary pe-4">
+                                                {{ $pesanan->itemPesanans->count() }} Judul
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="p-4 p-md-5 bg-light border-top">
+                            <h5 class="fw-bold mb-3">Catatan Anda</h5>
+                            <div class="card border-0 shadow-none bg-white rounded-3">
+                                <div class="card-body p-3">
+                                    <p class="text-muted mb-0">
+                                        <i class="bi bi-chat-left-dots me-2"></i>
+                                        {{ $pesanan->catatan ?? 'Tidak ada catatan untuk pesanan ini.' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white py-4 text-center border-top">
+                        @if($pesanan->status === 'tertunda')
+                            <p class="text-muted mb-0 small">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Silakan tunggu konfirmasi Admin atau datang ke perpustakaan dengan membawa kartu anggota.
+                            </p>
+                        @else
+                            <p class="text-muted mb-0 small">
+                                Permohonan ini telah diproses. Cek menu <strong>Peminjaman Aktif</strong> untuk melihat tanggal
+                                jatuh tempo.
+                            </p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
