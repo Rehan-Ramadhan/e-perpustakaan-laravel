@@ -76,6 +76,7 @@ Route::middleware(['auth', 'admin'])
         Route::resource('kategori', AdminKategoriController::class);
 
         Route::post('peminjaman/setujui/{id}', [AdminPeminjamanController::class, 'setujuiPesanan'])->name('peminjaman.setujui');
+        Route::post('peminjaman/tolak/{id}', [AdminPeminjamanController::class, 'tolakPesanan'])->name('peminjaman.tolak');
         Route::resource('peminjaman', AdminPeminjamanController::class);
 
         Route::resource('pengembalian', AdminPengembalianController::class);

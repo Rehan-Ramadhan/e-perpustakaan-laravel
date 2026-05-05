@@ -33,7 +33,7 @@
                                     'dibatalkan' => ['bg' => 'bg-danger', 'text' => 'text-white', 'label' => 'Dibatalkan']
                                 ];
 
-                                $current = $statusMap[$pesanan->status] ?? ['bg' => 'bg-secondary', 'text' => 'text-white', 'label' => 'Tidak Diketahui'];
+                                $current = $statusMap[$pesanan->status] ?? ['bg' => 'bg-secondary', 'text' => 'text-white', 'label' => 'Tidak diketahui'];
                             @endphp
 
                             <span class="badge {{ $current['bg'] }} {{ $current['text'] }} px-3 py-2 rounded-pill shadow-sm">

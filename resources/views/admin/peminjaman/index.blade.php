@@ -12,48 +12,59 @@
     </div>
 
     @if($antreanPesanan->count() > 0)
-    <div class="card shadow-sm border-warning mb-4">
-        <div class="card-header bg-label-warning py-3">
-            <h5 class="mb-0 text-warning fw-bold">Antrean Pesanan (Menunggu Konfirmasi)</h5>
-        </div>
-        <div class="table-responsive text-nowrap">
-            <table class="table table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th class="text-center">No</th>
-                        <th>Order ID</th>
-                        <th>Peminjam</th>
-                        <th>Buku</th>
-                        <th class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($antreanPesanan as $pesanan)
+        <div class="card shadow-sm border-warning mb-4">
+            <div class="card-header bg-label-warning py-3">
+                <h5 class="mb-0 text-warning fw-bold">Antrean Pesanan (Menunggu Konfirmasi)</h5>
+            </div>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-hover mb-0">
+                    <thead>
                         <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
-                            <td><span class="fw-bold">#{{ $pesanan->nomor_order }}</span></td>
-                            <td>{{ $pesanan->user->name ?? '-' }}</td>
-                            <td>
-                                <ul class="mb-0 ps-3">
-                                    @foreach($pesanan->itemPesanans as $item)
-                                        <li>{{ $item->nama_buku }}</li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                            <td class="text-center">
-                                <form action="{{ route('admin.peminjaman.setujui', $pesanan->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success btn-sm px-3" onclick="return confirm('Proses pesanan ini menjadi peminjaman?')">
-                                        Setujui & Pinjamkan
-                                    </button>
-                                </form>
-                            </td>
+                            <th class="text-center">No</th>
+                            <th>Order ID</th>
+                            <th>Peminjam</th>
+                            <th>Buku</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($antreanPesanan as $pesanan)
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td><span class="fw-bold">#{{ $pesanan->nomor_order }}</span></td>
+                                <td>{{ $pesanan->user->name ?? '-' }}</td>
+                                <td>
+                                    <ul class="mb-0 ps-3">
+                                        @foreach($pesanan->itemPesanans as $item)
+                                            <li>{{ $item->nama_buku }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <form action="{{ route('admin.peminjaman.setujui', $pesanan->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success btn-sm px-3"
+                                                onclick="return confirm('Proses pesanan ini menjadi peminjaman?')">
+                                                <i class="bx bx-check"></i>
+                                            </button>
+                                        </form>
+
+                                        <form action="{{ route('admin.peminjaman.tolak', $pesanan->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm px-3"
+                                                onclick="return confirm('Yakin ingin menolak pesanan ini? Stok buku akan dikembalikan.')">
+                                                <i class="bx bx-x"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
     @endif
 
     <div class="card shadow-sm">
@@ -79,7 +90,8 @@
                             <td>{{ $peminjaman->user->name ?? '-' }}</td>
                             <td>{{ $peminjaman->buku->nama ?? '-' }}</td>
                             <td class="text-center">
-                                {{ \Carbon\Carbon::parse($peminjaman->tanggal_jatuh_tempo)->format('d/m/Y') }}</td>
+                                {{ \Carbon\Carbon::parse($peminjaman->tanggal_jatuh_tempo)->format('d/m/Y') }}
+                            </td>
                             <td class="text-center">
                                 <span class="badge bg-label-{{ $peminjaman->status_color }}">
                                     {{ ucfirst($peminjaman->status) }}

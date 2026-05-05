@@ -60,6 +60,29 @@ class PeminjamanController extends Controller
         }
     }
 
+    public function tolakPesanan(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $pesanan = Pesanan::with('itemPesanans.buku')->findOrFail($id);
+
+            foreach ($pesanan->itemPesanans as $item) {
+                if ($item->buku) {
+                    $item->buku->increment('stok', 1);
+                }
+            }
+
+            $pesanan->update(['status' => 'dibatalkan']);
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Pesanan #' . $pesanan->nomor_order . ' telah ditolak dan stok dikembalikan.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menolak pesanan: ' . $e->getMessage());
+        }
+    }
+
     public function create()
     {
         return view('admin.peminjaman.create', [
