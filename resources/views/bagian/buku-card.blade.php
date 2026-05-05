@@ -1,12 +1,10 @@
 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-    {{-- Foto Buku --}}
     <div class="position-relative">
         <a href="{{ route('katalog.show', $buku->slug) }}">
-            <img src="{{ $buku->image_url }}" class="card-img-top" alt="{{ $buku->nama }}"
+            <img src="{{ $buku->cover_url }}" class="card-img-top" alt="{{ $buku->nama }}"
                 style="height: 250px; object-fit: cover;">
         </a>
 
-        {{-- Badge Status --}}
         <span class="badge bg-{{ $buku->status_color }} position-absolute top-0 end-0 m-2">
             {{ $buku->status_label }}
         </span>

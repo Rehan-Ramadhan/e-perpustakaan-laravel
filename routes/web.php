@@ -27,8 +27,8 @@ use App\Http\Controllers\Admin\laporanController;
 
 // halaman publik
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [KatalogController::class, 'index'])->name('katalog.index');
-Route::get('/products/{slug}', [KatalogController::class, 'show'])->name('katalog.show');
+Route::get('/buku', [KatalogController::class, 'index'])->name('katalog.index');
+Route::get('/buku/{slug}', [KatalogController::class, 'show'])->name('katalog.show');
 
 // auth routes
 Auth::routes();

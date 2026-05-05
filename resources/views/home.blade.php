@@ -40,10 +40,10 @@
                       <div class="row banner-content p-5">
                         <div class="content-wrapper col-md-7">
                           <div class="categories mb-3 pb-3">Rekomendasi Pekan Ini</div>
-                          <h3 class="banner-title">Koleksi Buku Populer 2026</h3>
-                          <p>Dapatkan akses ke buku-buku best-seller terbaru yang baru saja mendarat di rak digital kami.
+                          <h3 class="banner-title">Koleksi Buku Unggulan 2026</h3>
+                          <p>Dapatkan akses ke buku-buku terunggul terbaru yang baru saja mendarat di rak digital kami.
                           </p>
-                          <a href="#terpopuler" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Lihat
+                          <a href="#unggulan" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Lihat
                             Koleksi</a>
                         </div>
                         <div class="img-wrapper col-md-5">
@@ -61,7 +61,7 @@
                           <p>Membaca buku 15 menit sehari bisa mengurangi stres hingga 68%. Temukan fakta menarik lainnya
                             dan tips meningkatkan minat baca di blog kami.</p>
 
-                          <a href="#latest-blog" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                             Baca Artikel
                           </a>
                         </div>

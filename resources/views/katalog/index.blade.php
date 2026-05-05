@@ -38,9 +38,9 @@
                     <form method="GET" class="d-inline-block">
                         <select name="sort" class="form-select form-select-sm rounded-pill" onchange="this.form.submit()">
                             <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                            <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>A-Z (Judul)
+                            <option value="Urutkan_A-Z" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>A-Z (Judul)
                             </option>
-                            <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Z-A (Judul)
+                            <option value="Urutkan_Z-A" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Z-A (Judul)
                             </option>
                         </select>
                     </form>
