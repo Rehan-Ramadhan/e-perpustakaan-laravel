@@ -63,20 +63,33 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profil</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-book me-2"></i> Pinjaman</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('pesanan.index') }}">
+                                        <i class="bi bi-clock-history me-2"></i> Riwayat Pesanan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bi bi-arrow-return-left me-2"></i> Pengembalian
+                                    </a>
+                                </li>
                                 @if(auth()->user()->isAdmin())
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                     <li><a class="dropdown-item text-primary" href="{{ route('admin.dashboard') }}"
                                             target="_blank"><i class="bi bi-speedometer2 me-2"></i> Admin Panel</a></li>
                                 @endif
+
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="dropdown-item"><i
-                                                class="bi bi-box-arrow-right me-2"></i> Logout</button>
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                                        </button>
                                     </form>
                                 </li>
                             </ul>
