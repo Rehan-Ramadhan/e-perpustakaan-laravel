@@ -26,18 +26,25 @@
                         <div class="col-md-3">
                             <small class="text-muted d-block small fw-bold mb-2">STATUS</small>
                             @php
+                                $dbStatus = trim($pesanan->status);
+
                                 $statusMap = [
-                                    'tertunda' => ['bg' => 'bg-warning', 'text' => 'text-dark', 'label' => 'Tertunda'],
-                                    'diproses' => ['bg' => 'bg-info', 'text' => 'text-white', 'label' => 'Diproses'],
-                                    'selesai' => ['bg' => 'bg-success', 'text' => 'text-white', 'label' => 'Selesai'],
-                                    'dibatalkan' => ['bg' => 'bg-danger', 'text' => 'text-white', 'label' => 'Dibatalkan']
+                                    'tertunda' => ['bg' => '#ffc107', 'text' => '#000', 'label' => 'Menunggu Konfirmasi'],
+                                    'diproses' => ['bg' => '#0dcaf0', 'text' => '#fff', 'label' => 'Diproses'],
+                                    'selesai' => ['bg' => '#198754', 'text' => '#fff', 'label' => 'Selesai'],
+                                    'dibatalkan' => ['bg' => '#dc3545', 'text' => '#fff', 'label' => 'Dibatalkan']
                                 ];
 
-                                $current = $statusMap[$pesanan->status] ?? ['bg' => 'bg-secondary', 'text' => 'text-white', 'label' => 'Tidak diketahui'];
+                                $current = $statusMap[$dbStatus] ?? [
+                                    'bg' => '#6c757d',
+                                    'text' => '#fff',
+                                    'label' => 'Belum Dikonfirmasi'
+                                ];
                             @endphp
 
-                            <span class="badge {{ $current['bg'] }} {{ $current['text'] }} px-3 py-2 rounded-pill shadow-sm">
-                                <i class="bi bi-info-circle me-1"></i> {{ $current['label'] }}
+                            <span class="badge px-3 py-2 rounded-pill shadow-sm"
+                                style="background-color: {{ $current['bg'] }} !important; color: {{ $current['text'] }} !important; opacity: 1 !important;">
+                                {{ $current['label'] }}
                             </span>
                         </div>
 
