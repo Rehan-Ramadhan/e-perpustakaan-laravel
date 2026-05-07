@@ -46,9 +46,18 @@
                             <span class="text-dark">{{ $pesanan->created_at->format('d M Y') }}</span>
                         </div>
 
+                        {{-- Letakkan di kolom aksi atau bawah tombol detail --}}
                         <div class="col-md-2">
                             <a href="{{ route('pesanan.show', $pesanan) }}"
-                                class="btn btn-dark rounded-pill px-4 shadow-sm w-100">Detail</a>
+                                class="btn btn-dark rounded-pill px-4 shadow-sm w-100 mb-2">Detail</a>
+
+                            @if($pesanan->status === 'tertunda')
+                                <form action="{{ route('pesanan.batal', $pesanan) }}" method="POST"
+                                    onsubmit="return confirm('Yakin ingin membatalkan pesanan ini?')">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill w-100">Batalkan</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>

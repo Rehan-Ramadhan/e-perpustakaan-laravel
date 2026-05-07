@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
+use App\Services\PesananService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,5 +26,10 @@ class PesananController extends Controller
         }
 
         return view('pesanan.show', compact('pesanan'));
+    }
+
+    public function batal(Pesanan $pesanan, PesananService $pesananService)
+    {
+        return $pesananService->batal($pesanan);
     }
 }

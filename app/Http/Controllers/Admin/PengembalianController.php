@@ -29,37 +29,22 @@ class PengembalianController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'peminjaman_id' => 'required|exists:peminjamans,id',
-        ], [
-            'peminjaman_id.required' => 'Nomor peminjaman wajib dipilih.',
-            'peminjaman_id.exists' => 'Data peminjaman tidak valid.',
-        ]);
-
+        $request->validate(['peminjaman_id' => 'required|exists:peminjamans,id']);
         $peminjaman = Peminjaman::findOrFail($request->peminjaman_id);
 
         if ($peminjaman->status === 'dikembalikan') {
             return back()->with('error', 'Buku ini sudah dikembalikan.');
         }
 
-        DB::beginTransaction();
-
         try {
+            DB::beginTransaction();
+
             $tglSeharusnya = Carbon::parse($peminjaman->tanggal_jatuh_tempo)->startOfDay();
             $tglAktual = Carbon::now()->startOfDay();
+            $terlambat = $tglAktual->gt($tglSeharusnya) ? $tglAktual->diffInDays($tglSeharusnya) : 0;
+            $denda = $terlambat * 1000;
 
-            $terlambat = 0;
-            $denda = 0;
-
-            if ($tglAktual->gt($tglSeharusnya)) {
-                $terlambat = $tglAktual->diffInDays($tglSeharusnya);
-                $denda = $terlambat * 1000;
-            }
-
-            $peminjaman->update([
-                'status' => 'dikembalikan'
-            ]);
-
+            $peminjaman->update(['status' => 'dikembalikan']);
             if ($peminjaman->buku) {
                 $peminjaman->buku->increment('stok', 1);
             }
@@ -73,19 +58,10 @@ class PengembalianController extends Controller
             ]);
 
             DB::commit();
-
-            $pesan = $denda > 0
-                ? "Pengembalian berhasil. Terlambat {$terlambat} hari, denda Rp " . number_format($denda, 0, ',', '.')
-                : "Pengembalian berhasil. Buku dikembalikan tepat waktu.";
-
-            return redirect()
-                ->route('admin.pengembalian.index')
-                ->with('success', $pesan)
-                ->with('alert-type', 'primary');
-
+            return redirect()->route('admin.pengembalian.index')->with('success', 'Buku berhasil dikembalikan!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Gagal menyimpan data pengembalian.');
+            return back()->with('error', 'Gagal memproses pengembalian.');
         }
     }
 

@@ -49,4 +49,29 @@ class PesananService
             return $pesanan;
         });
     }
+
+    public function batal(Pesanan $pesanan)
+    {
+        if ($pesanan->user_id !== auth()->id() || $pesanan->status !== 'tertunda') {
+            return back()->with('error', 'Pesanan tidak dapat dibatalkan.');
+        }
+
+        try {
+            \DB::beginTransaction();
+
+            foreach ($pesanan->itemPesanans as $item) {
+                if ($item->buku) {
+                    $item->buku->increment('stok', 1);
+                }
+            }
+
+            $pesanan->update(['status' => 'dibatalkan']);
+
+            \DB::commit();
+            return back()->with('success', 'Pesanan berhasil dibatalkan.');
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return back()->with('error', 'Gagal membatalkan pesanan.');
+        }
+    }
 }
