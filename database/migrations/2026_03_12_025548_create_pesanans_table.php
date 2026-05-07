@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('nomor_order', 50)->unique();
-            $table->enum('status', ['tertunda', 'diproses', 'selesai', 'dibatalkan'])->default('tertunda');
+            $table->enum('status', ['tertunda', 'diproses', 'selesai', 'dibatalkan', 'ditolak'])->default('tertunda');
             $table->text('catatan')->nullable();
             $table->timestamps();
             $table->index('nomor_order');

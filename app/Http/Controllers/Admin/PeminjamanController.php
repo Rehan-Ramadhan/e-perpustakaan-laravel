@@ -73,7 +73,7 @@ class PeminjamanController extends Controller
                 }
             }
 
-            $pesanan->update(['status' => 'dibatalkan']);
+            $pesanan->update(['status' => 'ditolak']);
 
             DB::commit();
             return redirect()->back()->with('success', 'Pesanan #' . $pesanan->nomor_order . ' telah ditolak dan stok dikembalikan.');

@@ -32,7 +32,8 @@
                                     'tertunda' => ['bg' => '#ffc107', 'text' => '#000', 'label' => 'Menunggu Konfirmasi'],
                                     'diproses' => ['bg' => '#0dcaf0', 'text' => '#fff', 'label' => 'Diproses'],
                                     'selesai' => ['bg' => '#198754', 'text' => '#fff', 'label' => 'Selesai'],
-                                    'dibatalkan' => ['bg' => '#dc3545', 'text' => '#fff', 'label' => 'Dibatalkan']
+                                    'dibatalkan' => ['bg' => '#dc3545', 'text' => '#fff', 'label' => 'Dibatalkan Anda'],
+                                    'ditolak' => ['bg' => '#dc3545', 'text' => '#fff', 'label' => 'Ditolak Admin'],
                                 ];
 
                                 $current = $statusMap[$dbStatus] ?? [

@@ -22,18 +22,27 @@
                                     <i class="bi bi-calendar3"></i> {{ $pesanan->created_at->format('d M Y, H:i') }}
                                 </p>
                             </div>
-
                             <div class="mt-3 mt-md-0">
                                 @php
-                                    $statusClasses = [
-                                        'tertunda' => 'bg-warning text-dark',
-                                        'selesai' => 'bg-success text-white',
-                                        'dibatalkan' => 'bg-danger text-white',
+                                    $dbStatus = trim($pesanan->status);
+
+                                    $statusMap = [
+                                        'tertunda' => ['bg' => '#ffc107', 'text' => '#000', 'label' => 'Menunggu Konfirmasi'],
+                                        'diproses' => ['bg' => '#0dcaf0', 'text' => '#fff', 'label' => 'Sedang Dipinjam'],
+                                        'selesai' => ['bg' => '#198754', 'text' => '#fff', 'label' => 'Selesai'],
+                                        'dibatalkan' => ['bg' => '#dc3545', 'text' => '#fff', 'label' => 'Dibatalkan Anda'],
+                                        'ditolak' => ['bg' => '#dc3545', 'text' => '#fff', 'label' => 'Ditolak Admin'],
                                     ];
-                                    $badgeClass = $statusClasses[$pesanan->status] ?? 'bg-secondary text-white';
+
+                                    $current = $statusMap[$dbStatus] ?? [
+                                        'bg' => '#dc3545',
+                                        'text' => '#fff',
+                                        'label' => ucfirst($dbStatus)
+                                    ];
                                 @endphp
-                                <span class="badge rounded-pill px-4 py-2 fs-6 {{ $badgeClass }}">
-                                    {{ ucfirst($pesanan->status) }}
+                                <span class="badge rounded-pill px-4 py-2 fs-6 shadow-sm"
+                                    style="background-color: {{ $current['bg'] }} !important; color: {{ $current['text'] }} !important; opacity: 1 !important;">
+                                    {{ $current['label'] }}
                                 </span>
                             </div>
                         </div>
@@ -94,7 +103,7 @@
                         @if($pesanan->status === 'tertunda')
                             <p class="text-muted mb-0 small">
                                 <i class="bi bi-info-circle me-1"></i>
-                                Silakan tunggu konfirmasi Admin atau datang ke perpustakaan dengan membawa kartu anggota.
+                                Silakan tunggu konfirmasi Admin atau datang ke perpustakaan.
                             </p>
                         @else
                             <p class="text-muted mb-0 small">

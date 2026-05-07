@@ -1,15 +1,24 @@
 @props(['status'])
 
 @php
-    $colors = [
-        'tertunda' => 'bg-yellow-100 text-yellow-800',
-        'diproses' => 'bg-blue-100 text-blue-800',
-        'selesai' => 'bg-green-100 text-green-800',
-        'dibatalkan' => 'bg-red-100 text-red-800',
+    $dbStatus = trim($status);
+
+    $statusMap = [
+        'tertunda' => ['bg' => '#ffc107', 'text' => '#000', 'label' => 'Tertunda'],
+        'diproses' => ['bg' => '#0dcaf0', 'text' => '#fff', 'label' => 'Diproses'],
+        'selesai' => ['bg' => '#198754', 'text' => '#fff', 'label' => 'Selesai'],
+        'dibatalkan' => ['bg' => '#6c757d', 'text' => '#fff', 'label' => 'Batal'],
+        'ditolak' => ['bg' => '#dc3545', 'text' => '#fff', 'label' => 'Ditolak'],
     ];
-    $colorClass = $colors[$status] ?? 'bg-gray-100 text-gray-800';
+
+    $current = $statusMap[$dbStatus] ?? [
+        'bg' => '#6c757d',
+        'text' => '#fff',
+        'label' => ucfirst($dbStatus)
+    ];
 @endphp
 
-<span class="px-2 py-1 text-xs rounded-full font-semibold {{ $colorClass }}">
-    {{ ucfirst($status) }}
+<span {{ $attributes->merge(['class' => 'badge px-2 py-1 rounded-pill shadow-sm']) }}
+    style="background-color: {{ $current['bg'] }} !important; color: {{ $current['text'] }} !important; opacity: 1 !important; font-size: 0.75rem;">
+    {{ $current['label'] }}
 </span>
