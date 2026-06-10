@@ -733,8 +733,7 @@ h1,h2,h3,h4,h5,h6 {
 
 /* warna saat sudah disukai */
 .text-danger {
-    color: #ffffff !important;
-    border-color: #dc3545 !important;
+    color: #dc3545 !important;
 }
 
 /* dropdown menu melayang di atas konten lain */

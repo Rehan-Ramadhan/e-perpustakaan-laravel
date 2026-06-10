@@ -54,17 +54,35 @@
                             <span class="text-dark">{{ $pesanan->created_at->format('d M Y') }}</span>
                         </div>
 
-                        {{-- Letakkan di kolom aksi atau bawah tombol detail --}}
                         <div class="col-md-2">
                             <a href="{{ route('pesanan.show', $pesanan) }}"
                                 class="btn btn-dark rounded-pill px-4 shadow-sm w-100 mb-2">Detail</a>
 
+                            {{-- Tombol Batalkan Pesanan jika status masih tertunda --}}
                             @if($pesanan->status === 'tertunda')
                                 <form action="{{ route('pesanan.batal', $pesanan) }}" method="POST"
                                     onsubmit="return confirm('Yakin ingin membatalkan pesanan ini?')">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill w-100">Batalkan</button>
                                 </form>
+                            @endif
+
+                            @if(in_array(trim($pesanan->status), ['selesai', 'diproses']))
+                                @foreach($pesanan->itemPesanans as $item)
+                                    @if(($peminjaman = $item->buku->peminjamans->first()) && $peminjaman->status === 'dipinjam')
+                                        <form action="{{ route('peminjaman.kembalikan', $peminjaman->id) }}" method="POST" class="mt-2"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin mengembalikan buku \'{{ $item->nama_buku }}\' sekarang?')">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success btn-sm rounded-pill w-100">
+                                                <i class="bi bi-arrow-return-left"></i> Kembalikan Buku
+                                            </button>
+                                        </form>
+                                    @elseif($peminjaman && $peminjaman->status === 'dikembalikan')
+                                        <span class="badge bg-secondary-subtle text-muted d-block py-2 rounded-pill mt-2">
+                                            Sudah Dikembalikan
+                                        </span>
+                                    @endif
+                                @endforeach
                             @endif
                         </div>
                     </div>

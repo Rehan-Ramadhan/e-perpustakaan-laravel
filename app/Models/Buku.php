@@ -180,4 +180,9 @@ class Buku extends Model
     {
         $this->increment('stok', $jumlah);
     }
+
+    public function peminjamans(): HasMany
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
 }

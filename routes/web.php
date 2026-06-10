@@ -14,6 +14,7 @@ use App\Http\Controllers\KeinginanController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\ProfileController;
 
 // admin controllers
@@ -57,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
     Route::get('/pesanan/{pesanan}', [PesananController::class, 'show'])->name('pesanan.show');
     Route::post('/pesanan/{pesanan}/batal', [PesananController::class, 'batal'])->name('pesanan.batal');
+    Route::post('/peminjaman/{peminjaman}/kembalikan', [PesananController::class, 'kembalikanBuku'])->name('peminjaman.kembalikan');
 
     // // manajemen profile
     // Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
