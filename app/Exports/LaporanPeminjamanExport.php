@@ -27,7 +27,7 @@ class LaporanPeminjamanExport implements FromQuery, WithHeadings, WithMapping, W
     public function query()
     {
         return Peminjaman::query()
-            ->with(['pengguna', 'pengembalian'])
+            ->with(['user', 'pengembalian'])
             ->whereDate('tanggal_pinjam', '>=', $this->dateFrom)
             ->whereDate('tanggal_pinjam', '<=', $this->dateTo)
             ->orderBy('tanggal_pinjam', 'asc');
@@ -49,7 +49,7 @@ class LaporanPeminjamanExport implements FromQuery, WithHeadings, WithMapping, W
     {
         return [
             $peminjaman->nomor_peminjaman,
-            $peminjaman->pengguna->nama ?? '-',
+            $peminjaman->user->nama ?? '-',
             Carbon::parse($peminjaman->tanggal_pinjam)->format('d/m/Y'),
             Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y'),
             $peminjaman->pengembalian->denda ?? 0,

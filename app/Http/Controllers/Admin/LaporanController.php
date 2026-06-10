@@ -16,7 +16,7 @@ class LaporanController extends Controller
         $dateFrom = $request->date_from ?? now()->startOfMonth()->toDateString();
         $dateTo = $request->date_to ?? now()->toDateString();
 
-        $peminjamans = Peminjaman::with(['pengguna'])
+        $peminjamans = Peminjaman::with(['user'])
             ->whereDate('tanggal_pinjam', '>=', $dateFrom)
             ->whereDate('tanggal_pinjam', '<=', $dateTo)
             ->latest()
