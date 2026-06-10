@@ -81,7 +81,7 @@
                     @forelse($peminjamans as $p)
                         <tr>
                             <td><strong>{{ $p->nomor_peminjaman }}</strong></td>
-                            <td>{{ $p->pengguna->nama ?? '-' }}</td>
+                            <td>{{ $p->user->name ?? '-' }}</td>
                             <td>{{ \Carbon\Carbon::parse($p->tanggal_pinjam)->format('d M Y') }}</td>
                             <td>
                                 <span class="badge bg-label-{{ $p->status == 'pinjam' ? 'warning' : 'success' }}">

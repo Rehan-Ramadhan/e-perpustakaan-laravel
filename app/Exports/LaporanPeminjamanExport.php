@@ -49,7 +49,7 @@ class LaporanPeminjamanExport implements FromQuery, WithHeadings, WithMapping, W
     {
         return [
             $peminjaman->nomor_peminjaman,
-            $peminjaman->user->nama ?? '-',
+            $peminjaman->user->name ?? '-',
             Carbon::parse($peminjaman->tanggal_pinjam)->format('d/m/Y'),
             Carbon::parse($peminjaman->tgl_harus_kembali)->format('d/m/Y'),
             $peminjaman->pengembalian->denda ?? 0,
