@@ -63,21 +63,23 @@
     }
 
     function updateKeinginanUI(bukuId, isAdded) {
-    const buttons = document.querySelectorAll(`.wishlist-btn-${bukuId}`);
-    buttons.forEach((btn) => {
-        const textSpan = btn.querySelector(".wishlist-text");
-        
-        if (isAdded) {
-            btn.classList.remove("text-secondary");
-            btn.classList.add("text-danger");
-            if(textSpan) textSpan.innerText = "Hapus dari Daftar Suka";
-        } else {
-            btn.classList.remove("text-danger");
-            btn.classList.add("text-secondary");
-            if(textSpan) textSpan.innerText = "Tambah ke Daftar Suka";
-        }
-    });
-}
+        const buttons = document.querySelectorAll(`.wishlist-btn-${bukuId}`);
+        buttons.forEach((btn) => {
+            const textSpan = btn.querySelector(".wishlist-text");
+
+            if (isAdded) {
+                btn.style.backgroundColor = "#dc3545";
+                btn.style.borderColor = "#dc3545";
+                btn.style.color = "#fff";
+                if (textSpan) textSpan.innerText = "Hapus dari Daftar Suka";
+            } else {
+                btn.style.backgroundColor = "transparent";
+                btn.style.borderColor = "#dc3545";
+                btn.style.color = "#dc3545";
+                if (textSpan) textSpan.innerText = "Tambah ke Daftar Suka";
+            }
+        });
+    }
 
     function updateKeinginanCounter(count) {
         const badge = document.getElementById("wishlist-count");
