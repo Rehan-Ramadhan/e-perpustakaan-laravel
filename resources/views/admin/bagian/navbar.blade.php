@@ -44,13 +44,6 @@
           </li>
 
           <li>
-            <a class="dropdown-item" href="#">
-              <i class="bx bx-user me-2"></i>
-              <span>Profil</span>
-            </a>
-          </li>
-
-          <li>
             <a class="dropdown-item" href="{{ route('home') }}" target="_blank">
               <i class="bx bx-link-external me-2"></i>
               <span>Beranda</span>
