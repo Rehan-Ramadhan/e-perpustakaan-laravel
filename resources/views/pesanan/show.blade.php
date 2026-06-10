@@ -57,7 +57,8 @@
                                         <tr>
                                             <th scope="col" class="py-3 ps-4">Judul Buku</th>
                                             <th scope="col" class="text-center py-3">Jumlah</th>
-                                            <th scope="col" class="text-end py-3 pe-4">Status Stok</th>
+                                            <th scope="col" class="text-center py-3">Status Buku</th>
+                                            <th scope="col" class="text-end py-3 pe-4">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,16 +68,42 @@
                                                     <span class="fw-medium text-dark">{{ $item->nama_buku }}</span>
                                                 </td>
                                                 <td class="text-center py-3">1</td>
+                                                <td class="text-center py-3">
+                                                    @php 
+                                                        $peminjaman = $item->buku->peminjamans->first(); 
+                                                    @endphp
+
+                                                    @if($peminjaman)
+                                                        @if($peminjaman->status === 'dipinjam')
+                                                            <span class="badge bg-warning text-dark">Sedang Dipinjam</span>
+                                                        @else
+                                                            <span class="badge bg-success">Sudah Dikembalikan</span>
+                                                        @endif
+                                                    @else
+                                                        <span class="text-success small"><i class="bi bi-check-circle"></i> Tersedia</span>
+                                                    @endif
+                                                </td>
                                                 <td class="text-end py-3 pe-4">
-                                                    <span class="text-success small"><i class="bi bi-check-circle"></i>
-                                                        Tersedia</span>
+                                                    @if($peminjaman && $peminjaman->status === 'dipinjam')
+                                                        <form action="{{ route('peminjaman.kembalikan', $peminjaman->id) }}" method="POST"
+                                                            onsubmit="return confirm('Apakah Anda yakin ingin mengembalikan buku \'{{ $item->nama_buku }}\' sekarang?')">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm">
+                                                                <i class="bi bi-arrow-return-left"></i> Kembalikan
+                                                            </button>
+                                                        </form>
+                                                    @elseif($peminjaman && $peminjaman->status === 'dikembalikan')
+                                                        <span class="text-muted small"><i class="bi bi-check-all text-success"></i> Selesai</span>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot class="border-top-0">
                                         <tr>
-                                            <td colspan="2" class="text-end pt-4 border-0 fw-bold fs-5">TOTAL BUKU:</td>
+                                            <td colspan="3" class="text-end pt-4 border-0 fw-bold fs-5">TOTAL BUKU:</td>
                                             <td class="text-end pt-4 border-0 fw-bold fs-5 text-primary pe-4">
                                                 {{ $pesanan->itemPesanans->count() }} Judul
                                             </td>
