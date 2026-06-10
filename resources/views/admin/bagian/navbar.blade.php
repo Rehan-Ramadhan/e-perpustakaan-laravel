@@ -8,12 +8,6 @@
 
   <div class="navbar-nav-right d-flex align-items-center w-100" id="navbar-collapse">
 
-    <div class="navbar-nav align-items-center flex-grow-1 ms-2">
-      <div class="nav-item d-flex align-items-center w-100">
-        <input type="text" class="form-control border-0 shadow-none" placeholder="Cari..." />
-      </div>
-    </div>
-
     <ul class="navbar-nav flex-row align-items-center ms-auto">
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
 
