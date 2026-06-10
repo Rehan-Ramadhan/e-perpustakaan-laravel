@@ -68,11 +68,6 @@
                                         <i class="bi bi-clock-history me-2"></i> Riwayat Pesanan
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bi bi-arrow-return-left me-2"></i> Pengembalian
-                                    </a>
-                                </li>
                                 @if(auth()->user()->isAdmin())
                                     <li>
                                         <hr class="dropdown-divider">
