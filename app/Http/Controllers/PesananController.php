@@ -50,7 +50,8 @@ class PesananController extends Controller
 
     public function kembalikanBuku(Request $request, $peminjamanId)
     {
-        $peminjaman = Peminjaman::where('id', $peminjamanId)
+        $peminjaman = Peminjaman::with('pesanan')
+            ->where('id', $peminjamanId)
             ->where('user_id', Auth::id())
             ->firstOrFail();
 
@@ -69,6 +70,10 @@ class PesananController extends Controller
 
             $peminjaman->update(['status' => 'dikembalikan']);
 
+            if ($peminjaman->pesanan) {
+                $peminjaman->pesanan->update(['status' => 'selesai']);
+            }
+
             if ($peminjaman->buku) {
                 $peminjaman->buku->increment('stok', 1);
             }
@@ -82,7 +87,7 @@ class PesananController extends Controller
             ]);
 
             DB::commit();
-            return back()->with('success', 'Buku berhasil dikembalikan secara mandiri!');
+            return back()->with('success', 'Buku berhasil dikembalikan dan status pesanan selesai!');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Gagal memproses pengembalian buku.');
