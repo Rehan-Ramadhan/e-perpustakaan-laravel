@@ -19,7 +19,6 @@
                         <th class="text-center">No</th>
                         <th>Judul</th>
                         <th>Kategori</th>
-                        <th>Pengarang</th>
                         <th class="text-center">Stok</th>
                         <th class="text-center">Rak</th>
                         <th class="text-center">Status</th>
@@ -32,7 +31,6 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $buku->nama }}</td>
                             <td>{{ $buku->kategori->nama ?? '-' }}</td>
-                            <td>{{ $buku->pengarang }}</td>
                             <td class="text-center">{{ $buku->stok }}</td>
                             <td class="text-center">{{ $buku->lokasi_rak }}</td>
                             <td class="text-center">

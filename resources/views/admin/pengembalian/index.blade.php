@@ -50,10 +50,10 @@
                                             class="btn btn-sm btn-outline-info">
                                             <i class="bx bx-show"></i>
                                         </a>
-                                        <a href="{{ route('admin.pengembalian.edit', $data) }}"
+                                        {{-- <a href="{{ route('admin.pengembalian.edit', $data) }}"
                                             class="btn btn-sm btn-outline-warning">
                                             <i class="bx bx-edit"></i>
-                                        </a>
+                                        </a> --}}
                                         <button class="btn btn-sm btn-outline-danger">
                                             <i class="bx bx-trash"></i>
                                         </button>

@@ -91,7 +91,7 @@ class BukuController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.buku.index')->with('success', 'Buku diperbarui.');
+            return redirect()->route('admin.buku.index')->with('success', 'Buku ' . $buku->nama . ' diperbarui.');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->withInput()->with('error', $e->getMessage());

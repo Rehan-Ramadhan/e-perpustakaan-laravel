@@ -10,9 +10,9 @@
         </div>
         <div class="d-flex gap-2">
             <a href="{{ route('admin.pengembalian.index') }}" class="btn btn-outline-secondary">Kembali</a>
-            <a href="{{ route('admin.pengembalian.edit', $pengembalian) }}" class="btn btn-warning">
+            {{-- <a href="{{ route('admin.pengembalian.edit', $pengembalian) }}" class="btn btn-warning">
                 Edit Pengembalian
-            </a>
+            </a> --}}
         </div>
     </div>
 

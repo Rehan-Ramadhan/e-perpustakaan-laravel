@@ -19,7 +19,7 @@
         <label class="form-label fw-bold">Gambar Saat Ini</label>
         <div class="p-2 border rounded bg-light mb-2">
             @if($kategori?->gambar)
-                <img src="{{ asset('storage/' . $kategori->gambar) }}" width="100">
+                <img src="{{ $kategori->gambar_url }}" width="100" style="object-fit: cover; border-radius: 4px;">
             @else
                 <small class="text-muted">Belum ada gambar.</small>
             @endif

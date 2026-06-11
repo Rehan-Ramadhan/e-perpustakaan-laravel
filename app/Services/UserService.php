@@ -22,8 +22,8 @@ class UserService
         $validator = Validator::make($data, [
             'nik' => $nikRule,
             'name' => 'required|string|max:255',
-            'telepon' => 'required|numeric',
-            'alamat' => 'required|string',
+            'telepon' => 'nullable|numeric',
+            'alamat' => 'nullable|string',
         ], [
             'required' => ':attribute wajib diisi.',
             'unique' => ':attribute sudah terdaftar.',
